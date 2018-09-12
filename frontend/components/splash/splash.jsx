@@ -20,6 +20,9 @@ class Splash extends React.Component {
       <div className='nav-bar'>
       <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
         <ul>
+          <li>
+            <img className='profile-mini' src={window.defaultProfileURL}/>
+          </li>
           <li className='nav-button' onClick={this.handleClick}>
             Log Out
           </li>
@@ -30,17 +33,18 @@ class Splash extends React.Component {
       <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
       <ul>
         <li>
-          <Link className='nav-button' to='/login'>Log In</Link>
+          <Link  to='/login'>Log In</Link>
         </li>
-        <li>
-          <Link className='nav-button' to='/signup'>Sign Up</Link>
+        <li className='color-buttons'>
+          <Link to='/signup'>Sign Up</Link>
         </li>
       </ul>
     </div>)
 
     return (
-      <div>
+      <div className='splash-image'>
         {navBar}
+        <div className='main-text'>Testfadsfadsfs</div>
 
       </div>
     )

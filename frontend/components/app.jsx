@@ -8,10 +8,11 @@ import { Link, Route } from 'react-router-dom';
 
 const App = () => {
   return (
-  <div className='splash-div'>
+  <div >
     <Splash />
     <Route path="/login" component={LoginFormContainer} />
     <Route path="/signup" component={SignupFormContainer} />
+
   </div>
 )};
 
