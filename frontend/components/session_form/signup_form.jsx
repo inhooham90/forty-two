@@ -41,29 +41,40 @@ class SessionForm extends React.Component {
     }
 
     return (
-      <div className='sessionForms'>
+      <div className='session-forms'>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>
+          <ul>
+            <li>
+              <label>Name<br/>
+                <input type="name" onChange={this.update('name')} value={this.state.name} />
+              </label>
+            </li>
 
-          <label>Email
-            <input type="email" onChange={this.update('email')} value={this.state.email} />
-          </label>
+            <li>
+              <label>Email<br/>
+                <input type="email" onChange={this.update('email')} value={this.state.email} />
+              </label>
+            </li>
 
-          <label>Name
-            <input type="name" onChange={this.update('name')} value={this.state.name} />
-          </label>
+            <li>
+              <label>Username<br/>
+                <input type="text" onChange={this.update('username')} value={this.state.username} />
+              </label>
+            </li>
 
-          <label>Username
-            <input type="text" onChange={this.update('username')} value={this.state.username} />
-          </label>
+            <li>
+              <label>Password<br/>
+                <input type="password" onChange={this.update('password')} value={this.state.password} />
+              </label>
+            </li>
 
-          <label>Password
-            <input type="password" onChange={this.update('password')} value={this.state.password} />
-          </label>
-
-
-          <input type="submit" value='Sign Up' />
+            <li>
+              <br/>
+              <input type="submit" value='Sign Up' />
+            </li>
+          </ul>
         </form>
         <p>
           Already have an account? <Link to={`/login`}>Log In</Link>

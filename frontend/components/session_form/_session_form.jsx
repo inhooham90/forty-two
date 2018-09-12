@@ -40,21 +40,28 @@ class SessionForm extends React.Component {
     const altType = this.props.formType === "signup" ? "login" : "signup";
 
     return (
-      <div className='sessionForms'>
+      <div className='session-forms'>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>Username
-            <input type="text" onChange={this.update('username')} value={this.state.username} />
-          </label>
+          <ul>
+            <li>
+              <label>Username<br/>
+                <input type="text" onChange={this.update('username')} value={this.state.username} />
+              </label>
+            </li>
 
-          <label>Password
-            <input type="password" onChange={this.update('password')} value={this.state.password} />
-          </label>
+            <li>
+              <label>Password<br/>
+                <input type="password" onChange={this.update('password')} value={this.state.password} />
+              </label>
+            </li>
 
-          <input type="submit" value='Log In' />
+            <li>
+              <input type="submit" value='Log In' />
+            </li>
+          </ul>
         </form>
-
         <p>
           Don't have an account? <Link to={`/signup`}>Sign Up</Link>
         </p>
