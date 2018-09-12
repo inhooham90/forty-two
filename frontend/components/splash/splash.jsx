@@ -15,13 +15,15 @@ class Splash extends React.Component {
   }
 
   render() {
-
     const navBar = this.props.currentUser ? (
       <div className='nav-bar'>
       <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
         <ul>
           <li>
             <img className='profile-mini' src={window.defaultProfileURL}/>
+          </li>
+          <li className='little-to-the-right'>
+            <h4>{this.props.currentUser.username}</h4>
           </li>
           <li className='nav-button' onClick={this.handleClick}>
             Log Out
@@ -33,20 +35,36 @@ class Splash extends React.Component {
       <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
       <ul>
         <li>
-          <Link  to='/login'>Log In</Link>
+          <Link className='blank-buttons' to='/login'>Log In</Link>
         </li>
-        <li className='color-buttons'>
-          <Link to='/signup'>Sign Up</Link>
+        <li>
+          <Link className='color-buttons' to='/signup'>Sign Up</Link>
         </li>
       </ul>
     </div>)
-
+    let join;
+    if (!this.props.currentUser) {
+      join = <Link className='color-buttons2' to='/signup'>Join 42px</Link>
+    }
     return (
-      <div className='splash-image'>
-        {navBar}
-        <div className='main-text'>Testfadsfadsfs</div>
-
-      </div>
+      <section>
+        <div className='splash-image'>
+          {navBar}
+          <div className='main-text'>
+            <h1>Get inspired and share your best photos</h1>
+            <h3>Find your home among the world's best photographers</h3>
+            <br/>
+            <br/>
+            <p>{join}</p>
+          </div>
+        </div>
+        <div>
+          <div className='main-text2'>
+            <h2>The top photos, chosen by you</h2>
+            <h4>Discover what's trending according to photographers around the world</h4>
+          </div>
+        </div>
+      </section>
     )
   }
 }

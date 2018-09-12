@@ -42,6 +42,7 @@ class SessionForm extends React.Component {
 
     return (
       <div className='session-forms'>
+        <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>

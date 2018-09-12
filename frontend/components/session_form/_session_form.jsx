@@ -10,11 +10,18 @@ class SessionForm extends React.Component {
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.update = this.update.bind(this);
+    this.guestSignIn = this.guestSignIn.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.processForm(this.state).then(() => this.props.history.push('/'));
+  }
+
+  guestSignIn(e) {
+    e.preventDefault();
+    const user = { username: 'Guest User', password: 'guestuser'}
+    this.props.processForm(user);
   }
 
 
@@ -41,6 +48,7 @@ class SessionForm extends React.Component {
 
     return (
       <div className='session-forms'>
+        <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>
@@ -60,11 +68,17 @@ class SessionForm extends React.Component {
             <li>
               <input type="submit" value='Log In' />
             </li>
+            <li>
+              <br />
+              <button className='color-buttons' onClick={this.guestSignIn}> Guest </button>
+            </li>
           </ul>
+
         </form>
         <p>
           Don't have an account? <Link to={`/signup`}>Sign Up</Link>
         </p>
+
       </div>
     );
   }
