@@ -1,6 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import Navbar from './navbar/navbar_container';
+import Splash from './splash/splash_container';
 import LoginFormContainer from './session_form/login_form_container';
 import SignupFormContainer from './session_form/signup_form_container';
 import { Link, Route } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { Link, Route } from 'react-router-dom';
 const App = () => {
   return (
   <div>
-    <Navbar />
+    <Splash />
     <Route path="/login" component={LoginFormContainer} />
     <Route path="/signup" component={SignupFormContainer} />
   </div>

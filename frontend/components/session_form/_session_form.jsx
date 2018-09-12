@@ -40,7 +40,7 @@ class SessionForm extends React.Component {
     const altType = this.props.formType === "signup" ? "login" : "signup";
 
     return (
-      <div>
+      <div className='sessionForms'>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>
@@ -52,7 +52,7 @@ class SessionForm extends React.Component {
             <input type="password" onChange={this.update('password')} value={this.state.password} />
           </label>
 
-          <input type="submit" value='LogIn' />
+          <input type="submit" value='Log In' />
         </form>
 
         <p>

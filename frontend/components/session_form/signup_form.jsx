@@ -7,6 +7,7 @@ class SessionForm extends React.Component {
     this.state = {
       username: "",
       password: "",
+      name: "",
       email: "",
       profile_url: window.defaultProfileURL
     };
@@ -40,16 +41,21 @@ class SessionForm extends React.Component {
     }
 
     return (
-      <div>
+      <div className='sessionForms'>
         {errors}
         <h3>Join 42px</h3>
         <form onSubmit={this.handleSubmit}>
-          <label>Username
-            <input type="text" onChange={this.update('username')} value={this.state.username} />
-          </label>
 
           <label>Email
             <input type="email" onChange={this.update('email')} value={this.state.email} />
+          </label>
+
+          <label>Name
+            <input type="name" onChange={this.update('name')} value={this.state.name} />
+          </label>
+
+          <label>Username
+            <input type="text" onChange={this.update('username')} value={this.state.username} />
           </label>
 
           <label>Password
