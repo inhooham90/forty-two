@@ -20,6 +20,10 @@ class SessionForm extends React.Component {
     this.props.processForm(this.state).then(() => this.props.history.push('/'));
   }
 
+  componentWillUnmount() {
+        this.props.clearErrors();
+  }
+
 
   update(field) {
     return (e) => {
@@ -69,12 +73,12 @@ class SessionForm extends React.Component {
           <label>Password<br/>
           <input className='session-input' type="password" onChange={this.update('password')} value={this.state.password} />
         </label>
-      </li>
+      </li>  {errors}<br/>
 
       <li>
+
         <br/>
         <input className='session-button' type="submit" value='Sign Up' />
-        {errors}
       </li>
     </ul>
     <p>
