@@ -46,6 +46,8 @@ export const signup = (user) => {
   return dispatch => {
     return SessionApiUtil.signup(user).then(user => {
       return dispatch(receiveCurrentUser(user));
+    }, errors => {
+      return dispatch(receiveErrors(errors));
     });
   };
 };

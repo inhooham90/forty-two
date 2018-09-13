@@ -1,12 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import SessionForm from './_session_form';
+import LogInForm from './login_form';
 import { login } from '../../actions/session_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    errors: state.errors.session,
-    formType: 'login'
+    errors: state.errors.session.responseJSON
   };
 };
 
@@ -16,4 +15,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SessionForm);
+export default connect(mapStateToProps, mapDispatchToProps)(LogInForm);

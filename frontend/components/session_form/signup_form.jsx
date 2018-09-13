@@ -30,7 +30,7 @@ class SessionForm extends React.Component {
 
   render() {
     let errors;
-    if (this.props.errors.length) {
+    if (this.props.errors) {
       errors = (
         <ul>
           {this.props.errors.map( error => {
@@ -41,45 +41,47 @@ class SessionForm extends React.Component {
     }
 
     return (
-      <div className='session-forms'>
-        <Link to='/'><img className='nav-logo' src={window.logoURL}/></Link>
-        {errors}
-        <h3>Join 42px</h3>
-        <form onSubmit={this.handleSubmit}>
-          <ul>
-            <li>
-              <label>Name<br/>
-                <input type="name" onChange={this.update('name')} value={this.state.name} />
+      <div>
+        <Link to='/'><img className='nav-logo' src={window.logoURL2}/></Link>
+        <section className='big-session'>
+          <form className='session-forms' onSubmit={this.handleSubmit}>
+            <h3>Join 42px</h3>
+            <ul>
+              <li>
+                <label>Name<br/>
+                <input className='session-input' type="name" onChange={this.update('name')} value={this.state.name} />
               </label>
             </li>
 
             <li>
               <label>Email<br/>
-                <input type="email" onChange={this.update('email')} value={this.state.email} />
-              </label>
-            </li>
+              <input className='session-input' type="email" onChange={this.update('email')} value={this.state.email} />
+            </label>
+          </li>
 
-            <li>
-              <label>Username<br/>
-                <input type="text" onChange={this.update('username')} value={this.state.username} />
-              </label>
-            </li>
+          <li>
+            <label>Username<br/>
+            <input className='session-input' type="text" onChange={this.update('username')} value={this.state.username} />
+          </label>
+        </li>
 
-            <li>
-              <label>Password<br/>
-                <input type="password" onChange={this.update('password')} value={this.state.password} />
-              </label>
-            </li>
+        <li>
+          <label>Password<br/>
+          <input className='session-input' type="password" onChange={this.update('password')} value={this.state.password} />
+        </label>
+      </li>
 
-            <li>
-              <br/>
-              <input type="submit" value='Sign Up' />
-            </li>
-          </ul>
-        </form>
-        <p>
-          Already have an account? <Link to={`/login`}>Log In</Link>
-        </p>
+      <li>
+        <br/>
+        <input className='session-button' type="submit" value='Sign Up' />
+        {errors}
+      </li>
+    </ul>
+    <p>
+      Already have an account? <Link className='blank-buttonb' to={`/login`}>Log In</Link>
+  </p>
+</form>
+        </section>
 
       </div>
     );
