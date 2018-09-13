@@ -1,5 +1,6 @@
 .big-session {
   background-color: #F4F4F4;
+  height: 100vh;
 }
 
 .session-forms {
@@ -8,7 +9,7 @@
   left: 50%;
   margin: auto;
   width: 360px;
-  padding: 20px;
+  padding:32px 40px 24px;
   background-color: white;
   color: grey;
   display: flex;
@@ -18,6 +19,7 @@
   font-family: sans-serif;
   font-size: 14px;
   font-weight: lighter;
+  align-items: center;
 }
 
 .session-forms > h3 {
@@ -31,9 +33,18 @@ margin: 60px 10px 10px 10px;
 font-family: sans-serif;
 }
 
+.session-forms > ul {
+  width: 318px;
+  text-align: center;
+}
+
+.session_form > ul > li {
+  display: inline-block;
+}
+
 .session-button {
   background-color: #34bf49;
-  min-width: 180px;
+  min-width: 100%;
   height: 40px;
   color: white;
   font-size: 14px;
@@ -44,7 +55,7 @@ font-family: sans-serif;
 
 .session-button2 {
   background-color: #3b5998;
-  min-width: 180px;
+  min-width: 100%;
   height: 40px;
   color: white;
   font-size: 14px;

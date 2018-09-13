@@ -46,7 +46,20 @@ class SessionForm extends React.Component {
 
     return (
       <div>
-        <Link to='/'><img className='nav-logo' src={window.logoURL2}/></Link>
+        <header className="header">
+          <nav className="header-nav">
+
+            <ul className="header-list">
+              <li><Link to='/'><img className='nav-logo' src={window.logoURL2}/></Link></li>
+              <li>Discover</li>
+              <li>About</li>
+            </ul>
+
+            <Link className='blank-buttonb' to={`/login`}>Log In</Link>
+          </nav>
+        </header>
+
+
         <section className='big-session'>
           <form className='session-forms' onSubmit={this.handleSubmit}>
             <h3>Join 42px</h3>
