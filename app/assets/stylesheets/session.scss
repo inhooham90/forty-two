@@ -6,15 +6,23 @@
   display: flex;
   top: 100px;
   left: 50%;
-  margin-left: 220px;
+  margin: auto;
   width: 360px;
   padding: 20px;
   background-color: white;
-  color: #454545;
+  color: grey;
   display: flex;
   flex-direction: column;
   align-items: center;
   border: 1px solid #dfdfdf;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: lighter;
+}
+
+.session-forms > h3 {
+  color: #525558;
+  font-size: 24px;
 }
 
 .session-forms > p {
@@ -31,6 +39,7 @@ font-family: sans-serif;
   font-size: 14px;
   font-family: sans-serif;
   border-radius: 5px;
+  border: none;
 }
 
 .session-button2 {
@@ -41,6 +50,7 @@ font-family: sans-serif;
   font-size: 14px;
   font-family: sans-serif;
   border-radius: 5px;
+  border: none;
 }
 .session-button:hover {
   background-color: #48c55b;
@@ -60,4 +70,6 @@ font-family: sans-serif;
   transition: border-color 0.2s;
   resize: none;
   line-height: 1.4em;
+  height: 30px;
+  border-radius: 3px;
 }
