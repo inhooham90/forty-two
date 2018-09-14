@@ -11,9 +11,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    action: photo => {
-      dispatch(updatePhoto(photo)),
-      clearErrors: () => dispatch(receiveNoErrors())
+    action: photo => {dispatch(updatePhoto(photo)),
+    clearErrors: () => dispatch(receiveNoErrors())
     }
   };
 };

@@ -5,8 +5,7 @@
 
 .session-forms {
   display: flex;
-  top: 100px;
-  left: 50%;
+  top: 10%;
   margin: auto;
   width: 360px;
   padding:32px 40px 24px;
@@ -20,6 +19,7 @@
   font-size: 14px;
   font-weight: lighter;
   align-items: center;
+  position:relative;
 }
 
 .session-forms > h3 {

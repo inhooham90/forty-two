@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-import LoginFormContainer from '../session_form/login_form_container';
-import SignupFormContainer from '../session_form/signup_form_container';
+import { NavLink, Link, Route } from 'react-router-dom';
+import About from '../info_pages/info_container';
+
 
 class Splash extends React.Component {
   constructor(props) {
@@ -19,8 +19,8 @@ class Splash extends React.Component {
     (<div className='nav-bar'>
       <ul className="header-list-white">
         <li><Link to='/'><img className='nav-logo' src={window.logoURL}/></Link></li>
-        <li>Discover</li>
-        <li>About</li>
+        <li> Discover</li>
+        <li> About</li>
       </ul>
       <ul>
         <li>

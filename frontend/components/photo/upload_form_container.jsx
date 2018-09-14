@@ -1,21 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {createPhoto, receiveNoErrors } from '../../actions/photo_actions';
+import PhotoForm from './_photo_form';
 
 
 const mapStateToProps = state => {
-  photos: state
-  errors: state.errors.session.responseJSON
-};
-
-const mapDispatchToProps = (dispatch) => {
   return {
-    createBleat: photo => {
-      dispatch(createPhoto(photo)),
-      clearErrors: () => dispatch(receiveNoErrors())
-    }
+    currentUserId: state.session.currentUserId,
+    errors: state.errors,
+    photos: Object.values(state.entities.photos)
   };
 };
 
+const mapDispatchToProps = (dispatch) => {
+  return ({
+    action: photo => dispatch(createPhoto(photo)),
+    receiveNoErrors: () => dispatch(createPhoto(photo))
+  })
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(Photo);
+
+export default connect(mapStateToProps, mapDispatchToProps)(PhotoForm);
