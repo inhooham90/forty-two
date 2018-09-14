@@ -18,7 +18,6 @@ export const fetchPhoto = id => dispatch => (
 export const createPhoto = photo => {
   return dispatch => {
     return PhotoApiUtil.createPhoto(photo).then(photo => {
-      debugger
       return dispatch(receivePhoto(photo));
     }, errors => {
       return dispatch(receiveErrors(errors));

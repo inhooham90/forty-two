@@ -132,7 +132,6 @@ var fetchPhoto = function fetchPhoto(id) {
 var createPhoto = function createPhoto(photo) {
   return function (dispatch) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["createPhoto"](photo).then(function (photo) {
-      debugger;
       return dispatch(receivePhoto(photo));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
@@ -244,7 +243,7 @@ var login = function login(user) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["login"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -260,7 +259,7 @@ var signup = function signup(user) {
     return _util_session_api_util__WEBPACK_IMPORTED_MODULE_0__["signup"](user).then(function (user) {
       return dispatch(receiveCurrentUser(user));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -1094,7 +1093,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    errors: state.errors.session.responseJSON
+    errors: state.errors.session
   };
 };
 
@@ -1286,7 +1285,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
-    errors: state.errors.session.responseJSON
+    errors: state.errors.session
   };
 };
 

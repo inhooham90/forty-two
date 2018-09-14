@@ -5,7 +5,7 @@ import { login, receiveNoErrors } from '../../actions/session_actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    errors: state.errors.session.responseJSON
+    errors: state.errors.session
   };
 };
 
