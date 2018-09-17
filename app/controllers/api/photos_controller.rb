@@ -2,7 +2,7 @@ class Api::PhotosController < ApplicationController
   def index
     @photos = Photo.all
     @users = User.all
-    render json: @photos
+    render :index
   end
 
   def create
@@ -24,6 +24,15 @@ class Api::PhotosController < ApplicationController
     @photo = Photo.find(params[:id])
     @photo.destroy if @photo
     render json:@photos
+  end
+
+  def update
+    @photo = Photo.find(params[:id])
+    if @photo.update_attributes(post_params)
+      render :show
+    else
+      render json: photo.errors.full_messages, status: 422
+    end
   end
 
   def photo_params

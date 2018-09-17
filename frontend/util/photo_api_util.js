@@ -28,10 +28,10 @@ export const createPhoto = photo => {
   });
 };
 
-export const updatePhoto = id => {
+export const updatePhoto = photo => {
   return $.ajax({
     method: 'PATCH',
-    url: `api/photos/${id}`,
+    url: `api/photos/${photo.id}`,
     data: {photo}
   });
 };

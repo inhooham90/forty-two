@@ -4,31 +4,37 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import { receivePhoto } from '../../actions/photo_actions';
 
-
-const CLOUDINARY_UPLOAD_PRESET = 'jrlihltj';
-const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/da345yxkr/upload';
-
-
-export default class PhotoForm extends React.Component {
+export default class PhotoShow extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      description: '',
-      artist_id: `${this.props.currentUserId}`,
-      img_url: '',
-      active: false
+      title: this.props.photo.title,
+      description: this.props.photo.description,
+      artist_id: this.props.photo.artist_id,
+      img_url: this.props.photo.img_url,
+      edit: false
     };
     this.handleSubmitSuccess = this.handleSubmitSuccess.bind(this);
     this.handleSubmitFail = this.handleSubmitFail.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
     this.update=this.update.bind(this);
+    this.toggleEdit= this.toggleEdit.bind(this);
   }
+
+  toggleEdit(){
+    if (this.state.edit === false ) {
+      this.setState({edit: true})
+    } else {
+      this.setState({edit: false})
+    }
+  }
+  // componentDidMount() {
+  //   this.props.fetchPhoto(this.props.photo.id)
+  // }
 
   handleSubmitSuccess(e) {
     e.preventDefault();
     this.props.action(this.state);
-    this.props.closeModal();
+    this.toggleEdit();
   }
 
   handleSubmitFail(e) {
@@ -36,32 +42,10 @@ export default class PhotoForm extends React.Component {
     this.props.action(this.state);
   }
 
-  handleImageUpload(file) {
-    let upload = request.post(CLOUDINARY_UPLOAD_URL)
-                        .field('upload_preset', CLOUDINARY_UPLOAD_PRESET)
-                        .field('file', file);
-
-    upload.end((err, response) => {
-      if (err) {
-        console.error(err);
-      }
-
-      if (response.body.secure_url !== '') {
-        this.setState({
-          img_url: response.body.secure_url
-        });
-      }
-    });
-  }
-
   update(field) {
     return (e) => {
       this.setState({[field]: e.currentTarget.value});
     };
-  }
-
-  onImageDrop(files) {
-    this.handleImageUpload(files[0]);
   }
 
   render() {
@@ -82,20 +66,36 @@ export default class PhotoForm extends React.Component {
     } else {
       handleSubmit = this.handleSubmitSuccess;
     }
+    let editButton;
+    if (this.props.currentUserId === this.props.photo.artist_id) {
+      editButton = <button onClick={this.toggleEdit} className='upload-form-button'>Edit</button>
+    }
 
     let content;
-    if (!this.state.img_url) {
+    if (this.state.edit === false) {
       content = (
-        <Dropzone
-          multiple={false}
-          accept="image/*"
-          onDrop={this.onImageDrop.bind(this)}
-          className='dropzone'>
-          <p>
-          <button className='upload-button2'>Upload</button>
-          Or drag & drop photos anywhere on this page</p>
-
-      </Dropzone>
+      <div className='dropzone-form'>
+          <div className='preview'>
+            <img src={`${this.props.photo.img_url}`} />
+          </div>
+          <div className='upload-form'>
+            <ul className='upload-form-list'>
+              <li>
+                {editButton}
+              </li>
+              <li>
+                <label><p>Title</p>
+                  {this.props.photo.title}
+                </label>
+              </li>
+              <li>
+                <label><p>Description</p>
+                  {this.props.photo.description}
+                </label>
+              </li>
+            </ul>
+          </div>
+      </div>
       )
     } else {
       content = (
@@ -124,6 +124,9 @@ export default class PhotoForm extends React.Component {
                 </label>
               </li>
               <li>
+                <button onClick={this.toggleEdit} className='upload-form-button' style={{"backgroundColor": "#ef5656"}}>Cancel</button>
+              </li>
+              <li>
                 {errors}
               </li>
             </ul>
@@ -131,10 +134,7 @@ export default class PhotoForm extends React.Component {
       </form>
       )
     }
-//     const { post } = this.props;
-// if (!post) {
-//   return <div>Loading...</div>;
-// }
+
     return (
         content
     );

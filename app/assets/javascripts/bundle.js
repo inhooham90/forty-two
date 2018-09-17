@@ -90,21 +90,31 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
   \*******************************************/
-/*! exports provided: OPEN_MODAL, CLOSE_MODAL, openModal, closeModal */
+/*! exports provided: OPEN_MODAL, CLOSE_MODAL, OPEN_MODAL_SHOW, openModal, openModalShow, closeModal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL", function() { return OPEN_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_MODAL", function() { return CLOSE_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL_SHOW", function() { return OPEN_MODAL_SHOW; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModal", function() { return openModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModalShow", function() { return openModalShow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
 var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
+var OPEN_MODAL_SHOW = 'OPEN_MODAL_SHOW';
 var openModal = function openModal(modal) {
   return {
     type: OPEN_MODAL,
     modal: modal
+  };
+};
+var openModalShow = function openModalShow(photoId) {
+  return {
+    type: OPEN_MODAL_SHOW,
+    modal: 'photo',
+    photoId: photoId
   };
 };
 var closeModal = function closeModal() {
@@ -143,7 +153,7 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_ALL_PHOTOS = "RECEIVE_ALL_PHOTOS";
 var RECEIVE_PHOTO = "RECEIVE_PHOTO";
 var REMOVE_PHOTO = "REMOVE_PHOTO";
-var RECEIVE_UPLOAD_ERRORS = 'RECEIVE_SESSION_ERRORS';
+var RECEIVE_UPLOAD_ERRORS = 'RECEIVE_UPLOAD_ERRORS';
 var RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 var fetchPhotos = function fetchPhotos() {
   return function (dispatch) {
@@ -164,7 +174,7 @@ var createPhoto = function createPhoto(photo) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["createPhoto"](photo).then(function (photo) {
       return dispatch(receivePhoto(photo));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -173,7 +183,7 @@ var updatePhoto = function updatePhoto(photo) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["updatePhoto"](photo).then(function (photo) {
       return dispatch(receivePhoto(photo));
     }, function (errors) {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -309,15 +319,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _splash_splash_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash/splash_container */ "./frontend/components/splash/splash_container.jsx");
 /* harmony import */ var _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_form/login_form_container */ "./frontend/components/session_form/login_form_container.jsx");
 /* harmony import */ var _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./session_form/signup_form_container */ "./frontend/components/session_form/signup_form_container.jsx");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-/* harmony import */ var _photo_photo_index_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./photo/photo_index_container */ "./frontend/components/photo/photo_index_container.jsx");
-/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
-/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modal/modal */ "./frontend/components/modal/modal.jsx");
+/* harmony import */ var _info_pages_info_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./info_pages/info_container */ "./frontend/components/info_pages/info_container.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var _photo_photo_index_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./photo/photo_index_container */ "./frontend/components/photo/photo_index_container.jsx");
+/* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./modal/modal */ "./frontend/components/modal/modal.jsx");
 
 
 
 
- // import InfoContainer from './info_pages/info_container';
+
 
 
 
@@ -325,15 +336,18 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Route"], {
+    path: "/about",
+    component: _info_pages_info_container__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_8__["AuthRoute"], {
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["AuthRoute"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_8__["AuthRoute"], {
     path: "/signup",
     component: _session_form_signup_form_container__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["ProtectedRoute"], {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_8__["ProtectedRoute"], {
     path: "/",
-    component: _photo_photo_index_container__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _photo_photo_index_container__WEBPACK_IMPORTED_MODULE_7__["default"]
   })));
 };
 
@@ -398,8 +412,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -412,31 +424,20 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "nav-logo",
         src: window.logoURL2
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "header-drop-down"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onMouseEnter: this.openProfile,
-        onMouseLeave: this.closeProfile
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "drop-down-child"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "profile-mini",
-        src: window.defaultProfileURL
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        onMouseEnter: this.openProfile,
-        onMouseLeave: this.closeProfile,
-        className: toggle
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: this.handleClick
-      }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "upload-button",
-        onClick: function onClick() {
-          return _this2.props.openModal('upload');
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        style: {
+          color: '#0099e5'
         }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "upload-arrow",
-        src: window.uploadArrow
-      }), "Upload")))));
+      }, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "about-image"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-text"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to 42px!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "A clone of 500px made by James Inhoo Ham. Check me out!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "color-buttons2",
+        href: "https://github.com/jamsuham22"
+      }, "GitHub")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-text2"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "There isn't much here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "I admire your adventurous spirit!")))));
     }
   }]);
 
@@ -460,12 +461,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _about__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./about */ "./frontend/components/info_pages/about.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
 
- // import {} from '../../actions/photo_actions';
 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  debugger;
   return {
     currentUser: state.session.currentUser
   };
@@ -497,6 +496,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../photo/upload_form_container */ "./frontend/components/photo/upload_form_container.jsx");
+/* harmony import */ var _photo_photo_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../photo/photo_show_container */ "./frontend/components/photo/photo_show_container.jsx");
+
 
 
 
@@ -516,9 +517,10 @@ function Modal(_ref) {
     case 'upload':
       component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
       break;
-    // case 'signup':
-    //
-    // break;
+
+    case 'photo':
+      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_photo_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+      break;
 
     default:
       return null;
@@ -616,24 +618,25 @@ function (_React$Component) {
       img_url: '',
       active: false
     };
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.handleChange = this.handleChange.bind(this);
+    _this.handleSubmitSuccess = _this.handleSubmitSuccess.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSubmitFail = _this.handleSubmitFail.bind(_assertThisInitialized(_assertThisInitialized(_this))); // this.handleChange = this.handleChange.bind(this);
 
     _this.update = _this.update.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(PhotoForm, [{
-    key: "handleSubmit",
-    value: function handleSubmit(e) {
-      debugger;
+    key: "handleSubmitSuccess",
+    value: function handleSubmitSuccess(e) {
       e.preventDefault();
       this.props.action(this.state);
+      this.props.closeModal();
     }
   }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.props.clearErrors();
-      this.props.closeModal();
+    key: "handleSubmitFail",
+    value: function handleSubmitFail(e) {
+      e.preventDefault();
+      this.props.action(this.state);
     }
   }, {
     key: "handleImageUpload",
@@ -672,10 +675,20 @@ function (_React$Component) {
     value: function render() {
       var errors;
 
-      if (this.props.errors.upload.responseJSON) {
-        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.upload.responseJSON.map(function (error) {
+      if (this.props.errors) {
+        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-lists"
+        }, this.props.errors.map(function (error) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
         }));
+      }
+
+      var handleSubmit;
+
+      if (this.state.title.length === 0 || this.state.description.length === 0) {
+        handleSubmit = this.handleSubmitFail;
+      } else {
+        handleSubmit = this.handleSubmitSuccess;
       }
 
       var content;
@@ -702,7 +715,7 @@ function (_React$Component) {
           className: "upload-form-list"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "upload-form-button",
-          onClick: this.handleSubmit
+          onClick: handleSubmit
         }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           value: this.state.title,
@@ -789,13 +802,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchPhotos();
-    } // componentWillReceiveProps(nextProps) {
-    //   debugger
-    //   if (this.props.photos !== nextProps.photos) {
-    //     this.props.fetchPhotos();
-    //   }
-    // }
-
+    }
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
@@ -840,7 +847,9 @@ function (_React$Component) {
           photo: photo,
           deletePhoto: _this2.props.deletePhoto,
           currentUserId: _this2.props.currentUserId,
-          key: key
+          key: key,
+          user: _this2.props.users[photo.artist_id],
+          openModalShow: _this2.props.openModalShow
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
@@ -855,7 +864,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "nav-logo",
         src: window.logoURL2
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/about"
+      }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "header-drop-down"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onMouseEnter: this.openProfile,
@@ -869,7 +880,7 @@ function (_React$Component) {
         onMouseEnter: this.openProfile,
         onMouseLeave: this.closeProfile,
         className: toggle
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "My Profile"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: this.handleClick
       }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "upload-button",
@@ -916,7 +927,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors,
-    photos: Object.values(state.entities.photos)
+    photos: Object.values(state.entities.photos),
+    users: state.entities.users
   };
 };
 
@@ -936,6 +948,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     openModal: function openModal(modal) {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModal"])(modal));
+    },
+    openModalShow: function openModalShow(photoId) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModalShow"])(photoId));
     }
   };
 };
@@ -1005,10 +1020,20 @@ function (_React$Component) {
         }
       }, "Delete") : '';
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "index-items"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "index-items",
+        onClick: function onClick() {
+          return _this.props.openModalShow(_this.props.photo.id);
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "index-item-info"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "profile-index",
+        src: "".concat(this.props.user.profile_url)
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "".concat(this.props.photo.img_url)
-      }), this.props.photo.title, this.props.photo.description, deleteButton);
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "index-item-info2"
+      }, this.props.photo.title, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), deleteButton));
     }
   }]);
 
@@ -1016,6 +1041,247 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (PhotoIndexItem);
+
+/***/ }),
+
+/***/ "./frontend/components/photo/photo_show.jsx":
+/*!**************************************************!*\
+  !*** ./frontend/components/photo/photo_show.jsx ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return PhotoShow; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dropzone__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dropzone */ "./node_modules/react-dropzone/dist/es/index.js");
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! superagent */ "./node_modules/superagent/lib/client.js");
+/* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+
+
+var PhotoShow =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(PhotoShow, _React$Component);
+
+  function PhotoShow(props) {
+    var _this;
+
+    _classCallCheck(this, PhotoShow);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PhotoShow).call(this, props));
+    _this.state = {
+      title: _this.props.photo.title,
+      description: _this.props.photo.description,
+      artist_id: _this.props.photo.artist_id,
+      img_url: _this.props.photo.img_url,
+      edit: false
+    };
+    _this.handleSubmitSuccess = _this.handleSubmitSuccess.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.handleSubmitFail = _this.handleSubmitFail.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.update = _this.update.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.toggleEdit = _this.toggleEdit.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(PhotoShow, [{
+    key: "toggleEdit",
+    value: function toggleEdit() {
+      if (this.state.edit === false) {
+        this.setState({
+          edit: true
+        });
+      } else {
+        this.setState({
+          edit: false
+        });
+      }
+    } // componentDidMount() {
+    //   this.props.fetchPhoto(this.props.photo.id)
+    // }
+
+  }, {
+    key: "handleSubmitSuccess",
+    value: function handleSubmitSuccess(e) {
+      e.preventDefault();
+      this.props.action(this.state);
+      this.toggleEdit();
+    }
+  }, {
+    key: "handleSubmitFail",
+    value: function handleSubmitFail(e) {
+      e.preventDefault();
+      this.props.action(this.state);
+    }
+  }, {
+    key: "update",
+    value: function update(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.currentTarget.value));
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var errors;
+
+      if (this.props.errors) {
+        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-lists"
+        }, this.props.errors.map(function (error) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
+        }));
+      }
+
+      var handleSubmit;
+
+      if (this.state.title.length === 0 || this.state.description.length === 0) {
+        handleSubmit = this.handleSubmitFail;
+      } else {
+        handleSubmit = this.handleSubmitSuccess;
+      }
+
+      var editButton;
+
+      if (this.props.currentUserId === this.props.photo.artist_id) {
+        editButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.toggleEdit,
+          className: "upload-form-button"
+        }, "Edit");
+      }
+
+      var content;
+
+      if (this.state.edit === false) {
+        content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "dropzone-form"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "preview"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: "".concat(this.props.photo.img_url)
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "upload-form"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "upload-form-list"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, editButton), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), this.props.photo.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description"), this.props.photo.description)))));
+      } else {
+        content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+          className: "dropzone-form"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "preview"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: this.state.img_url
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "upload-form"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "upload-form-list"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "upload-form-button",
+          onClick: handleSubmit
+        }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "text",
+          value: this.state.title,
+          onChange: this.update('title')
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+          value: this.state.description,
+          onChange: this.update('description')
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.toggleEdit,
+          className: "upload-form-button",
+          style: {
+            "backgroundColor": "#ef5656"
+          }
+        }, "Cancel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, errors))));
+      }
+
+      return content;
+    }
+  }]);
+
+  return PhotoShow;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
+
+/***/ }),
+
+/***/ "./frontend/components/photo/photo_show_container.jsx":
+/*!************************************************************!*\
+  !*** ./frontend/components/photo/photo_show_container.jsx ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
+/* harmony import */ var _photo_show__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./photo_show */ "./frontend/components/photo/photo_show.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    currentUserId: state.session.currentUserId,
+    errors: state.errors.upload,
+    photo: state.entities.photos[state.ui.photoShow]
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    fetchPhoto: function fetchPhoto(photoId) {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["fetchPhoto"])(photoId));
+    },
+    clearErrors: function clearErrors() {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["receiveNoErrors"])());
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
+    },
+    action: function action(state) {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["updatePhoto"])(state));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_photo_show__WEBPACK_IMPORTED_MODULE_3__["default"]));
 
 /***/ }),
 
@@ -1043,7 +1309,7 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUserId: state.session.currentUserId,
-    errors: state.errors,
+    errors: state.errors.upload,
     photos: Object.values(state.entities.photos)
   };
 };
@@ -1194,7 +1460,9 @@ function (_React$Component) {
       var errors;
 
       if (this.props.errors) {
-        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error) {
+        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-lists"
+        }, this.props.errors.map(function (error) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
         }));
       }
@@ -1380,7 +1648,9 @@ function (_React$Component) {
       var errors;
 
       if (this.props.errors) {
-        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.map(function (error) {
+        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "error-lists"
+        }, this.props.errors.map(function (error) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
         }));
       }
@@ -1550,7 +1820,9 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "nav-logo",
         src: window.logoURL
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, " Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, " About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, " Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        to: "/about"
+      }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "blank-buttons",
         to: "/login"
       }, "Log In")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -1732,6 +2004,9 @@ function modalReducer() {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_MODAL"]:
       return null;
 
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_SHOW"]:
+      return action.modal;
+
     default:
       return state;
   }
@@ -1774,6 +2049,39 @@ var photoErrorsReducer = function photoErrorsReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (photoErrorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/photo_show_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/photo_show_reducer.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return photoShowReducer; });
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+// export const OPEN_MODAL_SHOW = 'OPEN_MODAL_SHOW';
+// export const open_modal_show = photoId => {
+//   type: OPEN_MODAL_SHOW,
+//   modal: 'photo',
+//   photoId
+// }
+
+function photoShowReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_SHOW"]:
+      return action.photoId;
+
+    default:
+      return null;
+  }
+}
 
 /***/ }),
 
@@ -1947,10 +2255,13 @@ var sessionReducer = function sessionReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
+/* harmony import */ var _photo_show_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photo_show_reducer */ "./frontend/reducers/photo_show_reducer.js");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  photoShow: _photo_show_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 }));
 
 /***/ }),
@@ -2064,10 +2375,10 @@ var createPhoto = function createPhoto(photo) {
     }
   });
 };
-var updatePhoto = function updatePhoto(id) {
+var updatePhoto = function updatePhoto(photo) {
   return $.ajax({
     method: 'PATCH',
-    url: "api/photos/".concat(id),
+    url: "api/photos/".concat(photo.id),
     data: {
       photo: photo
     }

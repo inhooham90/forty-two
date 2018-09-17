@@ -2,8 +2,9 @@ import React from 'react';
 import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import PhotoUploadContainer from '../photo/upload_form_container';
+import PhotoShowContainer from '../photo/photo_show_container';
 
-function Modal({modal, closeModal}) {
+function Modal({ modal, closeModal}) {
   if (!modal) {
     return null;
   }
@@ -12,9 +13,9 @@ function Modal({modal, closeModal}) {
     case 'upload':
       component = <PhotoUploadContainer />;
       break;
-    // case 'signup':
-    //
-      // break;
+    case 'photo':
+      component = <PhotoShowContainer />;
+      break;
     default:
       return null;
   }

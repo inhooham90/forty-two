@@ -47,7 +47,7 @@
 
 .upload-form-list > li {
   padding:7%;
-  border-bottom: 1px solid rgba(185,193,199,0.5);
+  border-top: 1px solid rgba(185,193,199,0.5);
   color: #0099e5;
   font-family: sans-serif;
 }
@@ -55,6 +55,7 @@
 .upload-form-list > li > label {
   width: 100%;
 }
+
 
 .upload-form-list > li > label > textarea {
   width: 97.4%;
@@ -115,20 +116,55 @@
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
+  background-color: #f2f4f7;
 }
 
 .index-items {
-  width: 200px;
+  width: 30%;
+  min-width: 480px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  margin-top: 3%;
   padding-bottom: 3%;
-  padding-top: 3%;
+  font-family: sans-serif;
 }
 
 .index-items > img {
   width: 100%;
   height: auto;
+}
+
+.index-item-info {
+  color: #525558;
+  background-color: Transparent;
+  font-size: 14px;
+  padding: 3%;
+  display: flex;
+  align-items: center;
+}
+
+.index-item-info > li {
+  padding-right: 3%;
+}
+
+.index-item-info2 {
+  background-color: white;
+  border-left: 1px solid rgba(185,193,199,0.5);
+  border-right: 1px solid rgba(185,193,199,0.5);
+  border-bottom: 1px solid rgba(185,193,199,0.5);
+  width: 99.69%;
+  height: 99.9%;
+  color: #525558;
+  text-align: center;
+  padding: 3% 0 3% 0;
+  font-size: 22px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+.index-item-info2:hover {
+  box-shadow: 0px 1px 2px 1px #e5e5e5;
+  transition: 0.2s;
 }
 
 .upload-form-button {
@@ -142,4 +178,11 @@
   font-size: 14px;
   border: none;
   font-weight: bold;
+}
+
+.profile-index {
+  overflow: hidden;
+  height: 35px;
+  width: 35px;
+  border-radius: 25px;
 }

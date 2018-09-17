@@ -48,8 +48,7 @@ class PhotoIndex extends React.Component {
           deletePhoto={this.props.deletePhoto}
           currentUserId={this.props.currentUserId}
           key={key}
-          user={this.props.users[photo.artist_id]}
-          openModalShow={this.props.openModalShow}/>
+          user={this.props.users[photo.artist_id]}/>
       );
     });
       return (

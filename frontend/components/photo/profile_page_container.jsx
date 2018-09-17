@@ -8,14 +8,11 @@ import {
   deletePhoto
 } from '../../actions/photo_actions';
 import { logout } from '../../actions/session_actions';
-import { openModal, openModalShow } from '../../actions/modal_actions';
+import { openModal } from '../../actions/modal_actions';
 
 
 const mapStateToProps = (state) => {
   return {
-    currentUserId: state.session.currentUserId,
-    errors: state.errors,
-    photos: Object.values(state.entities.photos),
     users: state.entities.users
   };
 };
@@ -25,8 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
   fetchPhotos: () => dispatch(fetchPhotos()),
   logout: () => dispatch(logout()),
   deletePhoto: (id) => dispatch(deletePhoto(id)),
-  openModal: modal => dispatch(openModal(modal)),
-  openModalShow: photoId => dispatch(openModalShow(photoId))
+  openModal: modal => dispatch(openModal(modal))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoIndex);

@@ -3,7 +3,7 @@ import * as PhotoApiUtil from '../util/photo_api_util';
 export const RECEIVE_ALL_PHOTOS = "RECEIVE_ALL_PHOTOS";
 export const RECEIVE_PHOTO = "RECEIVE_PHOTO";
 export const REMOVE_PHOTO = "REMOVE_PHOTO";
-export const RECEIVE_UPLOAD_ERRORS = 'RECEIVE_SESSION_ERRORS';
+export const RECEIVE_UPLOAD_ERRORS = 'RECEIVE_UPLOAD_ERRORS';
 export const RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 
 export const fetchPhotos = () => dispatch => (
@@ -20,7 +20,7 @@ export const createPhoto = photo => {
     return PhotoApiUtil.createPhoto(photo).then(photo => {
       return dispatch(receivePhoto(photo));
     }, errors => {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };
@@ -31,7 +31,7 @@ export const updatePhoto = photo => {
     return PhotoApiUtil.updatePhoto(photo).then(photo => {
       return dispatch(receivePhoto(photo));
     }, errors => {
-      return dispatch(receiveErrors(errors));
+      return dispatch(receiveErrors(errors.responseJSON));
     });
   };
 };

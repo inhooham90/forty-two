@@ -15,10 +15,10 @@ class User < ApplicationRecord
   # has_many :follows
   # has_many :likes,
 
-  #
-  # has_many :followers,
-  #   through: :follows,
-  #   source: :follower
+  
+  has_many :followers,
+    through: :follows,
+    source: :follower
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
