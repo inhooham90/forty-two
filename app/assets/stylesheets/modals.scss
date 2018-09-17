@@ -1,22 +1,23 @@
-.modal-open-upload {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width:100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.4);
+.close-form {
+  display: none;
 }
 
-.modal-main {
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.modal-child {
   position:fixed;
   background: white;
-  width: 83%;
-  height: 83%;
+  width: 90%;
+  height: 90%;
   top:50%;
   left:50%;
   transform: translate(-50%,-50%);
-}
-
-.close-form {
-  display: none;
 }

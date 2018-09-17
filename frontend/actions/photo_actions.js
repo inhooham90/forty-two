@@ -36,9 +36,13 @@ export const updatePhoto = photo => {
   };
 };
 
-export const deletePhoto = photoId => dispatch => (
-  PhotoApiUtil.deletePhoto(photoId).then(photo => dispatch(removePhoto(photoId)))
-);
+export const deletePhoto = photoId => {
+  return dispatch => {
+    return PhotoApiUtil.deletePhoto(photoId).then(photo => {
+      return dispatch(removePhoto(photoId));
+    });
+  };
+};
 
 export const receiveAllPhotos = photos => ({
   type: RECEIVE_ALL_PHOTOS,
@@ -50,7 +54,7 @@ export const receivePhoto = photo => ({
   photo
 });
 
-const removePhoto = photoId => ({
+export const removePhoto = photoId => ({
   type: REMOVE_PHOTO,
   photoId
 });

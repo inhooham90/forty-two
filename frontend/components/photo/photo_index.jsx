@@ -7,9 +7,24 @@ class PhotoIndex extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {active: false};
-    this.openUpload = this.openUpload.bind(this);
-    this.closeUpload = this.closeUpload.bind(this);
+    this.state = {activateProfileDrop: false};
+    this.openProfile = this.openProfile.bind(this);
+    this.closeProfile = this.closeProfile.bind(this);
+  }
+
+  componentDidMount(){
+    this.props.fetchPhotos();
+  }
+
+  // componentWillReceiveProps(nextProps) {
+  //   debugger
+  //   if (this.props.photos !== nextProps.photos) {
+  //     this.props.fetchPhotos();
+  //   }
+  // }
+
+  componentWillUnmount() {
+    this.props.fetchPhotos();
   }
 
   handleClick(e) {
@@ -17,29 +32,31 @@ class PhotoIndex extends React.Component {
     this.props.logout();
   }
 
-  openUpload () {
-    this.setState({active: true})
+  openProfile () {
+    this.setState({activateProfileDrop: true})
   }
 
-  closeUpload () {
-    debugger
-    this.setState({active: false})
+  closeProfile () {
+    this.setState({activateProfileDrop: false})
   }
 
   render() {
     let toggle;
-    if (this.state.active === true) {
-      toggle = 'modal-open-upload';
+    if (this.state.activateProfileDrop === true) {
+      toggle = 'drop-down';
     } else {
-      toggle = 'close-form';
+      toggle = 'drop-down-closed';
     };
 
-    const photos = this.props.photos.map(photo => {
+    const photoitems = this.props.photos.map((photo, key) => {
       return (
-        <PhotoIndexItem photo={photo} />
+        <PhotoIndexItem
+          photo={photo}
+          deletePhoto={this.props.deletePhoto}
+          currentUserId={this.props.currentUserId}
+          key={key}/>
       );
     });
-
       return (
         <div>
           <header className="header">
@@ -51,29 +68,36 @@ class PhotoIndex extends React.Component {
                 <li>About</li>
               </ul>
 
-              <ul className="header-list">
-                <li></li>
-                <li><img className='profile-mini' src={window.defaultProfileURL}/></li>
-                <li onClick={this.openUpload} className='upload-button'><Link to='/'><img className='upload-arrow' src={window.uploadArrow}/>Upload</Link></li>
+              <ul className="header-drop-down">
+                <li
+                  onMouseEnter={this.openProfile}
+                  onMouseLeave={this.closeProfile}>
+                  <ul className='drop-down-child'>
+                              <img className='profile-mini' src={window.defaultProfileURL}/>
+                            <li>
+                              <ul
+                                onMouseEnter={this.openProfile}
+                                onMouseLeave={this.closeProfile}
+                                className={toggle}>
+                                <li>test1</li>
+                                <li>test2</li>
+                                <li onClick={this.handleClick}>Log out</li>
+                              </ul>
+                            </li>
+                  </ul>
+                </li>
+                <li className='upload-button' onClick={() => this.props.openModal('upload')}>
+                  <img className='upload-arrow' src={window.uploadArrow}/>Upload
+                </li>
+
               </ul>
             </nav>
           </header>
           <div>
-            <ul>
-              {photos}
+            <ul className='index-list'>
+              {photoitems}
             </ul>
           </div>
-
-
-            <div className={toggle}>
-              <div className='modal-main'>
-                <PhotoUploadContainer />
-              </div>
-              <button className='cancel-transp' onClick={this.closeUpload}>Cancel</button>
-            </div>
-
-
-          <button onClick={this.handleClick}>Log Out</button>
         </div>
       )
   }

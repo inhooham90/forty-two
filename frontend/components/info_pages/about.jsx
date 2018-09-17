@@ -22,19 +22,34 @@ class About extends React.Component {
               <ul className="header-list">
                 <li><Link className='logo' to='/'><img className='nav-logo' src={window.logoURL2}/></Link></li>
                 <li>Discover</li>
-                <li><NavLink to='/about'>About</NavLink></li>
+                <li>About</li>
               </ul>
 
-              <ul className="header-list">
-                <li></li>
-                <li><img className='profile-mini' src={window.defaultProfileURL}/></li>
-                <li className='upload-button'><Link to='/'><img className='upload-arrow' src={window.uploadArrow}/>Upload</Link></li>
+              <ul className="header-drop-down">
+                <li
+                  onMouseEnter={this.openProfile}
+                  onMouseLeave={this.closeProfile}>
+                  <ul className='drop-down-child'>
+                              <img className='profile-mini' src={window.defaultProfileURL}/>
+                            <li>
+                              <ul
+                                onMouseEnter={this.openProfile}
+                                onMouseLeave={this.closeProfile}
+                                className={toggle}>
+                                <li>test1</li>
+                                <li>test2</li>
+                                <li onClick={this.handleClick}>Log out</li>
+                              </ul>
+                            </li>
+                  </ul>
+                </li>
+                <li className='upload-button' onClick={() => this.props.openModal('upload')}>
+                  <img className='upload-arrow' src={window.uploadArrow}/>Upload
+                </li>
+
               </ul>
             </nav>
           </header>
-
-          <h1>Hello World</h1>
-          <button onClick={this.handleClick}>Log Out</button>
         </div>
       )
   }

@@ -23,33 +23,83 @@
   flex-direction: column;
 }
 
-.dropzone > p{
-    display: flex;
-    width: 500px;
-    text-align: center;
-    padding-top: 24%;
-    color: #32adea;
-    font-family: sans-serif;
-    font-weight: lighter;
-    font-size: 14px;
-    flex-direction: column;
-    align-items: center;
+.dropzone > p {
+  display: flex;
+  width: 500px;
+  text-align: center;
+  padding-top: 24%;
+  color: #32adea;
+  font-family: sans-serif;
+  font-weight: lighter;
+  font-size: 14px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-form {
+  width: 340px;
+}
+
+.upload-form-list {
+  border-left: 1px solid rgba(185,193,199,0.5);
+  height: 100%;
+}
+
+.upload-form-list > li {
+  padding:7%;
+  border-bottom: 1px solid rgba(185,193,199,0.5);
+  color: #0099e5;
+  font-family: sans-serif;
+}
+
+.upload-form-list > li > label {
+  width: 100%;
+}
+
+.upload-form-list > li > label > textarea {
+  width: 97.4%;
+  font-size: 14px;
+  font-weight: lighter;
+  border-color: rgba(185,193,199,0.5);
+  line-height: 1.8em;
+  height: 110px;
+  color: #525558;
+  border-radius: 3px;
+}
+
+.upload-form-list > li > label > input {
+  width: 97.4%;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #525558;
+  border:  1px solid rgba(185,193,199,0.5);
+  line-height: 1.8em;
+  border-radius: 3px;
+}
+
+.upload-form-list > li > label > p {
+  padding-bottom: 4%;
+  font-weight: lighter;
+  font-size: 14px;
+
 }
 
 .dropzone-form {
   height: 100%;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 .preview {
-  height: 20%;
-  width: 20%;
+  height: auto;
+  width: 80%;
+  background-color: #f7f9fc;
 }
 
 .preview > img {
-  width: 100%;
+  width: 90%;
   height:auto;
+  padding: 5%;
 }
 
 .cancel-transp {
@@ -59,4 +109,37 @@
   overflow: hidden;
   outline:none;
   font-size: 12px;
+}
+
+.index-list {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.index-items {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 3%;
+  padding-top: 3%;
+}
+
+.index-items > img {
+  width: 100%;
+  height: auto;
+}
+
+.upload-form-button {
+  color: white;
+  font-family: sans-serif;
+  background-color: #34bf49;
+  border-radius: 3px;
+  width: 100%;
+  height: 40px;
+  color: white;
+  font-size: 14px;
+  border: none;
+  font-weight: bold;
 }

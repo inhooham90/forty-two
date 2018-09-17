@@ -86,11 +86,40 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./frontend/actions/modal_actions.js":
+/*!*******************************************!*\
+  !*** ./frontend/actions/modal_actions.js ***!
+  \*******************************************/
+/*! exports provided: OPEN_MODAL, CLOSE_MODAL, openModal, closeModal */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL", function() { return OPEN_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_MODAL", function() { return CLOSE_MODAL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModal", function() { return openModal; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
+var OPEN_MODAL = 'OPEN_MODAL';
+var CLOSE_MODAL = 'CLOSE_MODAL';
+var openModal = function openModal(modal) {
+  return {
+    type: OPEN_MODAL,
+    modal: modal
+  };
+};
+var closeModal = function closeModal() {
+  return {
+    type: CLOSE_MODAL
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/actions/photo_actions.js":
 /*!*******************************************!*\
   !*** ./frontend/actions/photo_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ALL_PHOTOS, RECEIVE_PHOTO, REMOVE_PHOTO, RECEIVE_UPLOAD_ERRORS, RECEIVE_NO_ERRORS, fetchPhotos, fetchPhoto, createPhoto, updatePhoto, deletePhoto, receiveAllPhotos, receivePhoto, receiveNoErrors */
+/*! exports provided: RECEIVE_ALL_PHOTOS, RECEIVE_PHOTO, REMOVE_PHOTO, RECEIVE_UPLOAD_ERRORS, RECEIVE_NO_ERRORS, fetchPhotos, fetchPhoto, createPhoto, updatePhoto, deletePhoto, receiveAllPhotos, receivePhoto, removePhoto, receiveNoErrors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -107,6 +136,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePhoto", function() { return deletePhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveAllPhotos", function() { return receiveAllPhotos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receivePhoto", function() { return receivePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removePhoto", function() { return removePhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveNoErrors", function() { return receiveNoErrors; });
 /* harmony import */ var _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/photo_api_util */ "./frontend/util/photo_api_util.js");
 
@@ -166,14 +196,12 @@ var receivePhoto = function receivePhoto(photo) {
     photo: photo
   };
 };
-
 var removePhoto = function removePhoto(photoId) {
   return {
     type: REMOVE_PHOTO,
     photoId: photoId
   };
 };
-
 var receiveNoErrors = function receiveNoErrors() {
   return {
     type: RECEIVE_NO_ERRORS
@@ -284,6 +312,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _photo_photo_index_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./photo/photo_index_container */ "./frontend/components/photo/photo_index_container.jsx");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../util/route_util */ "./frontend/util/route_util.jsx");
+/* harmony import */ var _modal_modal__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./modal/modal */ "./frontend/components/modal/modal.jsx");
 
 
 
@@ -294,8 +323,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var App = function App() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["AuthRoute"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_modal_modal__WEBPACK_IMPORTED_MODULE_8__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["AuthRoute"], {
     path: "/login",
     component: _session_form_login_form_container__WEBPACK_IMPORTED_MODULE_3__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_7__["AuthRoute"], {
@@ -368,6 +398,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -380,23 +412,31 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "nav-logo",
         src: window.logoURL2
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        to: "/about"
-      }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "header-list"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "header-drop-down"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onMouseEnter: this.openProfile,
+        onMouseLeave: this.closeProfile
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "drop-down-child"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-mini",
         src: window.defaultProfileURL
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "upload-button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        onMouseEnter: this.openProfile,
+        onMouseLeave: this.closeProfile,
+        className: toggle
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.handleClick
+      }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "upload-button",
+        onClick: function onClick() {
+          return _this2.props.openModal('upload');
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "upload-arrow",
         src: window.uploadArrow
-      }), "Upload"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello World"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.handleClick
-      }, "Log Out"));
+      }), "Upload")))));
     }
   }]);
 
@@ -440,6 +480,76 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(mapStateToProps, mapDispatchToProps)(_about__WEBPACK_IMPORTED_MODULE_1__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/modal/modal.jsx":
+/*!*********************************************!*\
+  !*** ./frontend/components/modal/modal.jsx ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../photo/upload_form_container */ "./frontend/components/photo/upload_form_container.jsx");
+
+
+
+
+
+function Modal(_ref) {
+  var modal = _ref.modal,
+      closeModal = _ref.closeModal;
+
+  if (!modal) {
+    return null;
+  }
+
+  var component;
+
+  switch (modal) {
+    case 'upload':
+      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+      break;
+    // case 'signup':
+    //
+    // break;
+
+    default:
+      return null;
+  }
+
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-background",
+    onClick: closeModal
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "modal-child",
+    onClick: function onClick(e) {
+      return e.stopPropagation();
+    }
+  }, component));
+}
+
+var mapStateToProps = function mapStateToProps(state) {
+  return {
+    modal: state.ui.modal
+  };
+};
+
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(Modal));
 
 /***/ }),
 
@@ -515,9 +625,15 @@ function (_React$Component) {
   _createClass(PhotoForm, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      debugger;
       e.preventDefault();
       this.props.action(this.state);
-      this.setState({});
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.clearErrors();
+      this.props.closeModal();
     }
   }, {
     key: "handleImageUpload",
@@ -554,6 +670,14 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var errors;
+
+      if (this.props.errors.upload.responseJSON) {
+        errors = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, this.props.errors.upload.responseJSON.map(function (error) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
+        }));
+      }
+
       var content;
 
       if (!this.state.img_url) {
@@ -563,7 +687,6 @@ function (_React$Component) {
           onDrop: this.onImageDrop.bind(this),
           className: "dropzone"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: this.handleSubmit,
           className: "upload-button2"
         }, "Upload"), "Or drag & drop photos anywhere on this page"));
       } else {
@@ -573,18 +696,26 @@ function (_React$Component) {
           className: "preview"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.state.img_url
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Title", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "upload-form"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "upload-form-list"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "upload-form-button",
+          onClick: this.handleSubmit
+        }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           value: this.state.title,
           onChange: this.update('title')
-        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Description:", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
           value: this.state.description,
           onChange: this.update('description')
-        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          className: "upload-button2",
-          onClick: this.handleSubmit
-        }, "Upload")))));
-      }
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, errors))));
+      } //     const { post } = this.props;
+      // if (!post) {
+      //   return <div>Loading...</div>;
+      // }
+
 
       return content;
     }
@@ -647,49 +778,69 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(PhotoIndex).call(this, props));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.state = {
-      active: false
+      activateProfileDrop: false
     };
-    _this.openUpload = _this.openUpload.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-    _this.closeUpload = _this.closeUpload.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.openProfile = _this.openProfile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.closeProfile = _this.closeProfile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
   }
 
   _createClass(PhotoIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchPhotos();
+    } // componentWillReceiveProps(nextProps) {
+    //   debugger
+    //   if (this.props.photos !== nextProps.photos) {
+    //     this.props.fetchPhotos();
+    //   }
+    // }
+
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.props.fetchPhotos();
+    }
+  }, {
     key: "handleClick",
     value: function handleClick(e) {
       e.preventDefault();
       this.props.logout();
     }
   }, {
-    key: "openUpload",
-    value: function openUpload() {
+    key: "openProfile",
+    value: function openProfile() {
       this.setState({
-        active: true
+        activateProfileDrop: true
       });
     }
   }, {
-    key: "closeUpload",
-    value: function closeUpload() {
-      debugger;
+    key: "closeProfile",
+    value: function closeProfile() {
       this.setState({
-        active: false
+        activateProfileDrop: false
       });
     }
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       var toggle;
 
-      if (this.state.active === true) {
-        toggle = 'modal-open-upload';
+      if (this.state.activateProfileDrop === true) {
+        toggle = 'drop-down';
       } else {
-        toggle = 'close-form';
+        toggle = 'drop-down-closed';
       }
 
       ;
-      var photos = this.props.photos.map(function (photo) {
+      var photoitems = this.props.photos.map(function (photo, key) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_index_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          photo: photo
+          photo: photo,
+          deletePhoto: _this2.props.deletePhoto,
+          currentUserId: _this2.props.currentUserId,
+          key: key
         });
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
@@ -705,28 +856,32 @@ function (_React$Component) {
         className: "nav-logo",
         src: window.logoURL2
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "Discover"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "About")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "header-list"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "header-drop-down"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onMouseEnter: this.openProfile,
+        onMouseLeave: this.closeProfile
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "drop-down-child"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-mini",
         src: window.defaultProfileURL
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: this.openUpload,
-        className: "upload-button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        onMouseEnter: this.openProfile,
+        onMouseLeave: this.closeProfile,
+        className: toggle
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test1"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        onClick: this.handleClick
+      }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "upload-button",
+        onClick: function onClick() {
+          return _this2.props.openModal('upload');
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "upload-arrow",
         src: window.uploadArrow
-      }), "Upload"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, photos)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: toggle
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "modal-main"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_upload_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "cancel-transp",
-        onClick: this.closeUpload
-      }, "Cancel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        onClick: this.handleClick
-      }, "Log Out"));
+      }), "Upload")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "index-list"
+      }, photoitems)));
     }
   }]);
 
@@ -750,6 +905,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _photo_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./photo_index */ "./frontend/components/photo/photo_index.jsx");
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -757,7 +914,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    currentUser: state.session.currentUser,
+    currentUserId: state.session.currentUserId,
     errors: state.errors,
     photos: Object.values(state.entities.photos)
   };
@@ -769,10 +926,16 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["fetchPhoto"])(id));
     },
     fetchPhotos: function fetchPhotos() {
-      return dispatch(fetcPhotos());
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["fetchPhotos"])());
     },
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+    },
+    deletePhoto: function deletePhoto(id) {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["deletePhoto"])(id));
+    },
+    openModal: function openModal(modal) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModal"])(modal));
     }
   };
 };
@@ -834,8 +997,18 @@ function (_React$Component) {
   _createClass(PhotoIndexItem, [{
     key: "render",
     value: function render() {
-      debugger;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello World");
+      var _this = this;
+
+      var deleteButton = this.props.currentUserId === this.props.photo.artist_id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: function onClick() {
+          return _this.props.deletePhoto(_this.props.photo.id);
+        }
+      }, "Delete") : '';
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "index-items"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "".concat(this.props.photo.img_url)
+      }), this.props.photo.title, this.props.photo.description, deleteButton);
     }
   }]);
 
@@ -860,6 +1033,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
 /* harmony import */ var _photo_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./_photo_form */ "./frontend/components/photo/_photo_form.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -878,8 +1053,11 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     action: function action(photo) {
       return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["createPhoto"])(photo));
     },
-    receiveNoErrors: function receiveNoErrors() {
-      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["createPhoto"])(photo));
+    clearErrors: function clearErrors() {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["receiveNoErrors"])());
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
     }
   };
 };
@@ -1519,12 +1697,83 @@ var entitiesReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
 /* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
+/* harmony import */ var _photo_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photo_errors_reducer */ "./frontend/reducers/photo_errors_reducer.js");
+
 
 
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+  session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
+  upload: _photo_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/modal_reducer.js":
+/*!********************************************!*\
+  !*** ./frontend/reducers/modal_reducer.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return modalReducer; });
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+function modalReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+
+  switch (action.type) {
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL"]:
+      return action.modal;
+
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["CLOSE_MODAL"]:
+      return null;
+
+    default:
+      return state;
+  }
+}
+
+/***/ }),
+
+/***/ "./frontend/reducers/photo_errors_reducer.js":
+/*!***************************************************!*\
+  !*** ./frontend/reducers/photo_errors_reducer.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/photo_actions */ "./frontend/actions/photo_actions.js");
+
+
+var photoErrorsReducer = function photoErrorsReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_UPLOAD_ERRORS"]:
+      {
+        return action.errors;
+      }
+
+    case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_NO_ERRORS"]:
+      {
+        var errors = [];
+        return errors;
+      }
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (photoErrorsReducer);
 
 /***/ }),
 
@@ -1584,6 +1833,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./errors_reducer */ "./frontend/reducers/errors_reducer.js");
 /* harmony import */ var _entities_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./entities_reducer */ "./frontend/reducers/entities_reducer.js");
 /* harmony import */ var _session_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./session_reducer */ "./frontend/reducers/session_reducer.js");
+/* harmony import */ var _ui_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ui_reducer */ "./frontend/reducers/ui_reducer.js");
+
 
 
 
@@ -1591,7 +1842,8 @@ __webpack_require__.r(__webpack_exports__);
 var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   entities: _entities_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   errors: _errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  session: _session_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  session: _session_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  ui: _ui_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (rootReducer);
 
@@ -1681,6 +1933,25 @@ var sessionReducer = function sessionReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (sessionReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/ui_reducer.js":
+/*!*****************************************!*\
+  !*** ./frontend/reducers/ui_reducer.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! redux */ "./node_modules/redux/es/redux.js");
+/* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
+
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
+  modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"]
+}));
 
 /***/ }),
 
@@ -1778,10 +2049,10 @@ var fetchPhotos = function fetchPhotos() {
     url: 'api/photos'
   });
 };
-var deletePhoto = function deletePhoto(id) {
+var deletePhoto = function deletePhoto(photoId) {
   return $.ajax({
     method: 'DELETE',
-    url: "api/photo/".concat(id)
+    url: "api/photos/".concat(photoId)
   });
 };
 var createPhoto = function createPhoto(photo) {
@@ -1793,10 +2064,10 @@ var createPhoto = function createPhoto(photo) {
     }
   });
 };
-var updatePhoto = function updatePhoto(photo) {
+var updatePhoto = function updatePhoto(id) {
   return $.ajax({
     method: 'PATCH',
-    url: "api/photos/".concat(photo.id),
+    url: "api/photos/".concat(id),
     data: {
       photo: photo
     }

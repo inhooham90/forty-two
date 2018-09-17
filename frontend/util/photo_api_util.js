@@ -13,10 +13,10 @@ export const fetchPhotos = () => {
   });
 };
 
-export const deletePhoto = id => {
+export const deletePhoto = photoId => {
   return $.ajax({
     method: 'DELETE',
-    url: `api/photo/${id}`
+    url: `api/photos/${photoId}`
   });
 };
 
@@ -28,10 +28,10 @@ export const createPhoto = photo => {
   });
 };
 
-export const updatePhoto = photo => {
+export const updatePhoto = id => {
   return $.ajax({
     method: 'PATCH',
-    url: `api/photos/${photo.id}`,
+    url: `api/photos/${id}`,
     data: {photo}
   });
 };

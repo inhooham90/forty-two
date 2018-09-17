@@ -7,12 +7,13 @@ import SignupFormContainer from './session_form/signup_form_container';
 import { HashRouter, Route, NavLink, Switch } from 'react-router-dom';
 import PhotoIndexContainer from './photo/photo_index_container';
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
+import Modal from './modal/modal';
 
 const App = () => {
 
   return (
     <div>
-  
+    <Modal />
         <Switch>
           <AuthRoute path="/login" component={LoginFormContainer} />
           <AuthRoute path="/signup" component={SignupFormContainer} />

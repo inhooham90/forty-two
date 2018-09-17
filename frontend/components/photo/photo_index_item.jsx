@@ -9,12 +9,20 @@ class PhotoIndexItem extends React.Component {
   }
 
   render() {
-    debugger
-    return(
-      <h1>
-        Hello World
-      </h1>
+    let deleteButton = (this.props.currentUserId===this.props.photo.artist_id) ?
+    (
+      <button onClick={() => this.props.deletePhoto(this.props.photo.id)}>Delete</button>
+    ) : (
+      ''
     )
+    return(
+      <li className='index-items'>
+          <img src={`${this.props.photo.img_url}`} />
+          {this.props.photo.title}
+          {this.props.photo.description}
+
+          {deleteButton}
+      </li>)
   }
 }
 

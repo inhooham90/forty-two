@@ -25,9 +25,14 @@ export default class PhotoForm extends React.Component {
   }
 
   handleSubmit(e) {
+    debugger
     e.preventDefault();
     this.props.action(this.state);
-    this.setState({});
+  }
+
+  componentWillUnmount() {
+    this.props.clearErrors();
+    this.props.closeModal();
   }
 
   handleImageUpload(file) {
@@ -55,11 +60,20 @@ export default class PhotoForm extends React.Component {
   }
 
   onImageDrop(files) {
-
     this.handleImageUpload(files[0]);
   }
 
   render() {
+    let errors;
+    if (this.props.errors.upload.responseJSON) {
+      errors = (
+        <ul>
+          {this.props.errors.upload.responseJSON.map( error => {
+            return <li>{error}</li>;
+          })}
+        </ul>
+      );
+    }
     let content;
     if (!this.state.img_url) {
       content = (
@@ -69,7 +83,7 @@ export default class PhotoForm extends React.Component {
           onDrop={this.onImageDrop.bind(this)}
           className='dropzone'>
           <p>
-          <button onClick={this.handleSubmit} className='upload-button2'>Upload</button>
+          <button className='upload-button2'>Upload</button>
           Or drag & drop photos anywhere on this page</p>
 
       </Dropzone>
@@ -80,10 +94,13 @@ export default class PhotoForm extends React.Component {
           <div className='preview'>
             <img src={this.state.img_url} />
           </div>
-          <div>
-            <ul>
+          <div className='upload-form'>
+            <ul className='upload-form-list'>
               <li>
-                <label>Title
+                <button className='upload-form-button' onClick={this.handleSubmit}>Submit</button>
+              </li>
+              <li>
+                <label><p>Title</p>
                   <input
                     type="text"
                     value={this.state.title}
@@ -91,20 +108,24 @@ export default class PhotoForm extends React.Component {
                 </label>
               </li>
               <li>
-                <label>Description:
+                <label><p>Description</p>
                   <textarea
                     value={this.state.description}
                     onChange={this.update('description')} />
                 </label>
               </li>
               <li>
-                <button className='upload-button2' onClick={this.handleSubmit}>Upload</button>
+                {errors}
               </li>
             </ul>
           </div>
       </form>
       )
     }
+//     const { post } = this.props;
+// if (!post) {
+//   return <div>Loading...</div>;
+// }
     return (
         content
     );

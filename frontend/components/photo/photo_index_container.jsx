@@ -2,16 +2,18 @@ import { connect } from 'react-redux';
 import PhotoIndex from './photo_index';
 import {
   fetchPhoto,
-  fetchPhotoss,
+  fetchPhotos,
   receiveErrors,
-  receiveNoErrors
+  receiveNoErrors,
+  deletePhoto
 } from '../../actions/photo_actions';
 import { logout } from '../../actions/session_actions';
+import { openModal } from '../../actions/modal_actions';
 
 
 const mapStateToProps = (state) => {
   return {
-    currentUser: state.session.currentUser,
+    currentUserId: state.session.currentUserId,
     errors: state.errors,
     photos: Object.values(state.entities.photos)
   };
@@ -19,8 +21,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   fetchPhoto: (id) => dispatch(fetchPhoto(id)),
-  fetchPhotos: () => dispatch(fetcPhotos()),
-  logout: () => dispatch(logout())
+  fetchPhotos: () => dispatch(fetchPhotos()),
+  logout: () => dispatch(logout()),
+  deletePhoto: (id) => dispatch(deletePhoto(id)),
+  openModal: modal => dispatch(openModal(modal))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PhotoIndex);
