@@ -1,6 +1,6 @@
 import { RECEIVE_UPLOAD_ERRORS, RECEIVE_CURRENT_USER, RECEIVE_NO_ERRORS } from '../actions/photo_actions';
 
-const photoErrorsReducer = (state = [], action) => {
+const photoErrorsReducer = (state = null, action) => {
   Object.freeze(state);
 
   switch(action.type) {

@@ -19,7 +19,7 @@ class Splash extends React.Component {
     (<div className='nav-bar'>
       <ul className="header-list-white">
         <li><Link to='/'><img className='nav-logo' src={window.logoURL}/></Link></li>
-        <li> Discover</li>
+        <li><Link to='/discover'>Discover</Link></li>
         <li><Link to='/about'>About</Link></li>
       </ul>
       <ul>

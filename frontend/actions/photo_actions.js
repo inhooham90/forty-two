@@ -7,7 +7,7 @@ export const RECEIVE_UPLOAD_ERRORS = 'RECEIVE_UPLOAD_ERRORS';
 export const RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 
 export const fetchPhotos = () => dispatch => (
-  PhotoApiUtil.fetchPhotos().then(photos => dispatch(receiveAllPhotos(photos)))
+  PhotoApiUtil.fetchPhotos().then(payload => dispatch(receiveAllPhotos(payload)))
 );
 
 export const fetchPhoto = id => dispatch => (
@@ -44,9 +44,10 @@ export const deletePhoto = photoId => {
   };
 };
 
-export const receiveAllPhotos = photos => ({
+export const receiveAllPhotos = payload => ({
   type: RECEIVE_ALL_PHOTOS,
-  photos
+  photos: payload.photos,
+  users: payload.users
 });
 
 export const receivePhoto = photo => ({

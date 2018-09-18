@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import PhotoIndex from './photo_index';
+import Discover from './discover';
 import {
   fetchPhoto,
   fetchPhotos,
@@ -7,7 +7,6 @@ import {
   receiveNoErrors,
 } from '../../actions/photo_actions';
 import { logout } from '../../actions/session_actions';
-import { fetchUser } from '../../actions/user_actions';
 import { openModal, openModalShow } from '../../actions/modal_actions';
 
 
@@ -29,4 +28,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUser: id => dispatch(fetchUser(id))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PhotoIndex);
+export default connect(mapStateToProps, mapDispatchToProps)(Discover);

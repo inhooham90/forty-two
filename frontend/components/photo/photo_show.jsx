@@ -7,6 +7,7 @@ import { receivePhoto } from '../../actions/photo_actions';
 export default class PhotoShow extends React.Component {
   constructor(props) {
     super(props);
+    // debugger
     this.state = {
       title: this.props.photo.title,
       description: this.props.photo.description,
@@ -18,6 +19,7 @@ export default class PhotoShow extends React.Component {
     this.handleSubmitFail = this.handleSubmitFail.bind(this);
     this.update=this.update.bind(this);
     this.toggleEdit= this.toggleEdit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   toggleEdit(){
@@ -27,9 +29,9 @@ export default class PhotoShow extends React.Component {
       this.setState({edit: false})
     }
   }
-  // componentDidMount() {
-  //   this.props.fetchPhoto(this.props.photo.id)
-  // }
+  componentWillMount() {
+    this.props.fetchPhoto(this.props.photo.id)
+  }
 
   handleSubmitSuccess(e) {
     e.preventDefault();
@@ -40,6 +42,12 @@ export default class PhotoShow extends React.Component {
   handleSubmitFail(e) {
     e.preventDefault();
     this.props.action(this.state);
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+    this.props.deletePhoto(this.props.photo.id);
+    this.props.closeModal();
   }
 
   update(field) {
@@ -67,10 +75,27 @@ export default class PhotoShow extends React.Component {
       handleSubmit = this.handleSubmitSuccess;
     }
     let editButton;
+    // debugger
     if (this.props.currentUserId === this.props.photo.artist_id) {
-      editButton = <button onClick={this.toggleEdit} className='upload-form-button'>Edit</button>
+      editButton =
+        <li>
+          <button
+            onClick={this.toggleEdit}
+            className='upload-form-button'>
+            Edit
+          </button>
+        </li>
     }
-
+    let deleteButton;
+    if (this.props.currentUserId === this.props.photo.artist_id) {
+      deleteButton =
+        <button
+          onClick={this.handleDelete}
+          className='upload-form-button'
+          style={{"backgroundColor": "#ef5656"}}>
+          Delete
+        </button>
+    }
     let content;
     if (this.state.edit === false) {
       content = (
@@ -80,9 +105,7 @@ export default class PhotoShow extends React.Component {
           </div>
           <div className='upload-form'>
             <ul className='upload-form-list'>
-              <li>
                 {editButton}
-              </li>
               <li>
                 <label><p>Title</p>
                   {this.props.photo.title}
@@ -92,6 +115,9 @@ export default class PhotoShow extends React.Component {
                 <label><p>Description</p>
                   {this.props.photo.description}
                 </label>
+              </li>
+              <li>
+                {deleteButton}
               </li>
             </ul>
           </div>

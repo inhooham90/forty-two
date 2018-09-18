@@ -19,7 +19,7 @@ class About extends React.Component {
 
               <ul className="header-list">
                 <li><Link className='logo' to='/'><img className='nav-logo' src={window.logoURL2}/></Link></li>
-                <li>Discover</li>
+                <li><Link to='/discover'>Discover</Link></li>
                 <li style={{color: '#0099e5'}} >About</li>
               </ul>
               <li>

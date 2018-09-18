@@ -1,0 +1,37 @@
+.profile-images {
+  width: 100%;
+  height: auto;
+}
+
+.profile-images > li {
+  height: 200px;
+  width:auto;
+  padding: 0.5%;
+  display: inline-block;
+}
+
+.profile-images > li > img {
+  height: 100%;
+  width: auto;
+  padding:1px;
+}
+
+.profile-original {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+
+}
+
+.profile-top {
+  display: flex;
+  align-items: center;
+  padding: 2%;
+  flex-direction: column;
+}
+
+.profile-top > li {
+  align-items: center;
+  color: #525558;
+}

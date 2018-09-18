@@ -3,6 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import PhotoUploadContainer from '../photo/upload_form_container';
 import PhotoShowContainer from '../photo/photo_show_container';
+import ProfilePicUpload from '../profile/profile_pic_upload_container';
 
 function Modal({ modal, closeModal}) {
   if (!modal) {
@@ -16,6 +17,9 @@ function Modal({ modal, closeModal}) {
     case 'photo':
       component = <PhotoShowContainer />;
       break;
+
+    case 'profile-upload':
+      component = <ProfilePicUpload />;
     default:
       return null;
   }

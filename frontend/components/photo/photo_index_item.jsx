@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactModal from 'react-modal';
-import { Link, withRouter } from 'react-router-dom';
-import merge from 'lodash/merge';
+import { Link } from 'react-router-dom';
 
 class PhotoIndexItem extends React.Component {
   constructor(props) {
@@ -9,28 +8,18 @@ class PhotoIndexItem extends React.Component {
   }
 
   render() {
-    let deleteButton = (this.props.currentUserId===this.props.photo.artist_id) ?
-    (
-      <button onClick={() => this.props.deletePhoto(this.props.photo.id)}>Delete</button>
-    ) : (
-      ''
-    )
     return(
 
-      <li className='index-items' onClick={() => this.props.openModalShow(this.props.photo.id)}>
+      <li className='index-items'>
         <ul className='index-item-info'>
           <li><img className='profile-index' src={`${this.props.user.profile_url}`} /></li>
-          <li>{this.props.user.username}</li>
+          <li><Link to={`/profile/${this.props.photo.artist_id}`}>{this.props.user.username}</Link></li>
         </ul>
-        <img src={`${this.props.photo.img_url}`} />
+        <img onClick={() => this.props.openModalShow(this.props.photo)} src={`${this.props.photo.img_url}`} />
         <p className='index-item-info2'>
           {this.props.photo.title}
-          <br/>
-          {deleteButton}
         </p>
-
-
-      </li>)
+      </li>);
   }
 }
 

@@ -23,3 +23,15 @@
 .drop-down > li:hover {
   color: #0099e5;
 }
+
+.drop-down > li > a {
+  background-color: white;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: lighter;
+  color:inherit;
+}
+
+.drop-down > li > a:hover {
+  color: #0099e5;
+}

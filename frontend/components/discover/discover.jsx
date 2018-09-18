@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
-import PhotoIndexItem from './photo_index_item';
-import PhotoUploadContainer from './upload_form_container';
+import { Link } from 'react-router-dom';
+import DiscoverItem from './discover_items';
+import DiscoverContainer from './discover_container';
 
-class PhotoIndex extends React.Component {
+class Discover extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
@@ -12,7 +12,7 @@ class PhotoIndex extends React.Component {
     this.closeProfile = this.closeProfile.bind(this);
   }
 
-  componentDidMount(){
+  componentWillMount(){
     this.props.fetchPhotos();
   }
 
@@ -40,17 +40,18 @@ class PhotoIndex extends React.Component {
     } else {
       toggle = 'drop-down-closed';
     };
-
-    const photoitems = this.props.photos.map((photo, key) => {
+    const discoverItems = this.props.photos.map((photo, key) => {
       return (
-        <PhotoIndexItem
+        <DiscoverItem
           photo={photo}
-          deletePhoto={this.props.deletePhoto}
           currentUserId={this.props.currentUserId}
           key={key}
-          user={this.props.users[photo.artist_id]}/>
+          user={this.props.users[photo.artist_id]}
+          openModalShow={this.props.openModalShow}
+          fetchUser={this.props.fetchUser}/>
       );
     });
+
       return (
         <div>
           <header className="header">
@@ -58,7 +59,7 @@ class PhotoIndex extends React.Component {
 
               <ul className="header-list">
                 <li><Link className='logo' to='/'><img className='nav-logo' src={window.logoURL2}/></Link></li>
-                <li>Discover</li>
+                <li><Link to='/discover'>Discover</Link></li>
                 <li><Link to='/about'>About</Link></li>
               </ul>
 
@@ -73,7 +74,7 @@ class PhotoIndex extends React.Component {
                                 onMouseEnter={this.openProfile}
                                 onMouseLeave={this.closeProfile}
                                 className={toggle}>
-                                <li>My Profile</li>
+                                <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
                                 <li>test2</li>
                                 <li onClick={this.handleClick}>Log out</li>
                               </ul>
@@ -88,8 +89,8 @@ class PhotoIndex extends React.Component {
             </nav>
           </header>
           <div>
-            <ul className='index-list'>
-              {photoitems}
+            <ul className='profile-images'>
+              {discoverItems}
             </ul>
           </div>
         </div>
@@ -97,4 +98,4 @@ class PhotoIndex extends React.Component {
   }
 }
 
-export default PhotoIndex;
+export default Discover;
