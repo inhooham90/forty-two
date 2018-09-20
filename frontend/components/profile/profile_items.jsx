@@ -6,9 +6,10 @@ export default class ProfileItem extends React.Component {
     super(props);
   }
 
+// style={{backgroundImage: "url(" + this.props.photo.img_url + ")"}}
   render() {
     return (
-      <li onClick={() => this.props.openModalShow(this.props.photo)}>
+      <li onClick={() => this.props.openModalShow(this.props.photo)} >
         <img src={`${this.props.photo.img_url}`}/>
       </li>
     );

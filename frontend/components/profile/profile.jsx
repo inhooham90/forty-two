@@ -7,18 +7,17 @@ export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
-    this.state = {activateProfileDrop: false};
+    this.state = {
+      activateProfileDrop: false
+    };
     this.openProfile = this.openProfile.bind(this);
     this.closeProfile = this.closeProfile.bind(this);
+
   }
 
-  // componentWillMount(){
-  //   this.props.fetchPhotos();
-  // }
-  //
-  // componentWillUnmount() {
-  //   this.props.fetchPhotos();
-  // }
+  componentDidMount() {
+    this.props.fetchUser(this.props.userId)
+  }
 
   handleClick(e) {
     e.preventDefault();
@@ -40,12 +39,18 @@ export default class Profile extends React.Component {
     } else {
       toggle = 'drop-down-closed';
     };
-    const photoitems = this.props.user.photos.map((photo, key) => {
+
+    if(!this.props.user) {
+      return <div></div>
+    }
+    const photoitems = this.props.photos.map((photo, key) => {
+      debugger
       return (
         <ProfileItem
           photo={photo}
           key={key}
-          openModalShow={this.props.openModalShow}/>
+          openModalShow={this.props.openModalShow}
+          />
       );
     });
 

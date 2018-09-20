@@ -30,9 +30,11 @@ export const updatePhoto = photo => {
   return dispatch => {
     return PhotoApiUtil.updatePhoto(photo).then(photo => {
       return dispatch(receivePhoto(photo));
-    }, errors => {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
+    }
+    // , errors => {
+    //   return dispatch(receiveErrors(errors.responseJSON));
+    // }
+  );
   };
 };
 

@@ -29,9 +29,9 @@ export default class PhotoShow extends React.Component {
       this.setState({edit: false})
     }
   }
-  componentWillMount() {
-    this.props.fetchPhoto(this.props.photo.id)
-  }
+  // componentWillMount() {
+  //   this.props.fetchPhoto(this.props.photo.id)
+  // }
 
   handleSubmitSuccess(e) {
     e.preventDefault();
@@ -57,6 +57,7 @@ export default class PhotoShow extends React.Component {
   }
 
   render() {
+    debugger
     let errors;
     if (this.props.errors) {
       errors = (
@@ -107,14 +108,15 @@ export default class PhotoShow extends React.Component {
             <ul className='upload-form-list'>
                 {editButton}
               <li>
-                <label><p>Title</p>
+                <p className='show-title'>
                   {this.props.photo.title}
-                </label>
-              </li>
-              <li>
-                <label><p>Description</p>
+                </p>
+                <p className='show-uploaded'>
+                  {this.props.photo.created_at}
+                </p>
+                <p className='show-description'>
                   {this.props.photo.description}
-                </label>
+                </p>
               </li>
               <li>
                 {deleteButton}

@@ -42,9 +42,7 @@ export default class PhotoForm extends React.Component {
                         .field('file', file);
 
     upload.end((err, response) => {
-      if (err) {
-        console.error(err);
-      }
+
 
       if (response.body.secure_url !== '') {
         this.setState({

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     resources :users, only: [:create, :show, :update]
     resource :session, only: [:create, :destroy]
     resources :photos, only: [:update, :create, :destroy, :show, :index]
-
+    resources :follows, only: [:create, :destroy]
   end
   root "static_pages#root"
 end

@@ -182,9 +182,10 @@ var updatePhoto = function updatePhoto(photo) {
   return function (dispatch) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["updatePhoto"](photo).then(function (photo) {
       return dispatch(receivePhoto(photo));
-    }, function (errors) {
-      return dispatch(receiveErrors(errors.responseJSON));
-    });
+    } // , errors => {
+    //   return dispatch(receiveErrors(errors.responseJSON));
+    // }
+    );
   };
 };
 var deletePhoto = function deletePhoto(photoId) {
@@ -327,10 +328,11 @@ var fetchUser = function fetchUser(id) {
     });
   };
 };
-var receiveUser = function receiveUser(user) {
+var receiveUser = function receiveUser(payload) {
   return {
     type: RECEIVE_USER,
-    user: user
+    user: payload.user,
+    photos: payload.photos
   };
 };
 
@@ -995,10 +997,6 @@ function (_React$Component) {
 
       var upload = superagent__WEBPACK_IMPORTED_MODULE_2___default.a.post(CLOUDINARY_UPLOAD_URL).field('upload_preset', CLOUDINARY_UPLOAD_PRESET).field('file', file);
       upload.end(function (err, response) {
-        if (err) {
-          console.error(err);
-        }
-
         if (response.body.secure_url !== '') {
           _this2.setState({
             img_url: response.body.secure_url
@@ -1154,11 +1152,6 @@ function (_React$Component) {
       this.props.fetchPhotos();
     }
   }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.props.fetchPhotos();
-    }
-  }, {
     key: "handleClick",
     value: function handleClick(e) {
       e.preventDefault();
@@ -1202,7 +1195,9 @@ function (_React$Component) {
           fetchUser: _this2.props.fetchUser
         });
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "photo-index-wrap"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
         className: "header-nav"
@@ -1376,7 +1371,7 @@ function (_React$Component) {
         src: "".concat(this.props.user.profile_url)
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/profile/".concat(this.props.photo.artist_id)
-      }, this.props.user.username))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, this.props.user.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         onClick: function onClick() {
           return _this.props.openModalShow(_this.props.photo);
         },
@@ -1476,12 +1471,10 @@ function (_React$Component) {
           edit: false
         });
       }
-    }
-  }, {
-    key: "componentWillMount",
-    value: function componentWillMount() {
-      this.props.fetchPhoto(this.props.photo.id);
-    }
+    } // componentWillMount() {
+    //   this.props.fetchPhoto(this.props.photo.id)
+    // }
+
   }, {
     key: "handleSubmitSuccess",
     value: function handleSubmitSuccess(e) {
@@ -1514,6 +1507,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      debugger;
       var errors;
 
       if (this.props.errors) {
@@ -1566,7 +1560,13 @@ function (_React$Component) {
           className: "upload-form"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "upload-form-list"
-        }, editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), this.props.photo.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description"), this.props.photo.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, deleteButton))));
+        }, editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "show-title"
+        }, this.props.photo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "show-uploaded"
+        }, this.props.photo.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "show-description"
+        }, this.props.photo.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, deleteButton))));
       } else {
         content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           className: "dropzone-form"
@@ -1764,16 +1764,14 @@ function (_React$Component) {
     _this.openProfile = _this.openProfile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     _this.closeProfile = _this.closeProfile.bind(_assertThisInitialized(_assertThisInitialized(_this)));
     return _this;
-  } // componentWillMount(){
-  //   this.props.fetchPhotos();
-  // }
-  //
-  // componentWillUnmount() {
-  //   this.props.fetchPhotos();
-  // }
-
+  }
 
   _createClass(Profile, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchUser(this.props.userId);
+    }
+  }, {
     key: "handleClick",
     value: function handleClick(e) {
       e.preventDefault();
@@ -1807,7 +1805,13 @@ function (_React$Component) {
       }
 
       ;
-      var photoitems = this.props.user.photos.map(function (photo, key) {
+
+      if (!this.props.user) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null);
+      }
+
+      var photoitems = this.props.photos.map(function (photo, key) {
+        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_items__WEBPACK_IMPORTED_MODULE_2__["default"], {
           photo: photo,
           key: key,
@@ -1900,7 +1904,9 @@ var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors,
-    user: state.entities.users[ownProps.match.params.userId]
+    userId: ownProps.match.params.userId,
+    user: state.entities.users[ownProps.match.params.userId],
+    photos: Object.values(state.entities.photos)
   };
 };
 
@@ -1969,7 +1975,8 @@ function (_React$Component) {
     _classCallCheck(this, ProfileItem);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(ProfileItem).call(this, props));
-  }
+  } // style={{backgroundImage: "url(" + this.props.photo.img_url + ")"}}
+
 
   _createClass(ProfileItem, [{
     key: "render",
@@ -2750,7 +2757,6 @@ function photoShowReducer() {
 
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_SHOW"]:
-      debugger;
       return action.photo;
 
     default:
@@ -2770,9 +2776,11 @@ function photoShowReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/photo_actions */ "./frontend/actions/photo_actions.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
+/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_2__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2784,15 +2792,19 @@ var PhotosReducer = function PhotosReducer() {
 
   switch (action.type) {
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_PHOTOS"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, action.photos);
+      debugger;
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, action.photos);
 
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_PHOTO"]:
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, oldState, _defineProperty({}, action.photo.id, action.photo));
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState, _defineProperty({}, action.photo.id, action.photo));
 
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_PHOTO"]:
-      var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_1___default()({}, oldState);
+      var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState);
       delete newState[action.photoId];
       return newState;
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_USER"]:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, action.photos);
 
     default:
       return oldState;
@@ -2954,9 +2966,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/photo_actions */ "./frontend/actions/photo_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2969,14 +2983,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       {
-        var newState = Object.assign({}, state);
-        return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, newState, _defineProperty({}, action.user.id, action.user));
+        var _newState = Object.assign({}, state);
+
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, _newState, _defineProperty({}, action.user.id, action.user));
       }
 
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_PHOTOS"]:
       {
-        return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, action.users);
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, action.users);
       }
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_USER"]:
+      var newState = Object.assign({}, state);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, newState, _defineProperty({}, action.user.id, action.user));
 
     default:
       {
