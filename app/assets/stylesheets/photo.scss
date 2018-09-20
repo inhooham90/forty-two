@@ -92,15 +92,27 @@
 }
 
 .preview {
-  height: auto;
-  width: 80%;
-  background-color: #f7f9fc;
+  min-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  background-color: #eeeeee;
+  border-bottom-left-radius: 3px;
+  border-top-left-radius: 3px;
+  border-right: 1px solid #e7e7e7;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .preview > img {
-  width: 90%;
-  height:auto;
-  padding: 5%;
+  display: inline;
+  position: relative;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .cancel-transp {
@@ -120,12 +132,12 @@
 }
 
 .index-items {
-  width: 30%;
+  width: 60%;
   min-width: 480px;
   display: flex;
   flex-direction: column;
-  margin-top: 3%;
-  padding-bottom: 3%;
+  margin-top: 2%;
+  padding-bottom: 1%;
   font-family: sans-serif;
 }
 
@@ -140,11 +152,14 @@
 
 .index-item-info {
   color: #525558;
-  background-color: Transparent;
   font-size: 14px;
   padding: 3%;
   display: flex;
   align-items: center;
+  background-color: white;
+  border-left: 1px solid rgba(185,193,199,0.5);
+  border-right: 1px solid rgba(185,193,199,0.5);
+  border-top: 1px solid rgba(185,193,199,0.5);
 }
 
 .index-item-info > li {
@@ -162,11 +177,9 @@
   border-left: 1px solid rgba(185,193,199,0.5);
   border-right: 1px solid rgba(185,193,199,0.5);
   border-bottom: 1px solid rgba(185,193,199,0.5);
-  width: 99.69%;
-  height: 99.9%;
   color: #525558;
-  text-align: center;
-  padding: 3% 0 3% 0;
+  text-align: left;
+  padding: 3% 0 3% 2%;
   font-size: 22px;
   border-bottom-right-radius: 2px;
   border-bottom-left-radius: 2px;

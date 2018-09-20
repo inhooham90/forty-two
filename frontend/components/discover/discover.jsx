@@ -16,10 +16,6 @@ class Discover extends React.Component {
     this.props.fetchPhotos();
   }
 
-  componentWillUnmount() {
-    this.props.fetchPhotos();
-  }
-
   handleClick(e) {
     e.preventDefault();
     this.props.logout();
@@ -51,6 +47,44 @@ class Discover extends React.Component {
           fetchUser={this.props.fetchUser}/>
       );
     });
+    let discoverButton;
+    if (this.props.currentUserId){
+      discoverButton = (
+        <ul className="header-drop-down">
+        <li
+          onMouseEnter={this.openProfile}
+          onMouseLeave={this.closeProfile}>
+          <ul className='drop-down-child'>
+                      <img className='profile-mini' src={window.defaultProfileURL}/>
+                    <li>
+                      <ul
+                        onMouseEnter={this.openProfile}
+                        onMouseLeave={this.closeProfile}
+                        className={toggle}>
+                        <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
+                        <li>test2</li>
+                        <li onClick={this.handleClick}>Log out</li>
+                      </ul>
+                    </li>
+          </ul>
+        </li>
+        <li className='upload-button' onClick={() => this.props.openModal('upload')}>
+          <img className='upload-arrow' src={window.uploadArrow}/>Upload
+        </li>
+
+      </ul>)
+    } else {
+      discoverButton = (
+        <ul className="header-drop-down">
+          <li>
+            <Link className='blank-buttonb' to='/login'>Log In</Link>
+          </li>
+          <li>
+            <Link className='color-buttons' to='/signup'>Sign Up</Link>
+          </li>
+        </ul>)
+    }
+
 
       return (
         <div>
@@ -63,29 +97,7 @@ class Discover extends React.Component {
                 <li><Link to='/about'>About</Link></li>
               </ul>
 
-              <ul className="header-drop-down">
-                <li
-                  onMouseEnter={this.openProfile}
-                  onMouseLeave={this.closeProfile}>
-                  <ul className='drop-down-child'>
-                              <img className='profile-mini' src={window.defaultProfileURL}/>
-                            <li>
-                              <ul
-                                onMouseEnter={this.openProfile}
-                                onMouseLeave={this.closeProfile}
-                                className={toggle}>
-                                <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
-                                <li>test2</li>
-                                <li onClick={this.handleClick}>Log out</li>
-                              </ul>
-                            </li>
-                  </ul>
-                </li>
-                <li className='upload-button' onClick={() => this.props.openModal('upload')}>
-                  <img className='upload-arrow' src={window.uploadArrow}/>Upload
-                </li>
-
-              </ul>
+              {discoverButton}
             </nav>
           </header>
           <div>

@@ -19,6 +19,12 @@ export default class Profile extends React.Component {
     this.props.fetchUser(this.props.userId)
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.userId !== this.props.userId) {
+      this.props.fetchUser(this.props.userId)
+    }
+  }
+
   handleClick(e) {
     e.preventDefault();
     this.props.logout();

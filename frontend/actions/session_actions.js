@@ -6,7 +6,7 @@ export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 
 
-function receiveCurrentUser(user) {
+function receiveCurrentUser({user}) {
   return {
     type: RECEIVE_CURRENT_USER,
     user

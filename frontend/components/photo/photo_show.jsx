@@ -104,8 +104,8 @@ export default class PhotoShow extends React.Component {
                 {editButton}
               <li>
                 <p className='show-artist'>
-                  <Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.artist.profile_url}`} /></Link>
-                  <Link style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
+                  <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.artist.profile_url}`} /></Link>
+                  <Link onClick={this.props.closeModal} style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
                 </p>
                 <p className='show-title'>
                   {this.props.photo.title}

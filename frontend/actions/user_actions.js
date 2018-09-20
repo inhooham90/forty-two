@@ -10,8 +10,20 @@ export const fetchUser = id => {
   };
 };
 
+
+
 export const receiveUser = payload => ({
   type: RECEIVE_USER,
   user: payload.user,
   photos: payload.photos
+});
+
+export const receiveFollow = followInfo => ({
+  type: RECEIVE_FOLLOW,
+  followInfo
+});
+
+export const receiveUnfollow = followInfo => ({
+  type: RECEIVE_UNFOLLOW,
+  followInfo
 });

@@ -253,7 +253,8 @@ var LOG_OUT_CURRENT_USER = 'LOG_OUT_CURRENT_USER';
 var RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 var RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 
-function receiveCurrentUser(user) {
+function receiveCurrentUser(_ref) {
+  var user = _ref.user;
   return {
     type: RECEIVE_CURRENT_USER,
     user: user
@@ -310,7 +311,7 @@ var signup = function signup(user) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_USER, fetchUser, receiveUser */
+/*! exports provided: RECEIVE_USER, fetchUser, receiveUser, receiveFollow, receiveUnfollow */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -318,6 +319,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveFollow", function() { return receiveFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUnfollow", function() { return receiveUnfollow; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_USER = "RECEIVE_USER";
@@ -333,6 +336,18 @@ var receiveUser = function receiveUser(payload) {
     type: RECEIVE_USER,
     user: payload.user,
     photos: payload.photos
+  };
+};
+var receiveFollow = function receiveFollow(followInfo) {
+  return {
+    type: RECEIVE_FOLLOW,
+    followInfo: followInfo
+  };
+};
+var receiveUnfollow = function receiveUnfollow(followInfo) {
+  return {
+    type: RECEIVE_UNFOLLOW,
+    followInfo: followInfo
   };
 };
 
@@ -462,11 +477,6 @@ function (_React$Component) {
       this.props.fetchPhotos();
     }
   }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this.props.fetchPhotos();
-    }
-  }, {
     key: "handleClick",
     value: function handleClick(e) {
       e.preventDefault();
@@ -510,6 +520,48 @@ function (_React$Component) {
           fetchUser: _this2.props.fetchUser
         });
       });
+      var discoverButton;
+
+      if (this.props.currentUserId) {
+        discoverButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "header-drop-down"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onMouseEnter: this.openProfile,
+          onMouseLeave: this.closeProfile
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "drop-down-child"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "profile-mini",
+          src: window.defaultProfileURL
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          onMouseEnter: this.openProfile,
+          onMouseLeave: this.closeProfile,
+          className: toggle
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          to: "/profile/".concat(this.props.currentUserId)
+        }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          onClick: this.handleClick
+        }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+          className: "upload-button",
+          onClick: function onClick() {
+            return _this2.props.openModal('upload');
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "upload-arrow",
+          src: window.uploadArrow
+        }), "Upload"));
+      } else {
+        discoverButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "header-drop-down"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "blank-buttonb",
+          to: "/login"
+        }, "Log In")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+          className: "color-buttons",
+          to: "/signup"
+        }, "Sign Up")));
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -526,33 +578,7 @@ function (_React$Component) {
         to: "/discover"
       }, "Discover")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/about"
-      }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "header-drop-down"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onMouseEnter: this.openProfile,
-        onMouseLeave: this.closeProfile
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "drop-down-child"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "profile-mini",
-        src: window.defaultProfileURL
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        onMouseEnter: this.openProfile,
-        onMouseLeave: this.closeProfile,
-        className: toggle
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/profile/".concat(this.props.currentUserId)
-      }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: this.handleClick
-      }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        className: "upload-button",
-        onClick: function onClick() {
-          return _this2.props.openModal('upload');
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "upload-arrow",
-        src: window.uploadArrow
-      }), "Upload")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, "About"))), discoverButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "profile-images"
       }, discoverItems)));
     }
@@ -1564,11 +1590,13 @@ function (_React$Component) {
         }, editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-artist"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+          onClick: this.props.closeModal,
           to: "/profile/".concat(this.props.photo.artist_id)
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "profile-index",
           src: "".concat(this.props.artist.profile_url)
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+          onClick: this.props.closeModal,
           style: {
             "paddingLeft": "10px"
           },
@@ -1784,6 +1812,13 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchUser(this.props.userId);
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.userId !== this.props.userId) {
+        this.props.fetchUser(this.props.userId);
+      }
     }
   }, {
     key: "handleClick",
@@ -3022,6 +3057,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_USER"]:
       var newState = Object.assign({}, state);
       return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, newState, _defineProperty({}, action.user.id, action.user));
+    // case RECEIVE_FOLLOW:
+    //   return
+    // case RECEIVE_UNFOLLOW:
+    //   return
 
     default:
       {
@@ -3235,18 +3274,52 @@ var signup = function signup(user) {
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchUser */
+/*! exports provided: fetchUser, deleteFollow, followUser, unfollowUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFollow", function() { return deleteFollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
 var fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'GET',
     url: "/api/users/".concat(id)
   });
 };
+var deleteFollow = function deleteFollow(followId) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "api/photos/".concat(followId)
+  });
+};
+var followUser = function followUser(currentUserId, id) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "/api/users/".concat(currentUserId, "/follows")
+  });
+};
+var unfollowUser = function unfollowUser(currentUserId, id) {
+  return $.ajax({
+    method: 'DELETE',
+    url: "/api/users/".concat(currentUserId, "/follows/").concat(id)
+  });
+}; //
+// export const fetchUserFollowers = user => (
+//   $.ajax({
+//     method: 'GET',
+//     url: `api/users/${user.id}/followers`,
+//   })
+// );
+//
+// export const fetchUserFollowing = user => (
+//   $.ajax({
+//     method: 'GET',
+//     url: `api/users/${user.id}/following`,
+//   })
+// );
 
 /***/ }),
 
