@@ -841,8 +841,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../photo/upload_form_container */ "./frontend/components/photo/upload_form_container.jsx");
 /* harmony import */ var _photo_photo_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../photo/photo_show_container */ "./frontend/components/photo/photo_show_container.jsx");
-/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../profile/profile_pic_upload_container */ "./frontend/components/profile/profile_pic_upload_container.jsx");
-/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../profile/profile_pic_upload_container */ "./frontend/components/profile/profile_pic_upload_container.jsx");
+/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
@@ -870,7 +870,7 @@ function Modal(_ref) {
       break;
 
     case 'profile-upload':
-      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_6___default.a, null);
+      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5___default.a, null);
 
     default:
       return null;
