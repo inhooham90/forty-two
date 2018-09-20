@@ -8,7 +8,7 @@ export default class DiscoverItem extends React.Component {
 
   render() {
     return (
-      <li onClick={() => this.props.openModalShow(this.props.photo)}>
+      <li onClick={() => this.props.openModalShow(this.props.photo.id)}>
         <img src={`${this.props.photo.img_url}`}/>
       </li>
     );

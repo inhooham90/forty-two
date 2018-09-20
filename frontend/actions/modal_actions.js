@@ -9,11 +9,11 @@ export const openModal = modal => {
   };
 };
 
-export const openModalShow = photo => {
+export const openModalShow = photoId => {
   return {
     type: OPEN_MODAL_SHOW,
     modal: 'photo',
-    photo
+    photoId
   }
 }
 

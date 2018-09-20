@@ -9,7 +9,8 @@ const mapStateToProps = state => {
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors.upload,
-    photo: state.ui.photoShow
+    photo: state.entities.photos[state.ui.photoShow],
+    artist: state.entities.users[state.entities.photos[state.ui.photoShow].artist_id]
   };
 };
 

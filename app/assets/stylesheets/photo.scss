@@ -190,6 +190,10 @@
   font-weight: bold;
 }
 
+.upload-form-button:hover {
+  cursor: pointer;
+}
+
 .profile-index {
   overflow: hidden;
   height: 35px;
@@ -220,4 +224,21 @@
 
 .photo-index-wrap {
   height: 100vh;
+}
+
+.time-posted-index {
+  color: #b9c1c7;
+  font-size: 12px;
+  font-family: sans-serif;
+  padding-top: 2px;
+}
+
+.show-artist {
+  a {
+    text-decoration: none;
+    color: #525558;
+  }
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
 }

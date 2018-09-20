@@ -3,11 +3,11 @@ import Dropzone from 'react-dropzone';
 import request from 'superagent';
 import { connect } from 'react-redux';
 import { receivePhoto } from '../../actions/photo_actions';
+import { Link } from 'react-router-dom';
 
 export default class PhotoShow extends React.Component {
   constructor(props) {
     super(props);
-    // debugger
     this.state = {
       title: this.props.photo.title,
       description: this.props.photo.description,
@@ -29,9 +29,6 @@ export default class PhotoShow extends React.Component {
       this.setState({edit: false})
     }
   }
-  // componentWillMount() {
-  //   this.props.fetchPhoto(this.props.photo.id)
-  // }
 
   handleSubmitSuccess(e) {
     e.preventDefault();
@@ -57,7 +54,6 @@ export default class PhotoShow extends React.Component {
   }
 
   render() {
-    debugger
     let errors;
     if (this.props.errors) {
       errors = (
@@ -76,7 +72,6 @@ export default class PhotoShow extends React.Component {
       handleSubmit = this.handleSubmitSuccess;
     }
     let editButton;
-    // debugger
     if (this.props.currentUserId === this.props.photo.artist_id) {
       editButton =
         <li>
@@ -108,18 +103,19 @@ export default class PhotoShow extends React.Component {
             <ul className='upload-form-list'>
                 {editButton}
               <li>
+                <p className='show-artist'>
+                  <Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.artist.profile_url}`} /></Link>
+                  <Link style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
+                </p>
                 <p className='show-title'>
                   {this.props.photo.title}
                 </p>
                 <p className='show-uploaded'>
-                  {this.props.photo.created_at}
+                  Uploaded {this.props.photo.time_posted} ago
                 </p>
                 <p className='show-description'>
                   {this.props.photo.description}
                 </p>
-              </li>
-              <li>
-                {deleteButton}
               </li>
             </ul>
           </div>
@@ -137,6 +133,9 @@ export default class PhotoShow extends React.Component {
                 <button className='upload-form-button' onClick={handleSubmit}>Submit</button>
               </li>
               <li>
+                <button onClick={this.toggleEdit} className='upload-form-button' style={{"backgroundColor": "#ef5656"}}>Cancel</button>
+              </li>
+              <li>
                 <label><p>Title</p>
                   <input
                     type="text"
@@ -151,8 +150,9 @@ export default class PhotoShow extends React.Component {
                     onChange={this.update('description')} />
                 </label>
               </li>
+
               <li>
-                <button onClick={this.toggleEdit} className='upload-form-button' style={{"backgroundColor": "#ef5656"}}>Cancel</button>
+                {deleteButton}
               </li>
               <li>
                 {errors}

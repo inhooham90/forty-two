@@ -12,10 +12,16 @@ class PhotoIndexItem extends React.Component {
 
       <li className='index-items'>
         <ul className='index-item-info'>
-          <li><img className='profile-index' src={`${this.props.user.profile_url}`} /></li>
-          <li><Link to={`/profile/${this.props.photo.artist_id}`}>{this.props.user.name}</Link></li>
+          <li><Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.user.profile_url}`} /></Link></li>
+          <li>
+            <Link to={`/profile/${this.props.photo.artist_id}`}>{this.props.user.name}<br/>
+              <p className='time-posted-index'>
+                Uploaded {this.props.photo.time_posted} ago
+              </p>
+            </Link>
+          </li>
         </ul>
-        <img onClick={() => this.props.openModalShow(this.props.photo)} src={`${this.props.photo.img_url}`} />
+        <img onClick={() => this.props.openModalShow(this.props.photo.id)} src={`${this.props.photo.img_url}`} />
         <p className='index-item-info2'>
           {this.props.photo.title}
         </p>

@@ -64,7 +64,39 @@
   flex-direction: column;
 }
 
+.profile-name {
+  font-size: 24px;
+  font-family: sans-serif;
+}
+
+.profile-username {
+  font-size: 18px;
+  font-family: sans-serif;
+}
+
 .profile-top > li {
   align-items: center;
   color: #525558;
+  padding: 5px;
+
+  p {
+    color: #b9c1c7;
+    font-size: 14px;
+    font-family: sans-serif;
+  }
+}
+
+.button-follow {
+  background-color: #0099E6;
+  border-color: #0099E6;
+  border-radius: 3px;
+  width: 100px;
+  height: 30px;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.button-follow:hover {
+  cursor: pointer;
 }

@@ -44,7 +44,6 @@ export default class Profile extends React.Component {
       return <div></div>
     }
     const photoitems = this.props.photos.map((photo, key) => {
-      debugger
       return (
         <ProfileItem
           photo={photo}
@@ -53,7 +52,12 @@ export default class Profile extends React.Component {
           />
       );
     });
-
+    let followButton;
+    if (!this.props.user.followers.includes(this.props.currentUserId)) {
+      followButton = 'Follow';
+    } else {
+      followButton = 'Unfollow';
+    }
     return (
       <div>
         <header className="header">
@@ -97,10 +101,22 @@ export default class Profile extends React.Component {
               <img className='profile-original' src={this.props.user.profile_url}/>
             </li>
             <li>
-              <h2>{this.props.user.name}</h2>
+              <section className='profile-name'>
+                {this.props.user.name}
+              </section>
             </li>
             <li>
-              <h3>{this.props.user.username}</h3><br/>
+              <section className='profile-username'>
+                {this.props.user.username}
+              </section>
+            </li>
+            <li>
+              <p>
+                {this.props.user.followers.length} Followers {this.props.user.following.length} Following
+              </p>
+            </li>
+            <li>
+              <button className='button-follow'>{followButton}</button>
             </li>
           </ul>
         </div>

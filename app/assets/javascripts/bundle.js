@@ -110,11 +110,11 @@ var openModal = function openModal(modal) {
     modal: modal
   };
 };
-var openModalShow = function openModalShow(photo) {
+var openModalShow = function openModalShow(photoId) {
   return {
     type: OPEN_MODAL_SHOW,
     modal: 'photo',
-    photo: photo
+    photoId: photoId
   };
 };
 var closeModal = function closeModal() {
@@ -684,7 +684,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: function onClick() {
-          return _this.props.openModalShow(_this.props.photo);
+          return _this.props.openModalShow(_this.props.photo.id);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "".concat(this.props.photo.img_url)
@@ -1366,14 +1366,18 @@ function (_React$Component) {
         className: "index-items"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "index-item-info"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+        to: "/profile/".concat(this.props.photo.artist_id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-index",
         src: "".concat(this.props.user.profile_url)
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
         to: "/profile/".concat(this.props.photo.artist_id)
-      }, this.props.user.name))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, this.props.user.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "time-posted-index"
+      }, "Uploaded ", this.props.photo.time_posted, " ago")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         onClick: function onClick() {
-          return _this.props.openModalShow(_this.props.photo);
+          return _this.props.openModalShow(_this.props.photo.id);
         },
         src: "".concat(this.props.photo.img_url)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1406,6 +1410,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var superagent__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(superagent__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1432,6 +1437,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 
 
 
+
 var PhotoShow =
 /*#__PURE__*/
 function (_React$Component) {
@@ -1442,8 +1448,7 @@ function (_React$Component) {
 
     _classCallCheck(this, PhotoShow);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PhotoShow).call(this, props)); // debugger
-
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(PhotoShow).call(this, props));
     _this.state = {
       title: _this.props.photo.title,
       description: _this.props.photo.description,
@@ -1471,10 +1476,7 @@ function (_React$Component) {
           edit: false
         });
       }
-    } // componentWillMount() {
-    //   this.props.fetchPhoto(this.props.photo.id)
-    // }
-
+    }
   }, {
     key: "handleSubmitSuccess",
     value: function handleSubmitSuccess(e) {
@@ -1507,7 +1509,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       var errors;
 
       if (this.props.errors) {
@@ -1526,7 +1527,7 @@ function (_React$Component) {
         handleSubmit = this.handleSubmitSuccess;
       }
 
-      var editButton; // debugger
+      var editButton;
 
       if (this.props.currentUserId === this.props.photo.artist_id) {
         editButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
@@ -1561,12 +1562,24 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "upload-form-list"
         }, editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "show-artist"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+          to: "/profile/".concat(this.props.photo.artist_id)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "profile-index",
+          src: "".concat(this.props.artist.profile_url)
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+          style: {
+            "paddingLeft": "10px"
+          },
+          to: "/profile/".concat(this.props.photo.artist_id)
+        }, this.props.artist.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-title"
         }, this.props.photo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-uploaded"
-        }, this.props.photo.created_at), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, "Uploaded ", this.props.photo.time_posted, " ago"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-description"
-        }, this.props.photo.description)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, deleteButton))));
+        }, this.props.photo.description)))));
       } else {
         content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           className: "dropzone-form"
@@ -1581,20 +1594,20 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           className: "upload-form-button",
           onClick: handleSubmit
-        }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        }, "Submit")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          onClick: this.toggleEdit,
+          className: "upload-form-button",
+          style: {
+            "backgroundColor": "#ef5656"
+          }
+        }, "Cancel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Title"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "text",
           value: this.state.title,
           onChange: this.update('title')
         }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Description"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
           value: this.state.description,
           onChange: this.update('description')
-        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: this.toggleEdit,
-          className: "upload-form-button",
-          style: {
-            "backgroundColor": "#ef5656"
-          }
-        }, "Cancel")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, errors))));
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, deleteButton), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, errors))));
       }
 
       return content;
@@ -1633,7 +1646,8 @@ var mapStateToProps = function mapStateToProps(state) {
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors.upload,
-    photo: state.ui.photoShow
+    photo: state.entities.photos[state.ui.photoShow],
+    artist: state.entities.users[state.entities.photos[state.ui.photoShow].artist_id]
   };
 };
 
@@ -1811,13 +1825,20 @@ function (_React$Component) {
       }
 
       var photoitems = this.props.photos.map(function (photo, key) {
-        debugger;
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_items__WEBPACK_IMPORTED_MODULE_2__["default"], {
           photo: photo,
           key: key,
           openModalShow: _this2.props.openModalShow
         });
       });
+      var followButton;
+
+      if (!this.props.user.followers.includes(this.props.currentUserId)) {
+        followButton = 'Follow';
+      } else {
+        followButton = 'Unfollow';
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -1865,7 +1886,13 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-original",
         src: this.props.user.profile_url
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, this.props.user.username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "profile-name"
+      }, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+        className: "profile-username"
+      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, " Followers ", this.props.user.following.length, " Following")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button-follow"
+      }, followButton)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "profile-images"
       }, photoitems)));
     }
@@ -1985,7 +2012,7 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: function onClick() {
-          return _this.props.openModalShow(_this.props.photo);
+          return _this.props.openModalShow(_this.props.photo.id);
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "".concat(this.props.photo.img_url)
@@ -2757,10 +2784,10 @@ function photoShowReducer() {
 
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_SHOW"]:
-      return action.photo;
+      return action.photoId;
 
     default:
-      return null;
+      return state;
   }
 }
 
@@ -2792,7 +2819,6 @@ var PhotosReducer = function PhotosReducer() {
 
   switch (action.type) {
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_PHOTOS"]:
-      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, action.photos);
 
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_PHOTO"]:
@@ -2945,7 +2971,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _photo_show_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photo_show_reducer */ "./frontend/reducers/photo_show_reducer.js");
 
 
- // import profile from './user_reducer';
+ // import profile from './profile_show_reducer';
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
