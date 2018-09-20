@@ -7,7 +7,11 @@ import {
 } from '../../actions/photo_actions';
 import { fetchUser } from '../../actions/user_actions';
 import { logout } from '../../actions/session_actions';
-import { openModal, openModalShow } from '../../actions/modal_actions';
+import {
+  openModal,
+  openModalShow,
+  openModalProfile
+} from '../../actions/modal_actions';
 
 
 const mapStateToProps = (state, ownProps) => {
@@ -24,7 +28,8 @@ const mapDispatchToProps = (dispatch) => ({
   fetchUser: id => dispatch(fetchUser(id)),
   logout: () => dispatch(logout()),
   openModal: modal => dispatch(openModal(modal)),
-  openModalShow: photoId => dispatch(openModalShow(photoId))
+  openModalShow: photoId => dispatch(openModalShow(photoId)),
+  openModalProfile: userId => dispatch(openModalProfile(userId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Profile);

@@ -5,6 +5,14 @@ export const fetchUser = id => {
   });
 }
 
+export const updateUser = user => {
+  return $.ajax({
+    method: 'PATCH',
+    url: `api/users/${user.id}`,
+    data: {user}
+  });
+};
+
 export const deleteFollow = followId => {
   return $.ajax({
     method: 'DELETE',
@@ -12,30 +20,30 @@ export const deleteFollow = followId => {
   });
 };
 
-export const followUser = (currentUserId, id) => (
+export const followUser = userToFollow => (
   $.ajax({
     method: 'PATCH',
-    url: `/api/users/${currentUserId}/follows`,
+    url: `api/users/${userToFollow.id}/follow`,
   })
 );
 
-export const unfollowUser = (currentUserId, id) => (
+export const unfollowUser = userToUnfollow => (
   $.ajax({
     method: 'DELETE',
-    url: `/api/users/${currentUserId}/follows/${id}`
+    url: `api/users/${userToUnfollow.id}/unfollow`
   })
 );
-//
-// export const fetchUserFollowers = user => (
-//   $.ajax({
-//     method: 'GET',
-//     url: `api/users/${user.id}/followers`,
-//   })
-// );
-//
-// export const fetchUserFollowing = user => (
-//   $.ajax({
-//     method: 'GET',
-//     url: `api/users/${user.id}/following`,
-//   })
-// );
+
+export const fetchUserFollowers = user => (
+  $.ajax({
+    method: 'GET',
+    url: `api/users/${user.id}/followers`,
+  })
+);
+
+export const fetchUserFollowing = user => (
+  $.ajax({
+    method: 'GET',
+    url: `api/users/${user.id}/following`,
+  })
+);

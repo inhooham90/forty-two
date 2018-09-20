@@ -3,7 +3,7 @@ import { closeModal } from '../../actions/modal_actions';
 import { connect } from 'react-redux';
 import PhotoUploadContainer from '../photo/upload_form_container';
 import PhotoShowContainer from '../photo/photo_show_container';
-import ProfilePicUpload from '../profile/profile_pic_upload_container';
+// import ProfileUpdateContainer from '../profile/profile_update_container';
 
 function Modal({ modal, closeModal}) {
   if (!modal) {
@@ -18,11 +18,13 @@ function Modal({ modal, closeModal}) {
       component = <PhotoShowContainer />;
       break;
 
-    case 'profile-upload':
-      component = <ProfilePicUpload />;
+    // case 'profile':
+    //   component = <ProfileUpdateContainer />;
+    //   break;
     default:
       return null;
   }
+
   return (
     <div className="modal-background" onClick={closeModal}>
       <div className="modal-child" onClick={e => e.stopPropagation()}>

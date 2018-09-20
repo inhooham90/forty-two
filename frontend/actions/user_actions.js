@@ -10,20 +10,30 @@ export const fetchUser = id => {
   };
 };
 
-
-
 export const receiveUser = payload => ({
   type: RECEIVE_USER,
   user: payload.user,
   photos: payload.photos
 });
 
-export const receiveFollow = followInfo => ({
-  type: RECEIVE_FOLLOW,
-  followInfo
-});
+export const followUser = user => dispatch => (
+  UserApiUtil
+    .followUser(user)
+    .then(payload => dispatch(receiveFollow(payload)))
+);
 
-export const receiveUnfollow = followInfo => ({
-  type: RECEIVE_UNFOLLOW,
-  followInfo
-});
+export const unfollowUser = user => dispatch => (
+  UserApiUtil
+    .unfollowUser(user)
+    .then(payload => dispatch(receiveUnfollow(payload)))
+);
+
+// export const receiveFollowers =
+
+export const updateUser = user => {
+  return dispatch => {
+    return UserApiUtil.updateUser(user).then(payload => {
+      return dispatch(receiveUser(payload));
+    });
+  };
+};

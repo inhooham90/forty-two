@@ -3,8 +3,6 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :users, only: [:create, :show, :update] do
       member do
-        get :followers
-        get :following
         patch :follow
         delete :unfollow
       end

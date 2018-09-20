@@ -90,7 +90,7 @@
 /*!*******************************************!*\
   !*** ./frontend/actions/modal_actions.js ***!
   \*******************************************/
-/*! exports provided: OPEN_MODAL, CLOSE_MODAL, OPEN_MODAL_SHOW, openModal, openModalShow, closeModal */
+/*! exports provided: OPEN_MODAL, CLOSE_MODAL, OPEN_MODAL_SHOW, OPEN_MODAL_PROFILE, openModal, openModalShow, openModalProfile, closeModal */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,12 +98,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL", function() { return OPEN_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CLOSE_MODAL", function() { return CLOSE_MODAL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL_SHOW", function() { return OPEN_MODAL_SHOW; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "OPEN_MODAL_PROFILE", function() { return OPEN_MODAL_PROFILE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModal", function() { return openModal; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModalShow", function() { return openModalShow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "openModalProfile", function() { return openModalProfile; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "closeModal", function() { return closeModal; });
 var OPEN_MODAL = 'OPEN_MODAL';
 var CLOSE_MODAL = 'CLOSE_MODAL';
 var OPEN_MODAL_SHOW = 'OPEN_MODAL_SHOW';
+var OPEN_MODAL_PROFILE = 'OPEN_MODAL_PROFILE';
 var openModal = function openModal(modal) {
   return {
     type: OPEN_MODAL,
@@ -115,6 +118,13 @@ var openModalShow = function openModalShow(photoId) {
     type: OPEN_MODAL_SHOW,
     modal: 'photo',
     photoId: photoId
+  };
+};
+var openModalProfile = function openModalProfile(userId) {
+  return {
+    type: OPEN_MODAL_PROFILE,
+    modal: 'profile',
+    userId: userId
   };
 };
 var closeModal = function closeModal() {
@@ -311,7 +321,7 @@ var signup = function signup(user) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_USER, fetchUser, receiveUser, receiveFollow, receiveUnfollow */
+/*! exports provided: RECEIVE_USER, fetchUser, receiveUser, followUser, unfollowUser, updateUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -319,8 +329,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveFollow", function() { return receiveFollow; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUnfollow", function() { return receiveUnfollow; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_USER = "RECEIVE_USER";
@@ -338,16 +349,26 @@ var receiveUser = function receiveUser(payload) {
     photos: payload.photos
   };
 };
-var receiveFollow = function receiveFollow(followInfo) {
-  return {
-    type: RECEIVE_FOLLOW,
-    followInfo: followInfo
+var followUser = function followUser(user) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["followUser"](user).then(function (payload) {
+      return dispatch(receiveFollow(payload));
+    });
   };
 };
-var receiveUnfollow = function receiveUnfollow(followInfo) {
-  return {
-    type: RECEIVE_UNFOLLOW,
-    followInfo: followInfo
+var unfollowUser = function unfollowUser(user) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["unfollowUser"](user).then(function (payload) {
+      return dispatch(receiveUnfollow(payload));
+    });
+  };
+}; // export const receiveFollowers =
+
+var updateUser = function updateUser(user) {
+  return function (dispatch) {
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["updateUser"](user).then(function (payload) {
+      return dispatch(receiveUser(payload));
+    });
   };
 };
 
@@ -869,14 +890,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _photo_upload_form_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../photo/upload_form_container */ "./frontend/components/photo/upload_form_container.jsx");
 /* harmony import */ var _photo_photo_show_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../photo/photo_show_container */ "./frontend/components/photo/photo_show_container.jsx");
-/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../profile/profile_pic_upload_container */ "./frontend/components/profile/profile_pic_upload_container.jsx");
-/* harmony import */ var _profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5__);
 
 
 
 
-
-
+ // import ProfileUpdateContainer from '../profile/profile_update_container';
 
 function Modal(_ref) {
   var modal = _ref.modal,
@@ -896,9 +914,9 @@ function Modal(_ref) {
     case 'photo':
       component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_photo_photo_show_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
       break;
-
-    case 'profile-upload':
-      component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_profile_pic_upload_container__WEBPACK_IMPORTED_MODULE_5___default.a, null);
+    // case 'profile':
+    //   component = <ProfileUpdateContainer />;
+    //   break;
 
     default:
       return null;
@@ -1874,6 +1892,18 @@ function (_React$Component) {
         followButton = 'Unfollow';
       }
 
+      var profileUpdate; // debugger
+
+      if (this.props.currentUserId === parseInt(this.props.userId)) {
+        profileUpdate = function profileUpdate() {
+          return _this2.props.openModalProfile(parseInt(_this2.props.userId));
+        };
+      } else {
+        profileUpdate = function profileUpdate() {
+          return console.log('nice try HACKER!');
+        };
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -1906,7 +1936,7 @@ function (_React$Component) {
         className: toggle
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.currentUserId)
-      }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: this.handleClick
       }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "upload-button",
@@ -1934,7 +1964,9 @@ function (_React$Component) {
   }]);
 
   return Profile;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component); //line115 profile update modal
+// this.props.currentUserId === this.props.userId
+
 
 
 
@@ -1985,6 +2017,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     openModalShow: function openModalShow(photoId) {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModalShow"])(photoId));
+    },
+    openModalProfile: function openModalProfile(userId) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModalProfile"])(userId));
     }
   };
 };
@@ -2057,17 +2092,6 @@ function (_React$Component) {
 
   return ProfileItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-
-
-/***/ }),
-
-/***/ "./frontend/components/profile/profile_pic_upload_container.jsx":
-/*!**********************************************************************!*\
-  !*** ./frontend/components/profile/profile_pic_upload_container.jsx ***!
-  \**********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
 
 
 
@@ -2750,6 +2774,9 @@ function modalReducer() {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_SHOW"]:
       return action.modal;
 
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL_PROFILE"]:
+      return action.modal;
+
     default:
       return state;
   }
@@ -3274,19 +3301,31 @@ var signup = function signup(user) {
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchUser, deleteFollow, followUser, unfollowUser */
+/*! exports provided: fetchUser, updateUser, deleteFollow, followUser, unfollowUser, fetchUserFollowers, fetchUserFollowing */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFollow", function() { return deleteFollow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserFollowers", function() { return fetchUserFollowers; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserFollowing", function() { return fetchUserFollowing; });
 var fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'GET',
     url: "/api/users/".concat(id)
+  });
+};
+var updateUser = function updateUser(user) {
+  return $.ajax({
+    method: 'PATCH',
+    url: "api/users/".concat(user.id),
+    data: {
+      user: user
+    }
   });
 };
 var deleteFollow = function deleteFollow(followId) {
@@ -3295,31 +3334,30 @@ var deleteFollow = function deleteFollow(followId) {
     url: "api/photos/".concat(followId)
   });
 };
-var followUser = function followUser(currentUserId, id) {
+var followUser = function followUser(userToFollow) {
   return $.ajax({
     method: 'PATCH',
-    url: "/api/users/".concat(currentUserId, "/follows")
+    url: "api/users/".concat(userToFollow.id, "/follow")
   });
 };
-var unfollowUser = function unfollowUser(currentUserId, id) {
+var unfollowUser = function unfollowUser(userToUnfollow) {
   return $.ajax({
     method: 'DELETE',
-    url: "/api/users/".concat(currentUserId, "/follows/").concat(id)
+    url: "api/users/".concat(userToUnfollow.id, "/unfollow")
   });
-}; //
-// export const fetchUserFollowers = user => (
-//   $.ajax({
-//     method: 'GET',
-//     url: `api/users/${user.id}/followers`,
-//   })
-// );
-//
-// export const fetchUserFollowing = user => (
-//   $.ajax({
-//     method: 'GET',
-//     url: `api/users/${user.id}/following`,
-//   })
-// );
+};
+var fetchUserFollowers = function fetchUserFollowers(user) {
+  return $.ajax({
+    method: 'GET',
+    url: "api/users/".concat(user.id, "/followers")
+  });
+};
+var fetchUserFollowing = function fetchUserFollowing(user) {
+  return $.ajax({
+    method: 'GET',
+    url: "api/users/".concat(user.id, "/following")
+  });
+};
 
 /***/ }),
 

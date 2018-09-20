@@ -64,6 +64,13 @@ export default class Profile extends React.Component {
     } else {
       followButton = 'Unfollow';
     }
+    let profileUpdate;
+    // debugger
+    if (this.props.currentUserId === parseInt(this.props.userId)){
+      profileUpdate = () => this.props.openModalProfile(parseInt(this.props.userId));
+    } else {
+      profileUpdate = () => console.log('nice try HACKER!');
+    }
     return (
       <div>
         <header className="header">
@@ -87,7 +94,6 @@ export default class Profile extends React.Component {
                               onMouseLeave={this.closeProfile}
                               className={toggle}>
                               <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
-                              <li>test2</li>
                               <li onClick={this.handleClick}>Log out</li>
                             </ul>
                           </li>
@@ -104,7 +110,10 @@ export default class Profile extends React.Component {
         <div>
           <ul className='profile-top'>
             <li>
-              <img className='profile-original' src={this.props.user.profile_url}/>
+              <img
+                className='profile-original'
+
+                src={this.props.user.profile_url}/>
             </li>
             <li>
               <section className='profile-name'>
@@ -136,3 +145,5 @@ export default class Profile extends React.Component {
     )
   }
 }
+//line115 profile update modal
+ // this.props.currentUserId === this.props.userId

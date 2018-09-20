@@ -13,14 +13,11 @@ export default class PhotoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: {},
-      email: {},
-      name: {},
-      profile_url: {},
-      password_digest:{},
-      session_token:{},
-      
-
+      // username: {this.props.user.username},
+      // email: {this.props.user.email},
+      // name: {this.props.user.name},
+      // profile_url: {this.props.user.profile_url},
+      // password: ''
     };
     this.handleSubmitSuccess = this.handleSubmitSuccess.bind(this);
     this.handleSubmitFail = this.handleSubmitFail.bind(this);
@@ -79,7 +76,7 @@ export default class PhotoForm extends React.Component {
     }
 
     let handleSubmit;
-    if (this.state.title.length === 0 || this.state.description.length === 0 ) {
+    if (this.state.password.length === 0 ) {
       handleSubmit = this.handleSubmitFail;
     } else {
       handleSubmit = this.handleSubmitSuccess;
@@ -118,9 +115,8 @@ export default class PhotoForm extends React.Component {
       </form>
       )
     }
-
     return (
-        content
+        <h1>Jello World</h1>
     );
   }
 }
