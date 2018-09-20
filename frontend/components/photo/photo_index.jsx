@@ -16,10 +16,6 @@ class PhotoIndex extends React.Component {
     this.props.fetchPhotos();
   }
 
-  componentWillUnmount() {
-    this.props.fetchPhotos();
-  }
-
   handleClick(e) {
     e.preventDefault();
     this.props.logout();
@@ -54,7 +50,7 @@ class PhotoIndex extends React.Component {
     });
 
       return (
-        <div>
+        <div className='photo-index-wrap'>
           <header className="header">
             <nav className="header-nav">
 

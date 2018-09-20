@@ -1,5 +1,6 @@
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
 import { RECEIVE_ALL_PHOTOS } from '../actions/photo_actions';
+import { RECEIVE_USER } from '../actions/user_actions';
 import { merge } from 'lodash';
 
 export default function(state = {}, action) {
@@ -12,6 +13,9 @@ export default function(state = {}, action) {
     case RECEIVE_ALL_PHOTOS: {
       return merge({}, action.users);
     }
+    case RECEIVE_USER:
+      const newState = Object.assign({}, state);
+      return merge({}, newState, { [action.user.id]: action.user });
     default: {
       return state;
     }

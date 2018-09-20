@@ -10,7 +10,8 @@ export const fetchUser = id => {
   };
 };
 
-export const receiveUser = user => ({
+export const receiveUser = payload => ({
   type: RECEIVE_USER,
-  user
+  user: payload.user,
+  photos: payload.photos
 });

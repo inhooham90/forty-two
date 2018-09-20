@@ -134,6 +134,10 @@
   height: auto;
 }
 
+.index-items > img:hover {
+  cursor: pointer;
+}
+
 .index-item-info {
   color: #525558;
   background-color: Transparent;
@@ -191,4 +195,29 @@
   height: 35px;
   width: 35px;
   border-radius: 25px;
+}
+
+.show-title{
+  color: #525558;
+  font-weight: normal;
+  font-size: 18px;
+  padding-bottom: 5%;
+}
+
+.show-description {
+  color: #525558;
+  font-weight: lighter;
+  font-size: 14px;
+  padding-bottom: 5%;
+}
+
+.show-uploaded {
+  color:#a8aaab;
+  font-weight: lighter;
+  font-size: 12px;
+  padding-bottom: 5%;
+}
+
+.photo-index-wrap {
+  height: 100vh;
 }
