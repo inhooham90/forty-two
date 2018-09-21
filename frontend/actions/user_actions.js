@@ -1,6 +1,8 @@
 import * as UserApiUtil from '../util/user_api_util';
 
 export const RECEIVE_USER = "RECEIVE_USER";
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';
 
 export const fetchUser = id => {
   return dispatch => {
@@ -17,23 +19,33 @@ export const receiveUser = payload => ({
 });
 
 export const followUser = user => dispatch => (
-  UserApiUtil
-    .followUser(user)
-    .then(payload => dispatch(receiveFollow(payload)))
+  UserApiUtil.followUser(user).then(payload =>
+    dispatch(receiveFollowUser(payload)))
 );
 
-export const unfollowUser = user => dispatch => (
-  UserApiUtil
-    .unfollowUser(user)
-    .then(payload => dispatch(receiveUnfollow(payload)))
-);
-
-// export const receiveFollowers =
-
-export const updateUser = user => {
-  return dispatch => {
-    return UserApiUtil.updateUser(user).then(payload => {
-      return dispatch(receiveUser(payload));
-    });
-  };
+const receiveFollowUser = follow => {
+    return {
+    type: FOLLOW_USER,
+    follow
+  }
 };
+
+export const unfollowUser = id => dispatch => (
+  UserApiUtil.unfollowUser(id).then(data =>
+    dispatch(ReceiveUnfollowUser(data)))
+);
+
+const ReceiveUnfollowUser = follow => {
+  return {
+    type: UNFOLLOW_USER,
+    follow
+}
+};
+
+// export const updateUser = user => {
+//   return dispatch => {
+//     return UserApiUtil.updateUser(user).then(payload => {
+//       return dispatch(receiveUser(payload));
+//     });
+//   };
+// };

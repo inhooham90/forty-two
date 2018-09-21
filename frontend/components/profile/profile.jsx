@@ -16,13 +16,7 @@ export default class Profile extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchUser(this.props.userId)
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.userId !== this.props.userId) {
-      this.props.fetchUser(this.props.userId)
-    }
+    this.props.fetchUser(this.props.userId);
   }
 
   handleClick(e) {
@@ -59,10 +53,13 @@ export default class Profile extends React.Component {
       );
     });
     let followButton;
+    let action;
     if (!this.props.user.followers.includes(this.props.currentUserId)) {
       followButton = 'Follow';
+      action = id => this.props.followUser(id)
     } else {
       followButton = 'Unfollow';
+      action = id => this.props.unfollowUser(id)
     }
     let profileUpdate;
     // debugger
@@ -127,11 +124,15 @@ export default class Profile extends React.Component {
             </li>
             <li>
               <p>
-                {this.props.user.followers.length} Followers {this.props.user.following.length} Following
+                {this.props.user.followers.length} Followers {this.props.user.followees.length} Following
               </p>
             </li>
             <li>
-              <button className='button-follow'>{followButton}</button>
+              <button
+                className='button-follow'
+                onClick={() => action(this.props.userId)}>
+                {followButton}
+              </button>
             </li>
           </ul>
         </div>

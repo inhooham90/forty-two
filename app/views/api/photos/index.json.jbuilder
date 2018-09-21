@@ -11,7 +11,7 @@ json.users do
     json.set! user.id do
       json.extract! user, :id, :username, :name, :profile_url, :photos
       json.followers user.followers.pluck(:id)
-      json.following user.followed_bys.pluck(:id)
+      json.followees user.followed_bys.pluck(:id)
     end
   end
 end

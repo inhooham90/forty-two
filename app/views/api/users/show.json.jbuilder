@@ -11,3 +11,5 @@ if @photos
     end
   end
 end
+
+# json.partial! '/api/follows/follow', follow: @follow

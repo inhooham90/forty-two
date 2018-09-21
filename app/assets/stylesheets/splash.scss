@@ -164,3 +164,46 @@ h4 {
   font-family: sans-serif;
   font-size: 10px;
 }
+
+.splash-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.splash-list-big {
+  width: 40%;
+  padding: 5%;
+  font-size: 18px;
+  color: #525558;
+  line-height: 1.4em;
+  font-family: sans-serif;
+  font-weight: lighter;
+
+  h2 {
+    font-weight: normal;
+    padding: 0 0 5% 0;
+  }
+}
+
+.splash-list-img {
+  width: 40%;
+  height: auto;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.splash-info-button {
+  text-decoration: none;
+  border: solid 2px #0099e5;
+  padding: 7px 15px 7px 15px;
+  color: #0099e5;
+  font-weight: normal;
+  font-size: 16px;
+  font-family: sans-serif;
+  border-radius: 18px;
+}

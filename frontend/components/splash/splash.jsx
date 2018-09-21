@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink, Link, Route } from 'react-router-dom';
 import About from '../info_pages/info_container';
+import SplashItem from './splash_item';
 
 
 class Splash extends React.Component {
@@ -13,6 +14,10 @@ class Splash extends React.Component {
     e.preventDefault();
     this.props.logout();
   }
+  // componentWillMount(){
+  //   this.props.fetchPhotos();
+  //   debugger
+  // }
 
   render() {
     const navBar =
@@ -51,8 +56,49 @@ class Splash extends React.Component {
             <h4>Discover what's trending according to photographers around the world</h4>
           </div>
         </div>
+
+        <ul className='splash-list'>
+          <li className='splash-list-img'>
+            <img  src={window.h1} />
+          </li>
+          <li className='splash-list-big'>
+            <h2>
+              Get global exposure
+            </h2>
+
+
+          <p style={{"paddingBottom":"40px"}}>
+            Imagine having your photos seen by
+            photographers like you from all over the world.
+            When you upload your photos, they’re shared with
+            42px members worldwide. Watch as your photos get
+            reactions from the community—and see if your shot makes
+            it to Popular.
+          </p>
+           <Link className='splash-info-button' to='/discover'>Discover</Link>
+          </li>
+        </ul>
+
+        <ul className='splash-list'>
+          <li className='splash-list-big'>
+            <h2>
+              Connect with photographers everywhere
+            </h2>
+            <p style={{"paddingBottom":"40px"}}>
+              You’re not just joining a network—you’re joining a
+              real community. Follow photographers to
+              get their newest photos appearing in your home feed,
+              share your thoughts by liking and commenting on photos,
+              and discuss all the details of photography in groups.
+            </p>
+            <Link className='splash-info-button' to='/signup'>Sign Up</Link>
+          </li>
+          <li className='splash-list-img'>
+            <img src={window.h2} />
+          </li>
+        </ul>
       </section>
-    )
+    );
   }
 }
 

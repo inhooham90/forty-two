@@ -7,6 +7,7 @@
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
+    <%= favicon_link_tag asset_path('px2.png'), :rel => 'icon', :type =>  'image/png' %>
 
     <script type="text/javascript">
        window.logoURL = "<%= image_url('px.png') %>"
@@ -15,6 +16,8 @@
        window.mainImgURL = "<%= image_url('main.jpg') %>"
        window.uploadArrow = "<%= image_url('arrow.png') %>"
        window.aboutPic = "<%= image_url('about.jpg') %>"
+       window.h1 = "<%= image_url('h1.jpeg') %>"
+       window.h2 = "<%= image_url('h2.jpeg') %>"
 
     </script>
 

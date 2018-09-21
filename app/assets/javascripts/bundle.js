@@ -321,20 +321,23 @@ var signup = function signup(user) {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_USER, fetchUser, receiveUser, followUser, unfollowUser, updateUser */
+/*! exports provided: RECEIVE_USER, FOLLOW_USER, UNFOLLOW_USER, fetchUser, receiveUser, followUser, unfollowUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FOLLOW_USER", function() { return FOLLOW_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNFOLLOW_USER", function() { return UNFOLLOW_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
 /* harmony import */ var _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/user_api_util */ "./frontend/util/user_api_util.js");
 
 var RECEIVE_USER = "RECEIVE_USER";
+var FOLLOW_USER = 'FOLLOW_USER';
+var UNFOLLOW_USER = 'UNFOLLOW_USER';
 var fetchUser = function fetchUser(id) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchUser"](id).then(function (user) {
@@ -352,25 +355,38 @@ var receiveUser = function receiveUser(payload) {
 var followUser = function followUser(user) {
   return function (dispatch) {
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["followUser"](user).then(function (payload) {
-      return dispatch(receiveFollow(payload));
+      return dispatch(receiveFollowUser(payload));
     });
   };
 };
-var unfollowUser = function unfollowUser(user) {
-  return function (dispatch) {
-    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["unfollowUser"](user).then(function (payload) {
-      return dispatch(receiveUnfollow(payload));
-    });
-  };
-}; // export const receiveFollowers =
 
-var updateUser = function updateUser(user) {
+var receiveFollowUser = function receiveFollowUser(follow) {
+  return {
+    type: FOLLOW_USER,
+    follow: follow
+  };
+};
+
+var unfollowUser = function unfollowUser(id) {
   return function (dispatch) {
-    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["updateUser"](user).then(function (payload) {
-      return dispatch(receiveUser(payload));
+    return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["unfollowUser"](id).then(function (data) {
+      return dispatch(ReceiveUnfollowUser(data));
     });
   };
 };
+
+var ReceiveUnfollowUser = function ReceiveUnfollowUser(follow) {
+  return {
+    type: UNFOLLOW_USER,
+    follow: follow
+  };
+}; // export const updateUser = user => {
+//   return dispatch => {
+//     return UserApiUtil.updateUser(user).then(payload => {
+//       return dispatch(receiveUser(payload));
+//     });
+//   };
+// };
 
 /***/ }),
 
@@ -1832,13 +1848,6 @@ function (_React$Component) {
       this.props.fetchUser(this.props.userId);
     }
   }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      if (prevProps.userId !== this.props.userId) {
-        this.props.fetchUser(this.props.userId);
-      }
-    }
-  }, {
     key: "handleClick",
     value: function handleClick(e) {
       e.preventDefault();
@@ -1885,11 +1894,20 @@ function (_React$Component) {
         });
       });
       var followButton;
+      var action;
 
       if (!this.props.user.followers.includes(this.props.currentUserId)) {
         followButton = 'Follow';
+
+        action = function action(id) {
+          return _this2.props.followUser(id);
+        };
       } else {
         followButton = 'Unfollow';
+
+        action = function action(id) {
+          return _this2.props.unfollowUser(id);
+        };
       }
 
       var profileUpdate; // debugger
@@ -1955,8 +1973,11 @@ function (_React$Component) {
         className: "profile-name"
       }, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "profile-username"
-      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, " Followers ", this.props.user.following.length, " Following")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button-follow"
+      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, " Followers ", this.props.user.followees.length, " Following")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "button-follow",
+        onClick: function onClick() {
+          return action(_this2.props.userId);
+        }
       }, followButton)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "profile-images"
       }, photoitems)));
@@ -2008,6 +2029,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     fetchUser: function fetchUser(id) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["fetchUser"])(id));
+    },
+    followUser: function followUser(id) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["followUser"])(id));
+    },
+    unfollowUser: function unfollowUser(id) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["unfollowUser"])(id));
     },
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["logout"])());
@@ -2530,6 +2557,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 /* harmony import */ var _info_pages_info_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../info_pages/info_container */ "./frontend/components/info_pages/info_container.jsx");
+/* harmony import */ var _splash_item__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./splash_item */ "./frontend/components/splash/splash_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2547,6 +2575,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -2572,7 +2601,11 @@ function (_React$Component) {
     value: function handleClick(e) {
       e.preventDefault();
       this.props.logout();
-    }
+    } // componentWillMount(){
+    //   this.props.fetchPhotos();
+    //   debugger
+    // }
+
   }, {
     key: "render",
     value: function render() {
@@ -2605,7 +2638,37 @@ function (_React$Component) {
         to: "/signup"
       }, "Join 42px")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-text2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "The top photos, chosen by you"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Discover what's trending according to photographers around the world"))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "The top photos, chosen by you"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Discover what's trending according to photographers around the world"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "splash-list"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "splash-list-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.h1
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "splash-list-big"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Get global exposure"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        style: {
+          "paddingBottom": "40px"
+        }
+      }, "Imagine having your photos seen by photographers like you from all over the world. When you upload your photos, they\u2019re shared with 42px members worldwide. Watch as your photos get reactions from the community\u2014and see if your shot makes it to Popular."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "splash-info-button",
+        to: "/discover"
+      }, "Discover"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "splash-list"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "splash-list-big"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "Connect with photographers everywhere"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        style: {
+          "paddingBottom": "40px"
+        }
+      }, "You\u2019re not just joining a network\u2014you\u2019re joining a real community. Follow photographers to get their newest photos appearing in your home feed, share your thoughts by liking and commenting on photos, and discuss all the details of photography in groups."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "splash-info-button",
+        to: "/signup"
+      }, "Sign Up")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "splash-list-img"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: window.h2
+      }))));
     }
   }]);
 
@@ -2630,15 +2693,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _splash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./splash */ "./frontend/components/splash/splash.jsx");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
+
 
 
 
 
 
 var mapStateToProps = function mapStateToProps(state) {
-  var currentUser = state.entities.users[state.session.currentUserId];
+  // const currentUser = state.entities.users[state.session.currentUserId];
+  // debugger
   return {
-    currentUser: currentUser
+    currentUser: state.entities.users[state.session.currentUserId],
+    photos: state.entities.photos
   };
 };
 
@@ -2646,11 +2713,77 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     logout: function logout() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logout"])());
+    },
+    fetchPhotos: function fetchPhotos() {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_4__["fetchPhotos"])());
     }
   };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(_splash__WEBPACK_IMPORTED_MODULE_2__["default"]));
+
+/***/ }),
+
+/***/ "./frontend/components/splash/splash_item.jsx":
+/*!****************************************************!*\
+  !*** ./frontend/components/splash/splash_item.jsx ***!
+  \****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return SplashItem; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-modal */ "./node_modules/react-modal/lib/index.js");
+/* harmony import */ var react_modal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_modal__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var SplashItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(SplashItem, _React$Component);
+
+  function SplashItem(props) {
+    _classCallCheck(this, SplashItem);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(SplashItem).call(this, props));
+  } // style={{backgroundImage: "url(" + this.props.photo.img_url + ")"}}
+
+
+  _createClass(SplashItem, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "".concat(this.props.photo.img_url)
+      }));
+    }
+  }]);
+
+  return SplashItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+
 
 /***/ }),
 
@@ -3084,10 +3217,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_USER"]:
       var newState = Object.assign({}, state);
       return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, newState, _defineProperty({}, action.user.id, action.user));
-    // case RECEIVE_FOLLOW:
-    //   return
-    // case RECEIVE_UNFOLLOW:
-    //   return
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["FOLLOW_USER"]:
+      {
+        var userId = action.follow.followee_id;
+        var updatedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state[userId]);
+        updatedUser.followers.push(action.follow.follower_id); // const updatedFollow = merge({},
+        //   state[userId].followers,
+        //   { [action.follow.id]: action.follow }
+        // );
+        // const updatedUser = merge({},
+        //   state[Object.keys(state)[0]],
+        //   { followee: state[Object.keys(state)[0]].followers }
+        // );
+
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, userId, updatedUser));
+      }
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["UNFOLLOW_USER"]:
+      {
+        // const updatedFollow = merge({}, state[userId].followers);
+        // delete updatedFollow[action.follow.id];
+        var _userId = action.follow.followee_id;
+
+        var _updatedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state[_userId]);
+
+        var index = _updatedUser.followers.indexOf(action.follower_id);
+
+        _updatedUser.followers.slice(index, 1); // let index = array.indexOf(userId);
+        // if (index > -1) {
+        //   array.splice(index, 1);
+        // }
+
+
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, _userId, _updatedUser));
+      }
 
     default:
       {
@@ -3301,18 +3465,15 @@ var signup = function signup(user) {
 /*!****************************************!*\
   !*** ./frontend/util/user_api_util.js ***!
   \****************************************/
-/*! exports provided: fetchUser, updateUser, deleteFollow, followUser, unfollowUser, fetchUserFollowers, fetchUserFollowing */
+/*! exports provided: fetchUser, updateUser, followUser, unfollowUser */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUser", function() { return fetchUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updateUser", function() { return updateUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteFollow", function() { return deleteFollow; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "followUser", function() { return followUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unfollowUser", function() { return unfollowUser; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserFollowers", function() { return fetchUserFollowers; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchUserFollowing", function() { return fetchUserFollowing; });
 var fetchUser = function fetchUser(id) {
   return $.ajax({
     method: 'GET',
@@ -3328,34 +3489,21 @@ var updateUser = function updateUser(user) {
     }
   });
 };
-var deleteFollow = function deleteFollow(followId) {
+var followUser = function followUser(id) {
   return $.ajax({
-    method: 'DELETE',
-    url: "api/photos/".concat(followId)
+    method: "POST",
+    url: "/api/follows",
+    data: {
+      follow: {
+        followee_id: id
+      }
+    }
   });
 };
-var followUser = function followUser(userToFollow) {
+var unfollowUser = function unfollowUser(id) {
   return $.ajax({
-    method: 'PATCH',
-    url: "api/users/".concat(userToFollow.id, "/follow")
-  });
-};
-var unfollowUser = function unfollowUser(userToUnfollow) {
-  return $.ajax({
-    method: 'DELETE',
-    url: "api/users/".concat(userToUnfollow.id, "/unfollow")
-  });
-};
-var fetchUserFollowers = function fetchUserFollowers(user) {
-  return $.ajax({
-    method: 'GET',
-    url: "api/users/".concat(user.id, "/followers")
-  });
-};
-var fetchUserFollowing = function fetchUserFollowing(user) {
-  return $.ajax({
-    method: 'GET',
-    url: "api/users/".concat(user.id, "/following")
+    method: "DELETE",
+    url: "/api/follows/".concat(id)
   });
 };
 
