@@ -576,7 +576,7 @@ function (_React$Component) {
           className: toggle
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
           to: "/profile/".concat(this.props.currentUserId)
-        }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           onClick: this.handleClick
         }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
           className: "upload-button",
@@ -1289,7 +1289,7 @@ function (_React$Component) {
         className: toggle
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.currentUserId)
-      }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, "test2"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, "My Profile")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         onClick: this.handleClick
       }, "Log out"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "upload-button",
