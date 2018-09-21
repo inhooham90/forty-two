@@ -6,7 +6,6 @@ import { closeModal } from '../../actions/modal_actions';
 
 
 const mapStateToProps = state => {
-  debugger
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors.upload,

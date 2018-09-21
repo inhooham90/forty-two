@@ -6,7 +6,6 @@ class Api::PhotosController < ApplicationController
   end
 
   def create
-    debugger
     photo = Photo.new(photo_params)
 
     if photo.save
