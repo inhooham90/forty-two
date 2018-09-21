@@ -43,6 +43,7 @@ class Splash extends React.Component {
         <div className='splash-image'>
           {navBar}
           <div className='main-text'>
+            <br/><br/><br/><br/>
             <h1>Get inspired and share your best photos</h1>
             <h3>Find your home among the world's best photographers</h3>
             <br/>
