@@ -25,29 +25,22 @@ export default function(state = {}, action) {
       const userId = action.follow.followee_id;
       const updatedUser = merge({}, state[userId])
       updatedUser.followers.push(action.follow.follower_id)
-      // const updatedFollow = merge({},
-      //   state[userId].followers,
-      //   { [action.follow.id]: action.follow }
-      // );
-      // const updatedUser = merge({},
-      //   state[Object.keys(state)[0]],
-      //   { followee: state[Object.keys(state)[0]].followers }
-      // );
+
       return merge({}, state, { [userId]: updatedUser });
     }
 
     case UNFOLLOW_USER:{
-      // const updatedFollow = merge({}, state[userId].followers);
-      // delete updatedFollow[action.follow.id];
+      const newState = merge({}, state);
       const userId = action.follow.followee_id;
+      delete newState[userId];
       const updatedUser = merge({}, state[userId]);
-      let index = updatedUser.followers.indexOf(action.follower_id)
-      updatedUser.followers.slice(index, 1)
-      // let index = array.indexOf(userId);
-      // if (index > -1) {
-      //   array.splice(index, 1);
-      // }
-      return merge({}, state, { [userId]: updatedUser });
+      let index = updatedUser.followers.indexOf(action.follow.follower_id)
+      if (index > -1) {
+       updatedUser.followers.splice(index, 1)
+      }
+      console.log(userId)
+      console.log(updatedUser)
+      return merge({}, newState, { [userId]: updatedUser });
     }
     default: {
       return state;

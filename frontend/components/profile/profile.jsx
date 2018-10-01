@@ -54,6 +54,7 @@ export default class Profile extends React.Component {
     });
     let followButton;
     let action;
+
     if (!this.props.user.followers.includes(this.props.currentUserId)) {
       followButton = 'Follow';
       action = id => this.props.followUser(id)
@@ -62,7 +63,7 @@ export default class Profile extends React.Component {
       action = id => this.props.unfollowUser(id)
     }
     let profileUpdate;
-    // debugger
+
     if (this.props.currentUserId === parseInt(this.props.userId)){
       profileUpdate = () => this.props.openModalProfile(parseInt(this.props.userId));
     } else {

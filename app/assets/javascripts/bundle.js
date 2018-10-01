@@ -1910,7 +1910,7 @@ function (_React$Component) {
         };
       }
 
-      var profileUpdate; // debugger
+      var profileUpdate;
 
       if (this.props.currentUserId === parseInt(this.props.userId)) {
         profileUpdate = function profileUpdate() {
@@ -3166,7 +3166,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _photo_show_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./photo_show_reducer */ "./frontend/reducers/photo_show_reducer.js");
 
 
- // import profile from './profile_show_reducer';
+ // import follows from './follows_reducer';
+// import profile from './profile_show_reducer';
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -3222,35 +3223,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       {
         var userId = action.follow.followee_id;
         var updatedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state[userId]);
-        updatedUser.followers.push(action.follow.follower_id); // const updatedFollow = merge({},
-        //   state[userId].followers,
-        //   { [action.follow.id]: action.follow }
-        // );
-        // const updatedUser = merge({},
-        //   state[Object.keys(state)[0]],
-        //   { followee: state[Object.keys(state)[0]].followers }
-        // );
-
+        updatedUser.followers.push(action.follow.follower_id);
         return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, userId, updatedUser));
       }
 
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["UNFOLLOW_USER"]:
       {
-        // const updatedFollow = merge({}, state[userId].followers);
-        // delete updatedFollow[action.follow.id];
+        var _newState2 = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state);
+
         var _userId = action.follow.followee_id;
+        delete _newState2[_userId];
 
         var _updatedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state[_userId]);
 
-        var index = _updatedUser.followers.indexOf(action.follower_id);
+        var index = _updatedUser.followers.indexOf(action.follow.follower_id);
 
-        _updatedUser.followers.slice(index, 1); // let index = array.indexOf(userId);
-        // if (index > -1) {
-        //   array.splice(index, 1);
-        // }
+        if (index > -1) {
+          _updatedUser.followers.splice(index, 1);
+        }
 
-
-        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, _userId, _updatedUser));
+        console.log(_userId);
+        console.log(_updatedUser);
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, _newState2, _defineProperty({}, _userId, _updatedUser));
       }
 
     default:
