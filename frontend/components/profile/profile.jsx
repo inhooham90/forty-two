@@ -155,7 +155,7 @@ export default class Profile extends React.Component {
         </div>
 
         <div>
-          <ul className='profile-images'>
+          <ul className='gallery'>
             {photoitems}
           </ul>
         </div>

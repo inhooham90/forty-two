@@ -652,7 +652,7 @@ function (_React$Component) {
       }, "Discover")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/about"
       }, "About"))), discoverButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "profile-images"
+        className: "gallery"
       }, discoverItems)));
     }
   }]);
@@ -781,11 +781,17 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: function onClick() {
-          return _this.props.openModalShow(_this.props.photo.id);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "gallery-item",
+        style: {
+          width: "".concat(this.props.photo.width * 360 / this.props.photo.height, "px"),
+          flexGrow: "".concat(this.props.photo.width * 360 / this.props.photo.height)
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "gallery-img",
+        onClick: function onClick() {
+          return _this.props.openModalShow(_this.props.photo.id);
+        },
         src: "".concat(this.props.photo.img_url)
       }));
     }
@@ -2075,7 +2081,7 @@ function (_React$Component) {
       }, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "profile-username"
       }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, numberOfFollowers, this.props.user.followees.length, "Following")), followButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "profile-images"
+        className: "gallery"
       }, photoitems)));
     }
   }]);
@@ -2203,11 +2209,17 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-        onClick: function onClick() {
-          return _this.props.openModalShow(_this.props.photo.id);
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "gallery-item",
+        style: {
+          width: "".concat(this.props.photo.width * 360 / this.props.photo.height, "px"),
+          flexGrow: "".concat(this.props.photo.width * 360 / this.props.photo.height)
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "gallery-img",
+        onClick: function onClick() {
+          return _this.props.openModalShow(_this.props.photo.id);
+        },
         src: "".concat(this.props.photo.img_url)
       }));
     }
