@@ -72,7 +72,7 @@ class PhotoIndex extends React.Component {
                                 onMouseLeave={this.closeProfile}
                                 className={toggle}>
                                 <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
-                    
+
                                 <li onClick={this.handleClick}>Log out</li>
                               </ul>
                             </li>

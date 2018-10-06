@@ -1,8 +1,8 @@
 # 42 Px
 
-Welcome to 42 px, a single paged clone of 500px built with Ruby on Rails with PostgreSQL database on the backend and React/Redux on the front end.
+Welcome to 42 px, a single paged web application inspired by 500px built with Ruby on Rails with PostgreSQL database on the backend and React/Redux on the front end.
 
-<img src="screenshots/main.png"> 
+<img src="screenshots/main.png">
 
 ## Key Features
 
@@ -12,10 +12,11 @@ Users can visit their own profile page, visit others' profiles, and also follow 
 
 ### Uploading Photos
 Users can upload their images on the website with ease with title, description, and automatically added amount of time since uploaded.
-<img src="screenshots/uploadgif.gif"> <br/> Uploading
+<br/> Uploading photos.
+<img src="screenshots/uploadgif.gif">
 
-Users can then edit or delete their own photos.
-<img src="screenshots/deletegif.gif"> <br/> Deleting pictures
+Editing or deleting their own photos.
+<img src="screenshots/deletegif.gif">
 
 ### Follows
 Users can follow and unfollow other users.
@@ -28,7 +29,7 @@ All of 42px contents are responsive. Within size limits they will adjust automat
 ## Development Log
 
 ### Week 1
-* Work on Auth 
+* Work on Auth
 * Work on the backend of the web app
 * CSS work on splash page, auth pages, and responsiveness
 * Setup modal and core frontend items including reducers, actions, and etc.
@@ -39,6 +40,3 @@ All of 42px contents are responsive. Within size limits they will adjust automat
 * Enable uploads, showing, editing, and deleting pictures.
 * Temporarily put all available pictures for home feed.
 * CSS work on every other pages to make similar to 500px.
-
-### Week 3
-* N/A

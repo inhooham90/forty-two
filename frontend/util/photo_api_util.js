@@ -34,3 +34,18 @@ export const updatePhoto = photo => {
     data: {photo}
   });
 };
+
+export const likePhoto = id => {
+  return $.ajax({
+    method: "POST",
+    url: "/api/likes",
+    data: { like: { photo_id: id } }
+  });
+};
+
+export const unlikePhoto = (id) => {
+  return $.ajax({
+    method: "DELETE",
+    url: `/api/likes/${id}`,
+  });
+};

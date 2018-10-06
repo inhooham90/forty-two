@@ -13,7 +13,9 @@ class User < ApplicationRecord
 
   # has_many :comments
   # has_many :follows
-  # has_many :likes,
+  has_many :likings,
+    foreign_key: :liker_id,
+    class_name: :Like
 
   has_many :followings,
     foreign_key: :followee_id,
@@ -30,6 +32,10 @@ class User < ApplicationRecord
   has_many :followees,
     through: :followed_bys,
     source: :followee
+
+  has_many :liked_photos,
+    through: :likings,
+    source: :photo
 
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)

@@ -52,18 +52,37 @@ export default class Profile extends React.Component {
           />
       );
     });
-    let followButton;
+    let followText;
     let action;
 
     if (!this.props.user.followers.includes(this.props.currentUserId)) {
-      followButton = 'Follow';
+      followText = 'Follow';
       action = id => this.props.followUser(id)
     } else {
-      followButton = 'Unfollow';
+      followText = 'Unfollow';
       action = id => this.props.unfollowUser(id)
     }
-    let profileUpdate;
+    let followButton;
+    if (parseInt(this.props.userId) !== this.props.currentUserId) {
+      followButton = (<li>
+        <button
+          className='button-follow'
+          onClick={() => action(this.props.userId)}>
+          {followText}
+        </button>
+      </li>);
+    } else {
+      followButton = (<li></li>);
+    }
 
+    let numberOfFollowers;
+    if (this.props.user.followers.length < 2) {
+      numberOfFollowers = "Follower"
+    } else {
+      numberOfFollowers = "Followers"
+    }
+
+    let profileUpdate;
     if (this.props.currentUserId === parseInt(this.props.userId)){
       profileUpdate = () => this.props.openModalProfile(parseInt(this.props.userId));
     } else {
@@ -125,16 +144,13 @@ export default class Profile extends React.Component {
             </li>
             <li>
               <p>
-                {this.props.user.followers.length} Followers {this.props.user.followees.length} Following
+                {this.props.user.followers.length}
+                {numberOfFollowers}
+                {this.props.user.followees.length}
+                Following
               </p>
             </li>
-            <li>
-              <button
-                className='button-follow'
-                onClick={() => action(this.props.userId)}>
-                {followButton}
-              </button>
-            </li>
+            {followButton}
           </ul>
         </div>
 

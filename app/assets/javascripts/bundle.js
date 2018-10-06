@@ -139,7 +139,7 @@ var closeModal = function closeModal() {
 /*!*******************************************!*\
   !*** ./frontend/actions/photo_actions.js ***!
   \*******************************************/
-/*! exports provided: RECEIVE_ALL_PHOTOS, RECEIVE_PHOTO, REMOVE_PHOTO, RECEIVE_UPLOAD_ERRORS, RECEIVE_NO_ERRORS, fetchPhotos, fetchPhoto, createPhoto, updatePhoto, deletePhoto, receiveAllPhotos, receivePhoto, removePhoto, receiveNoErrors */
+/*! exports provided: RECEIVE_ALL_PHOTOS, RECEIVE_PHOTO, REMOVE_PHOTO, RECEIVE_UPLOAD_ERRORS, RECEIVE_NO_ERRORS, LIKE_PHOTO, UNLIKE_PHOTO, fetchPhotos, fetchPhoto, createPhoto, updatePhoto, unlikePhoto, likePhoto, deletePhoto, receiveAllPhotos, receivePhoto, removePhoto, receiveNoErrors */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -149,10 +149,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_PHOTO", function() { return REMOVE_PHOTO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_UPLOAD_ERRORS", function() { return RECEIVE_UPLOAD_ERRORS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_NO_ERRORS", function() { return RECEIVE_NO_ERRORS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LIKE_PHOTO", function() { return LIKE_PHOTO; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNLIKE_PHOTO", function() { return UNLIKE_PHOTO; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPhotos", function() { return fetchPhotos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchPhoto", function() { return fetchPhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPhoto", function() { return createPhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePhoto", function() { return updatePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePhoto", function() { return unlikePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePhoto", function() { return likePhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePhoto", function() { return deletePhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveAllPhotos", function() { return receiveAllPhotos; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receivePhoto", function() { return receivePhoto; });
@@ -165,6 +169,8 @@ var RECEIVE_PHOTO = "RECEIVE_PHOTO";
 var REMOVE_PHOTO = "REMOVE_PHOTO";
 var RECEIVE_UPLOAD_ERRORS = 'RECEIVE_UPLOAD_ERRORS';
 var RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
+var LIKE_PHOTO = 'LIKE_PHOTO';
+var UNLIKE_PHOTO = 'UNLIKE_PHOTO';
 var fetchPhotos = function fetchPhotos() {
   return function (dispatch) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchPhotos"]().then(function (payload) {
@@ -198,6 +204,36 @@ var updatePhoto = function updatePhoto(photo) {
     );
   };
 };
+var unlikePhoto = function unlikePhoto(id) {
+  return function (dispatch) {
+    return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["unlikePhoto"](id).then(function (data) {
+      return dispatch(ReceiveUnlikePhoto(data));
+    });
+  };
+};
+
+var ReceiveUnlikePhoto = function ReceiveUnlikePhoto(like) {
+  return {
+    type: UNLIKE_PHOTO,
+    like: like
+  };
+};
+
+var likePhoto = function likePhoto(photoId) {
+  return function (dispatch) {
+    return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["likePhoto"](photoId).then(function (payload) {
+      return dispatch(receiveLikePhoto(payload));
+    });
+  };
+};
+
+var receiveLikePhoto = function receiveLikePhoto(like) {
+  return {
+    type: LIKE_PHOTO,
+    like: like
+  };
+};
+
 var deletePhoto = function deletePhoto(photoId) {
   return function (dispatch) {
     return _util_photo_api_util__WEBPACK_IMPORTED_MODULE_0__["deletePhoto"](photoId).then(function (photo) {
@@ -1471,6 +1507,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_photo_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../actions/photo_actions */ "./frontend/actions/photo_actions.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-fontawesome */ "./node_modules/react-fontawesome/lib/index.js");
+/* harmony import */ var react_fontawesome__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_fontawesome__WEBPACK_IMPORTED_MODULE_6__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1490,6 +1528,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 
 
 
@@ -1569,6 +1608,8 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var errors;
 
       if (this.props.errors) {
@@ -1577,6 +1618,28 @@ function (_React$Component) {
         }, this.props.errors.map(function (error) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, error);
         }));
+      }
+
+      var icon;
+      var action;
+      var likers = this.props.photo.likers.length;
+
+      if (!this.props.photo.likers.includes(this.props.currentUserId)) {
+        icon = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.like
+        });
+
+        action = function action(id) {
+          return _this3.props.likePhoto(id);
+        };
+      } else {
+        icon = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          src: window.unlike
+        });
+
+        action = function action(id) {
+          return _this3.props.unlikePhoto(id);
+        };
       }
 
       var handleSubmit;
@@ -1609,6 +1672,7 @@ function (_React$Component) {
       }
 
       var content;
+      var followerText = this.props.artist.followers.length < 2 ? "Follower" : "Followers";
 
       if (this.state.edit === false) {
         content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1621,7 +1685,7 @@ function (_React$Component) {
           className: "upload-form"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "upload-form-list"
-        }, editButton, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "show-artist"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
           onClick: this.props.closeModal,
@@ -1629,19 +1693,29 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "profile-index",
           src: "".concat(this.props.artist.profile_url)
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
           onClick: this.props.closeModal,
           style: {
             "paddingLeft": "10px"
           },
           to: "/profile/".concat(this.props.photo.artist_id)
-        }, this.props.artist.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, this.props.artist.name), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "show-uploaded",
+          style: {
+            "paddingLeft": "10px"
+          }
+        }, this.props.artist.followers.length, " ", followerText))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
+          className: "like-button",
+          onClick: function onClick() {
+            return action(_this3.props.photo.id);
+          }
+        }, icon, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, likers)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-title"
         }, this.props.photo.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-uploaded"
         }, "Uploaded ", this.props.photo.time_posted, " ago"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "show-description"
-        }, this.props.photo.description)))));
+        }, this.props.photo.description)), editButton)));
       } else {
         content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
           className: "dropzone-form"
@@ -1729,6 +1803,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     deletePhoto: function deletePhoto(photo) {
       return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["deletePhoto"])(photo));
+    },
+    likePhoto: function likePhoto(id) {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["likePhoto"])(id));
+    },
+    unlikePhoto: function unlikePhoto(id) {
+      return dispatch(Object(_actions_photo_actions__WEBPACK_IMPORTED_MODULE_2__["unlikePhoto"])(id));
     }
   };
 };
@@ -1893,21 +1973,42 @@ function (_React$Component) {
           openModalShow: _this2.props.openModalShow
         });
       });
-      var followButton;
+      var followText;
       var action;
 
       if (!this.props.user.followers.includes(this.props.currentUserId)) {
-        followButton = 'Follow';
+        followText = 'Follow';
 
         action = function action(id) {
           return _this2.props.followUser(id);
         };
       } else {
-        followButton = 'Unfollow';
+        followText = 'Unfollow';
 
         action = function action(id) {
           return _this2.props.unfollowUser(id);
         };
+      }
+
+      var followButton;
+
+      if (parseInt(this.props.userId) !== this.props.currentUserId) {
+        followButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+          className: "button-follow",
+          onClick: function onClick() {
+            return action(_this2.props.userId);
+          }
+        }, followText));
+      } else {
+        followButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null);
+      }
+
+      var numberOfFollowers;
+
+      if (this.props.user.followers.length < 2) {
+        numberOfFollowers = "Follower";
+      } else {
+        numberOfFollowers = "Followers";
       }
 
       var profileUpdate;
@@ -1973,12 +2074,7 @@ function (_React$Component) {
         className: "profile-name"
       }, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "profile-username"
-      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, " Followers ", this.props.user.followees.length, " Following")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "button-follow",
-        onClick: function onClick() {
-          return action(_this2.props.userId);
-        }
-      }, followButton)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, numberOfFollowers, this.props.user.followees.length, "Following")), followButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "profile-images"
       }, photoitems)));
     }
@@ -3027,6 +3123,32 @@ var PhotosReducer = function PhotosReducer() {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_USER"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, action.photos);
 
+    case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["LIKE_PHOTO"]:
+      {
+        var photoId = action.like.photo_id;
+        var updatedPhoto = lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState[photoId]);
+        updatedPhoto.likers.push(action.like.liker_id);
+        return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState, _defineProperty({}, photoId, updatedPhoto));
+      }
+
+    case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["UNLIKE_PHOTO"]:
+      {
+        var _newState = lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState);
+
+        var _photoId = action.like.photo_id;
+        delete _newState[_photoId];
+
+        var _updatedPhoto = lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, oldState[_photoId]);
+
+        var index = _updatedPhoto.likers.indexOf(action.like.liker_id);
+
+        if (index > -1) {
+          _updatedPhoto.likers.splice(index, 1);
+        }
+
+        return lodash_merge__WEBPACK_IMPORTED_MODULE_2___default()({}, _newState, _defineProperty({}, _photoId, _updatedPhoto));
+      }
+
     default:
       return oldState;
   }
@@ -3242,8 +3364,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _updatedUser.followers.splice(index, 1);
         }
 
-        console.log(_userId);
-        console.log(_updatedUser);
         return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, _newState2, _defineProperty({}, _userId, _updatedUser));
       }
 
@@ -3288,7 +3408,7 @@ var configureStore = function configureStore() {
 /*!*****************************************!*\
   !*** ./frontend/util/photo_api_util.js ***!
   \*****************************************/
-/*! exports provided: fetchPhoto, fetchPhotos, deletePhoto, createPhoto, updatePhoto */
+/*! exports provided: fetchPhoto, fetchPhotos, deletePhoto, createPhoto, updatePhoto, likePhoto, unlikePhoto */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3298,6 +3418,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deletePhoto", function() { return deletePhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createPhoto", function() { return createPhoto; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "updatePhoto", function() { return updatePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "likePhoto", function() { return likePhoto; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unlikePhoto", function() { return unlikePhoto; });
 var fetchPhoto = function fetchPhoto(id) {
   return $.ajax({
     method: 'GET',
@@ -3332,6 +3454,23 @@ var updatePhoto = function updatePhoto(photo) {
     data: {
       photo: photo
     }
+  });
+};
+var likePhoto = function likePhoto(id) {
+  return $.ajax({
+    method: "POST",
+    url: "/api/likes",
+    data: {
+      like: {
+        photo_id: id
+      }
+    }
+  });
+};
+var unlikePhoto = function unlikePhoto(id) {
+  return $.ajax({
+    method: "DELETE",
+    url: "/api/likes/".concat(id)
   });
 };
 
@@ -46288,6 +46427,185 @@ __webpack_require__.r(__webpack_exports__);
     borderRadius: 5
   }
 });
+
+/***/ }),
+
+/***/ "./node_modules/react-fontawesome/lib/index.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/react-fontawesome/lib/index.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+
+var _react2 = _interopRequireDefault(_react);
+
+var _propTypes = __webpack_require__(/*! prop-types */ "./node_modules/prop-types/index.js");
+
+var _propTypes2 = _interopRequireDefault(_propTypes);
+
+var _screenReaderStyles = __webpack_require__(/*! ./screen-reader-styles */ "./node_modules/react-fontawesome/lib/screen-reader-styles.js");
+
+var _screenReaderStyles2 = _interopRequireDefault(_screenReaderStyles);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+/**
+ * A React component for the font-awesome icon library.
+ *
+ * @param {String} [ariaLabel] An extra accessibility label to put on the icon
+ * @param {Boolean} [border=false] Whether or not to show a border radius
+ * @param {String} [className] An extra set of CSS classes to add to the component
+ * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+ * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+ * @param {String} [flip=false] Flip the icon's orientation.
+ * @param {Boolean} [inverse=false]Inverse the icon's color
+ * @param {String} name Name of the icon to use
+ * @param {Boolean} [pulse=false] Rotate icon with 8 steps, rather than smoothly
+ * @param {Number} [rotate] The degress to rotate the icon by
+ * @param {String} [size] The icon scaling size
+ * @param {Boolean} [spin=false] Spin the icon
+ * @param {String} [stack] Stack an icon on top of another
+ * @param {String} [tag=span] The HTML tag to use as a string, eg 'i' or 'em'
+ * @module FontAwesome
+ * @type {ReactClass}
+ */
+var FontAwesome = function (_React$Component) {
+  _inherits(FontAwesome, _React$Component);
+
+  function FontAwesome() {
+    _classCallCheck(this, FontAwesome);
+
+    var _this = _possibleConstructorReturn(this, (FontAwesome.__proto__ || Object.getPrototypeOf(FontAwesome)).call(this));
+
+    _this.displayName = 'FontAwesome';
+    return _this;
+  }
+
+  _createClass(FontAwesome, [{
+    key: 'render',
+    value: function render() {
+      var _props = this.props,
+          border = _props.border,
+          cssModule = _props.cssModule,
+          className = _props.className,
+          fixedWidth = _props.fixedWidth,
+          flip = _props.flip,
+          inverse = _props.inverse,
+          name = _props.name,
+          pulse = _props.pulse,
+          rotate = _props.rotate,
+          size = _props.size,
+          spin = _props.spin,
+          stack = _props.stack,
+          _props$tag = _props.tag,
+          tag = _props$tag === undefined ? 'span' : _props$tag,
+          ariaLabel = _props.ariaLabel,
+          props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag', 'ariaLabel']);
+
+      var classNames = [];
+
+      if (cssModule) {
+        classNames.push(cssModule['fa']);
+        classNames.push(cssModule['fa-' + name]);
+        size && classNames.push(cssModule['fa-' + size]);
+        spin && classNames.push(cssModule['fa-spin']);
+        pulse && classNames.push(cssModule['fa-pulse']);
+        border && classNames.push(cssModule['fa-border']);
+        fixedWidth && classNames.push(cssModule['fa-fw']);
+        inverse && classNames.push(cssModule['fa-inverse']);
+        flip && classNames.push(cssModule['fa-flip-' + flip]);
+        rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+        stack && classNames.push(cssModule['fa-stack-' + stack]);
+      } else {
+        classNames.push('fa');
+        classNames.push('fa-' + name);
+        size && classNames.push('fa-' + size);
+        spin && classNames.push('fa-spin');
+        pulse && classNames.push('fa-pulse');
+        border && classNames.push('fa-border');
+        fixedWidth && classNames.push('fa-fw');
+        inverse && classNames.push('fa-inverse');
+        flip && classNames.push('fa-flip-' + flip);
+        rotate && classNames.push('fa-rotate-' + rotate);
+        stack && classNames.push('fa-stack-' + stack);
+      }
+
+      // Add any custom class names at the end.
+      className && classNames.push(className);
+      return _react2.default.createElement(tag, _extends({}, props, { 'aria-hidden': true, className: classNames.join(' ') }), ariaLabel ? _react2.default.createElement('span', { style: _screenReaderStyles2.default }, ariaLabel) : null);
+    }
+  }]);
+
+  return FontAwesome;
+}(_react2.default.Component);
+
+FontAwesome.propTypes = {
+  ariaLabel: _propTypes2.default.string,
+  border: _propTypes2.default.bool,
+  className: _propTypes2.default.string,
+  cssModule: _propTypes2.default.object,
+  fixedWidth: _propTypes2.default.bool,
+  flip: _propTypes2.default.oneOf(['horizontal', 'vertical']),
+  inverse: _propTypes2.default.bool,
+  name: _propTypes2.default.string.isRequired,
+  pulse: _propTypes2.default.bool,
+  rotate: _propTypes2.default.oneOf([90, 180, 270]),
+  size: _propTypes2.default.oneOf(['lg', '2x', '3x', '4x', '5x']),
+  spin: _propTypes2.default.bool,
+  stack: _propTypes2.default.oneOf(['1x', '2x']),
+  tag: _propTypes2.default.string
+};
+
+exports.default = FontAwesome;
+module.exports = exports['default'];
+
+/***/ }),
+
+/***/ "./node_modules/react-fontawesome/lib/screen-reader-styles.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/react-fontawesome/lib/screen-reader-styles.js ***!
+  \********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  position: 'absolute',
+  width: '1px',
+  height: '1px',
+  padding: '0px',
+  margin: '-1px',
+  overflow: 'hidden',
+  clip: 'rect(0px, 0px, 0px, 0px)',
+  border: '0px'
+};
+module.exports = exports['default'];
 
 /***/ }),
 

@@ -46,7 +46,7 @@
 }
 
 .upload-form-list > li {
-  padding:7%;
+  padding:2% 7% 7% 7%;
   border-top: 1px solid rgba(185,193,199,0.5);
   color: #0099e5;
   font-family: sans-serif;
@@ -201,6 +201,7 @@
   font-size: 14px;
   border: none;
   font-weight: bold;
+  margin-top: 5%;
 }
 
 .upload-form-button:hover {
@@ -247,6 +248,7 @@
 }
 
 .show-artist {
+  padding-top: 10%;
   a {
     text-decoration: none;
     color: #525558;

@@ -18,10 +18,11 @@ export const receiveUser = payload => ({
   photos: payload.photos
 });
 
-export const followUser = user => dispatch => (
+export const followUser = user => {
+return dispatch => (
   UserApiUtil.followUser(user).then(payload =>
     dispatch(receiveFollowUser(payload)))
-);
+)};
 
 const receiveFollowUser = follow => {
     return {

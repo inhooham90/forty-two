@@ -4,6 +4,7 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import { receivePhoto } from '../../actions/photo_actions';
 import { Link } from 'react-router-dom';
+import FontAwesome from 'react-fontawesome';
 
 export default class PhotoShow extends React.Component {
   constructor(props) {
@@ -65,6 +66,18 @@ export default class PhotoShow extends React.Component {
       );
     }
 
+    let icon;
+    let action;
+    let likers = this.props.photo.likers.length;
+
+    if (!this.props.photo.likers.includes(this.props.currentUserId)) {
+      icon = <img src={window.like} />
+      action = id => this.props.likePhoto(id)
+    } else {
+      icon = <img src={window.unlike}/>
+      action = id => this.props.unlikePhoto(id)
+    }
+
     let handleSubmit;
     if (this.state.title.length === 0 || this.state.description.length === 0 ) {
       handleSubmit = this.handleSubmitFail;
@@ -93,6 +106,7 @@ export default class PhotoShow extends React.Component {
         </button>
     }
     let content;
+    let followerText = this.props.artist.followers.length < 2 ? "Follower" : "Followers"
     if (this.state.edit === false) {
       content = (
       <div className='dropzone-form'>
@@ -101,12 +115,23 @@ export default class PhotoShow extends React.Component {
           </div>
           <div className='upload-form'>
             <ul className='upload-form-list'>
-                {editButton}
               <li>
-                <p className='show-artist'>
+                <div className='show-artist'>
                   <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.artist.profile_url}`} /></Link>
-                  <Link onClick={this.props.closeModal} style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
-                </p>
+                  <section>
+                    <Link onClick={this.props.closeModal} style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
+                    <p className='show-uploaded' style={{"paddingLeft":"10px"}}>
+                      {this.props.artist.followers.length} {followerText}
+                    </p>
+                  </section>
+                </div>
+                <section className='like-button' onClick={() => action(this.props.photo.id)}>
+                  {icon}
+
+                  <div>
+                    {likers}
+                  </div>
+                </section>
                 <p className='show-title'>
                   {this.props.photo.title}
                 </p>
@@ -117,6 +142,7 @@ export default class PhotoShow extends React.Component {
                   {this.props.photo.description}
                 </p>
               </li>
+              {editButton}
             </ul>
           </div>
       </div>
@@ -130,10 +156,19 @@ export default class PhotoShow extends React.Component {
           <div className='upload-form'>
             <ul className='upload-form-list'>
               <li>
-                <button className='upload-form-button' onClick={handleSubmit}>Submit</button>
+                <button
+                  className='upload-form-button'
+                  onClick={handleSubmit}>
+                  Submit
+                </button>
               </li>
               <li>
-                <button onClick={this.toggleEdit} className='upload-form-button' style={{"backgroundColor": "#ef5656"}}>Cancel</button>
+                <button
+                  onClick={this.toggleEdit}
+                  className='upload-form-button'
+                  style={{"backgroundColor": "#ef5656"}}>
+                  Cancel
+                </button>
               </li>
               <li>
                 <label><p>Title</p>

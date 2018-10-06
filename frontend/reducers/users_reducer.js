@@ -38,8 +38,7 @@ export default function(state = {}, action) {
       if (index > -1) {
        updatedUser.followers.splice(index, 1)
       }
-      console.log(userId)
-      console.log(updatedUser)
+
       return merge({}, newState, { [userId]: updatedUser });
     }
     default: {

@@ -1,6 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { updatePhoto, fetchPhoto, receiveNoErrors, deletePhoto } from '../../actions/photo_actions';
+import {
+  updatePhoto,
+  fetchPhoto,
+  receiveNoErrors,
+  deletePhoto,
+  likePhoto,
+  unlikePhoto,
+} from '../../actions/photo_actions';
 import PhotoShow from './photo_show';
 import { closeModal } from '../../actions/modal_actions';
 
@@ -20,7 +27,9 @@ const mapDispatchToProps = (dispatch) => {
     clearErrors: () => dispatch(receiveNoErrors()),
     closeModal: () => dispatch(closeModal()),
     action: state => dispatch(updatePhoto(state)),
-    deletePhoto: photo => dispatch(deletePhoto(photo))
+    deletePhoto: photo => dispatch(deletePhoto(photo)),
+    likePhoto: id => dispatch(likePhoto(id)),
+    unlikePhoto: id => dispatch(unlikePhoto(id))
   })
 };
 

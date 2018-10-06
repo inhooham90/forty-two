@@ -1,0 +1,19 @@
+.like-button {
+  background-color: rgb(0, 153, 229);
+  border-radius: 15px;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 5% 0 10% 0;
+  font-size: 12px;
+  img {
+    width: 16px;
+    height: 15px;
+    padding: 6px 8px 6px 20px;
+  }
+
+}
+.like-button:hover {
+  background-color: rgb(0, 170, 255);
+}
