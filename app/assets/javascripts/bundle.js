@@ -883,12 +883,28 @@ function (_React$Component) {
         className: "about-image"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-text"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to 42px!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "A clone of 500px made by James Inhoo Ham. Check me out!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to 42px!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "A single page web app inspired by 500px, made by James Ham."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        style: {
+          "fontFamily": "sans-serif",
+          "lineHeight": "1.5"
+        }
+      }, "In a world where anything can be replicated, I believe details are what ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "really makes the difference between the greatests and the others. ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "And the hearty details comes from love and passion of such crafts."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, "Click on the links below to check my other projects!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "links"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "color-buttons2",
         href: "https://github.com/jamsuham22"
-      }, "GitHub")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "main-text2"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "There isn't much here"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "I admire your adventurous spirit!")))));
+      }, "GitHub"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "color-buttons2",
+        href: "https://www.inhooham.com"
+      }, "Website"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "color-buttons2",
+        href: "https://angel.co/inhoo-j-ham"
+      }, "Angel List")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-text2",
+        style: {
+          "paddingTop": "2%"
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "\"To like something is to insult it. Love it or hate it. Be passionate. As civilisation advances, so does indifference. It is a disease. Immunize yourself with art. And love.\""), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", null, "Matt Haig, The Humans")))));
     }
   }]);
 
@@ -2080,7 +2096,7 @@ function (_React$Component) {
         className: "profile-name"
       }, this.props.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "profile-username"
-      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, numberOfFollowers, this.props.user.followees.length, "Following")), followButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, this.props.user.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.props.user.followers.length, "\xA0", numberOfFollowers, " \xA0\xA0", this.props.user.followees.length, "\xA0 Following")), followButton)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "gallery"
       }, photoitems)));
     }

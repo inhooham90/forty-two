@@ -32,17 +32,34 @@ class About extends React.Component {
             <div className='about-image'>
               <div className='main-text'>
                 <br/><br/>
-                <h1>Welcome to 42px!</h1>
-                <h3>A clone of 500px made by James Inhoo Ham. Check me out!</h3>
-                <br/>
-                <br/>
-                <p><a className='color-buttons2' href='https://github.com/jamsuham22'>GitHub</a></p>
+                  <h1>Welcome to 42px!</h1>
+                  <h3>A single page web app inspired by 500px, made by James Ham.</h3>
+
+                  <br/>
+                  <br/>
+                  <p style={{"fontFamily":"sans-serif", "lineHeight":"1.5"}}>
+                    In a world where anything can be replicated, I believe details are what <br/>
+                    really makes the difference between the greatests and the others. <br/>
+                  And the hearty details comes from love and passion of such crafts.
+
+                  </p>
+                  <h3>Click on the links below to check my other projects!</h3>
+                    <div className='links'>
+                      <a className='color-buttons2' href='https://github.com/jamsuham22'>GitHub</a>
+                      <a className='color-buttons2' href='https://www.inhooham.com'>Website</a>
+                      <a className='color-buttons2' href='https://angel.co/inhoo-j-ham'>Angel List</a>
+                    </div>
               </div>
             </div>
             <div>
-              <div className='main-text2'>
-                <h2>There isn't much here</h2>
-                <h4>I admire your adventurous spirit!</h4>
+              <div className='main-text2' style={{"paddingTop":"2%"}}>
+                <h4>
+                  "To like something is to insult it. Love it or hate it. Be passionate. As civilisation advances, so does indifference. It is a disease. Immunize yourself with art. And love."
+                </h4>
+                <br/>
+                <h4>
+                  Matt Haig, The Humans
+                </h4>
               </div>
             </div>
           </section>

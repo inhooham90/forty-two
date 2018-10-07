@@ -144,9 +144,9 @@ export default class Profile extends React.Component {
             </li>
             <li>
               <p>
-                {this.props.user.followers.length}
-                {numberOfFollowers}
-                {this.props.user.followees.length}
+                {this.props.user.followers.length}&nbsp;
+                {numberOfFollowers} &nbsp;&nbsp;
+                {this.props.user.followees.length}&nbsp;
                 Following
               </p>
             </li>

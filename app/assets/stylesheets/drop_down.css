@@ -18,6 +18,7 @@
   font-family: sans-serif;
   font-weight: lighter;
   padding: 5% 0 5% 5%;
+  z-index: 1;
 }
 
 .drop-down > li:hover {

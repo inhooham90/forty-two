@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: photos
+#
+#  id          :bigint(8)        not null, primary key
+#  img_url     :string           not null
+#  title       :string           not null
+#  description :string           not null
+#  artist_id   :integer          not null
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#
+
 class Photo < ApplicationRecord
   validates :img_url, :title, :description, :artist_id, presence: true
 

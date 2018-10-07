@@ -1,5 +1,5 @@
 .about-image {
-  
+
   background-image: image_url('about.jpg');
   position: relative;
   min-width: 493px;
@@ -11,4 +11,13 @@
   padding-bottom: 50px;
   align-items: center;
   text-align: center;
+}
+
+.links {
+  padding-top: 6%;
+  a {
+    margin: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 }
