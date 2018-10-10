@@ -7,6 +7,10 @@ export const RECEIVE_UPLOAD_ERRORS = 'RECEIVE_UPLOAD_ERRORS';
 export const RECEIVE_NO_ERRORS = 'RECEIVE_NO_ERRORS';
 export const LIKE_PHOTO = 'LIKE_PHOTO';
 export const UNLIKE_PHOTO = 'UNLIKE_PHOTO';
+export const COMMENT_PHOTO = 'COMMENT_PHOTO';
+export const UNCOMMENT_PHOTO = 'UNCOMMENT_PHOTO';
+export const RECEIVE_ALL_COMMENTS = 'RECEIVE_COMMENTS';
+
 
 
 export const fetchPhotos = () => dispatch => (
@@ -17,6 +21,47 @@ export const fetchPhoto = id => dispatch => (
   PhotoApiUtil.fetchPhoto(id).then(photo => dispatch(receivePhoto(photo)))
 );
 
+export const fetchComments = photoId => dispatch => (
+  PhotoApiUtil.fetchComments(photoId).then(payload => dispatch(receiveAllComments(payload)))
+)
+
+export const receiveAllComments = comments => {
+return {
+  type: RECEIVE_ALL_COMMENTS,
+  comments
+}
+};
+
+export const createComment = comment => {
+  return dispatch => {
+    return PhotoApiUtil.createComment(comment).then(comment => {
+      return dispatch(receiveComment(comment));
+    }, errors => {
+      return dispatch(receiveErrors(errors.responseJSON));
+    });
+  };
+};
+
+export const receiveComment = comment => {
+    return {
+    type: COMMENT_PHOTO,
+    comment
+  }
+};
+
+export const deleteComment = comment => {
+  return dispatch => {
+    return PhotoApiUtil.deleteComment(comment).then(data =>
+      dispatch(ReceiveDeleteComment(data)));
+  };
+};
+
+const ReceiveDeleteComment = comment => {
+  return {
+    type: UNCOMMENT_PHOTO,
+    comment
+}
+};
 
 export const createPhoto = photo => {
   return dispatch => {

@@ -4,7 +4,7 @@ import request from 'superagent';
 import { connect } from 'react-redux';
 import { receivePhoto } from '../../actions/photo_actions';
 import { Link } from 'react-router-dom';
-import FontAwesome from 'react-fontawesome';
+import CommentsContainer from '../comments/comments_container.jsx';
 
 export default class PhotoShow extends React.Component {
   constructor(props) {
@@ -16,11 +16,16 @@ export default class PhotoShow extends React.Component {
       img_url: this.props.photo.img_url,
       edit: false
     };
+
     this.handleSubmitSuccess = this.handleSubmitSuccess.bind(this);
     this.handleSubmitFail = this.handleSubmitFail.bind(this);
     this.update=this.update.bind(this);
     this.toggleEdit= this.toggleEdit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  componentWillMount(){
+    this.props.fetchComments(this.props.photo.id);
   }
 
   toggleEdit(){
@@ -53,6 +58,7 @@ export default class PhotoShow extends React.Component {
       this.setState({[field]: e.currentTarget.value});
     };
   }
+
 
   render() {
     let errors;
@@ -105,6 +111,7 @@ export default class PhotoShow extends React.Component {
           Delete
         </button>
     }
+
     let content;
     let followerText = this.props.artist.followers.length < 2 ? "Follower" : "Followers"
     if (this.state.edit === false) {
@@ -143,6 +150,9 @@ export default class PhotoShow extends React.Component {
                 </p>
               </li>
               {editButton}
+
+                <CommentsContainer />
+
             </ul>
           </div>
       </div>

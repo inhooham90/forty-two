@@ -16,10 +16,17 @@ class Photo < ApplicationRecord
 
   belongs_to :artist,
     class_name: 'User',
-    foreign_key: :artist_id,
-    primary_key: :id
+    foreign_key: :artist_id
 
-  # has_many :comments
+  has_many :comments,
+    class_name: 'Comment',
+    foreign_key: :photo_id
+
+  has_many :commenters,
+    through: :comments,
+    source: :author
+
+
   has_many :likes,
     foreign_key: :photo_id,
     class_name: :Like

@@ -7,6 +7,7 @@ import {
   deletePhoto,
   likePhoto,
   unlikePhoto,
+  fetchComments
 } from '../../actions/photo_actions';
 import PhotoShow from './photo_show';
 import { closeModal } from '../../actions/modal_actions';
@@ -29,7 +30,8 @@ const mapDispatchToProps = (dispatch) => {
     action: state => dispatch(updatePhoto(state)),
     deletePhoto: photo => dispatch(deletePhoto(photo)),
     likePhoto: id => dispatch(likePhoto(id)),
-    unlikePhoto: id => dispatch(unlikePhoto(id))
+    unlikePhoto: id => dispatch(unlikePhoto(id)),
+    fetchComments: photoId => dispatch(fetchComments(photoId))
   })
 };
 

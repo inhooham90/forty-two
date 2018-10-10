@@ -12,10 +12,10 @@ Users can visit their own profile page, visit others' profiles, and also follow 
 
 ### Uploading Photos
 Users can upload their images on the website with ease with title, description, and automatically added amount of time since uploaded.
-<br/> Uploading photos.
+<br/> Uploading photos.<br/>
 <img src="screenshots/uploadgif.gif">
 
-Editing or deleting their own photos.
+Editing or deleting their own photos.<br/>
 <img src="screenshots/deletegif.gif">
 
 ### Follows

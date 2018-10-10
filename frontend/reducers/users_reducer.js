@@ -41,6 +41,7 @@ export default function(state = {}, action) {
 
       return merge({}, newState, { [userId]: updatedUser });
     }
+
     default: {
       return state;
     }

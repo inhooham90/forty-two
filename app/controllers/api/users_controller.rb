@@ -12,6 +12,7 @@ class Api::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @photos = @user.photos
+    @comments = @user.comments
     @followers = @user.followers
     @followees = @user.followees
     render `api/users/show`

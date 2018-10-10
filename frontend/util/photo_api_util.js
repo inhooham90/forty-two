@@ -49,3 +49,33 @@ export const unlikePhoto = (id) => {
     url: `/api/likes/${id}`,
   });
 };
+
+export const createComment = comment => {
+  return $.ajax({
+    method: 'POST',
+    url: `api/photos/${comment.photo_id}/comments`,
+    data: {comment}
+  });
+};
+
+export const deleteComment = comment => {
+  return $.ajax({
+    method: "DELETE",
+    url: `/api/photos/${comment.photo_id}/comments/${comment.id}`,
+  });
+};
+
+export const updateComment = comment => {
+  return $.ajax({
+    method: 'PATCH',
+    url: `api/photos/${comment.photo_id}/comments/${comment.id}`,
+    data: {comment}
+  });
+};
+
+export const fetchComments = photoId => {
+  return $.ajax({
+    method: 'GET',
+    url: `api/photos/${photoId}/comments`,
+  })
+}

@@ -17,3 +17,60 @@
 .like-button:hover {
   background-color: rgb(0, 170, 255);
 }
+
+.comment-box {
+  width: 80%;
+  display: inline-flex;
+  padding-left: 5%;
+
+  textarea{
+    width: 100%;
+    resize: none;
+    padding: 5px;
+    border: none;
+    height: 16px;
+    background-color: white;
+  }
+}
+
+.comments {
+  width: 100%;
+  img {
+    width: 33px;
+    filter:opacity(0.3);
+    vertical-align: bottom;
+  }
+  img:hover {
+    cursor: pointer;
+    filter:opacity(0.5);
+    transition: 0.5;
+  }
+}
+
+.show-author {
+  padding: 10px 0 2px 10px;
+  display: -webkit-box;
+  align-items: center;
+  a{
+    text-decoration: none;
+    color: #525558;
+    font-family: sans-serif;
+    font-weight: bold;
+    padding-right: 7px;
+  }
+}
+
+.comment-detail {
+  display: -webkit-box;
+  text-decoration: none;
+  color: #525558;
+  font-size: 13px;
+  display: inline
+}
+
+.comment-pic{
+  overflow: hidden;
+  height: 35px;
+  width: 35px;
+  border-radius: 25px;
+}

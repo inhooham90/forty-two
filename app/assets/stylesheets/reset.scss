@@ -23,3 +23,10 @@ html {
 	 height: 100%;
 	 margin: 0;
 }
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}

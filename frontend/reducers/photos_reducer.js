@@ -9,6 +9,7 @@ import { RECEIVE_USER } from '../actions/user_actions';
 import merge from 'lodash/merge';
 
 const PhotosReducer = (oldState = {}, action) => {
+
   Object.freeze(oldState);
   switch (action.type) {
     case RECEIVE_ALL_PHOTOS:
@@ -25,10 +26,8 @@ const PhotosReducer = (oldState = {}, action) => {
       const photoId = action.like.photo_id;
       const updatedPhoto = merge({}, oldState[photoId])
       updatedPhoto.likers.push(action.like.liker_id)
-
       return merge({}, oldState, { [photoId]: updatedPhoto });
     }
-
     case UNLIKE_PHOTO:{
       const newState = merge({}, oldState);
       const photoId = action.like.photo_id;

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import { Link } from 'react-router-dom';
 
 class PhotoIndexItem extends React.Component {
