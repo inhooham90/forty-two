@@ -9,7 +9,11 @@ export default class CommentItem extends React.Component {
   render() {
     return (
       <li className="show-author">
-        <img src={this.props.user.profile_url} className="comment-pic"/>
+        <Link
+          onClick={this.props.closeModal}
+          to={`/profile/${this.props.comment.author_id}`}>
+          <img src={this.props.user.profile_url} className="comment-pic"/>
+        </Link>
         <ul style={{"paddingLeft":"7px"}}>
           <li className="comment-detail">
             <Link
@@ -23,7 +27,7 @@ export default class CommentItem extends React.Component {
             {this.props.comment.time_posted}
             <button
               onClick={() => this.props.deleteComment(this.props.comment)}
-              style={{"paddingLeft":"5px"}}>
+              className="delete-comment">
               Delete
             </button>
           </li>

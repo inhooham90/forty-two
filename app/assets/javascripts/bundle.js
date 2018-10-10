@@ -593,10 +593,13 @@ function (_React$Component) {
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "show-author"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        onClick: this.props.closeModal,
+        to: "/profile/".concat(this.props.comment.author_id)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: this.props.user.profile_url,
         className: "comment-pic"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         style: {
           "paddingLeft": "7px"
         }
@@ -611,9 +614,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return _this.props.deleteComment(_this.props.comment);
         },
-        style: {
-          "paddingLeft": "5px"
-        }
+        className: "delete-comment"
       }, "Delete"))));
     }
   }]);
@@ -715,7 +716,8 @@ function (_React$Component) {
           key: idx,
           user: user,
           comment: comment,
-          deleteComment: _this3.props.deleteComment
+          deleteComment: _this3.props.deleteComment,
+          closeModal: _this3.props.closeModal
         });
       }); // const comments = this.props.photo.comments.map((comment, idx) => {
       //   return (
@@ -733,7 +735,6 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
         placeholder: "Share your thoughts",
         onChange: this.update(),
-        className: "comment-box",
         value: this.state.body
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
@@ -741,9 +742,12 @@ function (_React$Component) {
           "display": "none"
         }
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "bubble-button",
         src: window.comment,
         onClick: this.handleSubmit
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", null, comments));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "comment-list"
+      }, comments));
     }
   }]);
 
@@ -1711,10 +1715,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var mapStateToProps = function mapStateToProps(state) {
+  var currentUserFollowees = Object.values(state.entities.users[state.session.currentUserId].followees);
+  var photos = Object.values(state.entities.photos).filter(function (photo) {
+    return currentUserFollowees.includes(photo.artist_id);
+  });
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors,
-    photos: Object.values(state.entities.photos),
+    photos: photos,
     users: state.entities.users
   };
 };
@@ -3463,12 +3471,6 @@ var photoErrorsReducer = function photoErrorsReducer() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return photoShowReducer; });
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-// export const OPEN_MODAL_SHOW = 'OPEN_MODAL_SHOW';
-// export const open_modal_show = photoId => {
-//   type: OPEN_MODAL_SHOW,
-//   modal: 'photo',
-//   photoId
-// }
 
 function photoShowReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;

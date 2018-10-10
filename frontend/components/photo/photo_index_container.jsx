@@ -12,10 +12,12 @@ import { openModal, openModalShow } from '../../actions/modal_actions';
 
 
 const mapStateToProps = (state) => {
+  let currentUserFollowees = Object.values(state.entities.users[state.session.currentUserId].followees);
+  const photos = Object.values(state.entities.photos).filter(photo => currentUserFollowees.includes(photo.artist_id));
   return {
     currentUserId: state.session.currentUserId,
     errors: state.errors,
-    photos: Object.values(state.entities.photos),
+    photos,
     users: state.entities.users,
   };
 };

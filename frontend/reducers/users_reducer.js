@@ -25,7 +25,6 @@ export default function(state = {}, action) {
       const userId = action.follow.followee_id;
       const updatedUser = merge({}, state[userId])
       updatedUser.followers.push(action.follow.follower_id)
-
       return merge({}, state, { [userId]: updatedUser });
     }
 

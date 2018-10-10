@@ -1,6 +1,7 @@
 import React from 'react';
 import CommentItem from './comment_item'
 
+
 export default class Comments extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +38,7 @@ export default class Comments extends React.Component {
           user={user}
           comment={comment}
           deleteComment={this.props.deleteComment}
+          closeModal={this.props.closeModal}
           />
       )
     })
@@ -55,13 +57,13 @@ export default class Comments extends React.Component {
           <textarea
             placeholder="Share your thoughts"
             onChange={this.update()}
-            className="comment-box"
+
             value={this.state.body}
             />
-          <input type="submit" style={{"display": "none" }}/>
+          <input type="submit" style={{"display": "none"}}/>
         </form>
-        <img src={window.comment} onClick={this.handleSubmit}/>
-        <ul>
+        <img className="bubble-button" src={window.comment} onClick={this.handleSubmit}/>
+        <ul className="comment-list">
           {comments}
         </ul>
       </section>
