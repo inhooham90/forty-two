@@ -1,4 +1,4 @@
-import { RECEIVE_USER } from '../actions/user_actions';
+import { RECEIVE_USER, RECEIVE_PROFILE_PICTURE } from '../actions/user_actions';
 
 export default function photoShowReducer(state = null, action) {
   switch (action.type) {

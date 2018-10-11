@@ -7,11 +7,17 @@ class PhotoIndexItem extends React.Component {
   }
 
   render() {
+
+    let imgSrc = this.props.user.profile_url;
+    if (this.props.user.profile_picture) {
+      imgSrc = this.props.user.profile_picture.photo_url;
+    }
+
     return(
 
       <li className='index-items'>
         <ul className='index-item-info'>
-          <li><Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.user.profile_url}`} /></Link></li>
+          <li><Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={imgSrc} /></Link></li>
           <li>
             <Link to={`/profile/${this.props.photo.artist_id}`}>{this.props.user.name}<br/>
               <p className='time-posted-index'>

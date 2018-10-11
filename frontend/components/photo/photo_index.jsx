@@ -49,6 +49,10 @@ class PhotoIndex extends React.Component {
       );
     });
 
+    let imgSrc = this.props.user.profile_url;
+    if (this.props.user.profile_picture) {
+      imgSrc = this.props.user.profile_picture.photo_url;
+    }
       return (
         <div className='photo-index-wrap'>
           <header className="header">
@@ -65,7 +69,7 @@ class PhotoIndex extends React.Component {
                   onMouseEnter={this.openProfile}
                   onMouseLeave={this.closeProfile}>
                   <ul className='drop-down-child'>
-                              <img className='profile-mini' src={window.defaultProfileURL}/>
+                              <img className='profile-mini' src={imgSrc}/>
                             <li>
                               <ul
                                 onMouseEnter={this.openProfile}

@@ -16,6 +16,7 @@ const mapStateToProps = (state) => {
     errors: state.errors,
     photos: Object.values(state.entities.photos),
     users: state.entities.users,
+    user: state.entities.users[state.session.currentUserId],
   };
 };
 

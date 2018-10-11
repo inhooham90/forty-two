@@ -39,9 +39,26 @@ export default class Comments extends React.Component {
           comment={comment}
           deleteComment={this.props.deleteComment}
           closeModal={this.props.closeModal}
+          currentUserId={this.props.currentUserId}
           />
       )
     })
+
+    let form;
+    let button;
+    if (this.props.currentUserId) {
+      form = (<form className="comment-box">
+        <textarea
+          placeholder="Share your thoughts"
+          onChange={this.update()}
+
+          value={this.state.body}
+          />
+        <input type="submit" style={{"display": "none"}}/>
+      </form>);
+      button = <img className="bubble-button" src={window.comment} onClick={this.handleSubmit}/>
+
+    }
     // const comments = this.props.photo.comments.map((comment, idx) => {
     //   return (
     //     <li>
@@ -53,16 +70,8 @@ export default class Comments extends React.Component {
 
     return (
       <section className="comments">
-        <form className="comment-box">
-          <textarea
-            placeholder="Share your thoughts"
-            onChange={this.update()}
-
-            value={this.state.body}
-            />
-          <input type="submit" style={{"display": "none"}}/>
-        </form>
-        <img className="bubble-button" src={window.comment} onClick={this.handleSubmit}/>
+        {form}
+        {button}
         <ul className="comment-list">
           {comments}
         </ul>

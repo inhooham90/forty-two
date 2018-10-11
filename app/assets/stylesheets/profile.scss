@@ -27,6 +27,9 @@
   vertical-align: bottom;
   object-fit: cover;
 }
+.gallery-img:hover {
+  cursor: pointer;
+}
 
 .profile-images > li:hover {
   cursor: pointer;
@@ -44,7 +47,6 @@
   height: 100px;
   overflow: hidden;
   border-radius: 50%;
-
 }
 
 .profile-top {
@@ -89,4 +91,19 @@
 
 .button-follow:hover {
   cursor: pointer;
+}
+
+.personal-pictures-open {
+  display: flex;
+  section {
+    position: absolute;
+    margin-left: 150px;
+  }
+}
+
+.personal-pictures-close {
+  display: flex;
+  section {
+    display: none;
+  }
 }

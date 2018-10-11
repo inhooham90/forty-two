@@ -19,6 +19,7 @@ const mapStateToProps = (state) => {
     errors: state.errors,
     photos,
     users: state.entities.users,
+    user: state.entities.users[state.session.currentUserId],
   };
 };
 

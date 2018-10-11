@@ -54,6 +54,14 @@ class User < ApplicationRecord
     through: :likings,
     source: :photo
 
+  has_one :profile_picture,
+    foreign_key: :user_id,
+    class_name: :ProfilePicture
+
+  has_one :cover_picture,
+    foreign_key: :user_id,
+    class_name: :CoverPicture
+
   def self.find_by_credentials(username, password)
     user = User.find_by(username: username)
     user && user.is_password?(password) ? user : nil

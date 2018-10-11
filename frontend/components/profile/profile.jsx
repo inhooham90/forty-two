@@ -2,17 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ProfileItem from './profile_items';
 import ProfileContainer from './profile_container';
+import ProfileUploadContainer from './profile_upload_container';
 
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.state = {
-      activateProfileDrop: false
+      activateProfileDrop: false,
+      activatePersonal: false,
     };
     this.openProfile = this.openProfile.bind(this);
     this.closeProfile = this.closeProfile.bind(this);
-
+    this.openPersonal = this.openPersonal.bind(this);
+    this.closePersonal = this.closePersonal.bind(this);
   }
 
   componentDidMount() {
@@ -25,11 +28,21 @@ export default class Profile extends React.Component {
   }
 
   openProfile () {
-    this.setState({activateProfileDrop: true})
+    this.setState({activateProfileDrop: true, activatePersonal: false})
   }
 
   closeProfile () {
     this.setState({activateProfileDrop: false})
+  }
+
+  openPersonal () {
+    if (parseInt(this.props.userId) === this.props.currentUserId){
+      this.setState({activateProfileDrop: false, activatePersonal: true})
+    }
+  }
+
+  closePersonal () {
+    this.setState({activatePersonal: false})
   }
 
   render() {
@@ -39,7 +52,6 @@ export default class Profile extends React.Component {
     } else {
       toggle = 'drop-down-closed';
     };
-
     if(!this.props.user) {
       return <div></div>
     }
@@ -54,7 +66,6 @@ export default class Profile extends React.Component {
     });
     let followText;
     let action;
-
     if (!this.props.user.followers.includes(this.props.currentUserId)) {
       followText = 'Follow';
       action = id => this.props.followUser(id)
@@ -74,19 +85,29 @@ export default class Profile extends React.Component {
     } else {
       followButton = (<li></li>);
     }
-
     let numberOfFollowers;
     if (this.props.user.followers.length < 2) {
       numberOfFollowers = "Follower"
     } else {
       numberOfFollowers = "Followers"
     }
-
     let profileUpdate;
     if (this.props.currentUserId === parseInt(this.props.userId)){
       profileUpdate = () => this.props.openModalProfile(parseInt(this.props.userId));
     } else {
       profileUpdate = () => console.log('nice try HACKER!');
+    }
+
+    let personal;
+    if (this.state.activatePersonal) {
+      personal = "personal-pictures-open";
+    } else if (!this.state.activatePersonal) {
+      personal = "personal-pictures-close";
+    };
+
+    let imgSrc = this.props.user.profile_url;
+    if (this.props.user.profile_picture) {
+      imgSrc = this.props.user.profile_picture.photo_url;
     }
     return (
       <div>
@@ -104,16 +125,16 @@ export default class Profile extends React.Component {
                 onMouseEnter={this.openProfile}
                 onMouseLeave={this.closeProfile}>
                 <ul className='drop-down-child'>
-                            <img className='profile-mini' src={this.props.user.profile_url}/>
-                          <li>
-                            <ul
-                              onMouseEnter={this.openProfile}
-                              onMouseLeave={this.closeProfile}
-                              className={toggle}>
-                              <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
-                              <li onClick={this.handleClick}>Log out</li>
-                            </ul>
-                          </li>
+                  <img className='profile-mini' src={this.props.currentUser.profile_picture.photo_url}/>
+                  <li>
+                    <ul
+                      onMouseEnter={this.openProfile}
+                      onMouseLeave={this.closeProfile}
+                      className={toggle}>
+                      <li><Link to={`/profile/${this.props.currentUserId}`}>My Profile</Link></li>
+                      <li onClick={this.handleClick}>Log out</li>
+                    </ul>
+                  </li>
                 </ul>
               </li>
               <li className='upload-button' onClick={() => this.props.openModal('upload')}>
@@ -126,11 +147,17 @@ export default class Profile extends React.Component {
 
         <div>
           <ul className='profile-top'>
-            <li>
+            <li className={personal}>
               <img
+                onClick={this.openPersonal}
                 className='profile-original'
+                src={imgSrc}/>
 
-                src={this.props.user.profile_url}/>
+              <ProfileUploadContainer
+                currentUserId={this.props.currentUserId}
+                cancel={this.closePersonal}
+                />
+
             </li>
             <li>
               <section className='profile-name'>

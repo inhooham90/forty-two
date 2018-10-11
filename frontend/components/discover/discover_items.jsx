@@ -7,6 +7,10 @@ export default class DiscoverItem extends React.Component {
   }
 
   render() {
+    let imgSrc = this.props.user.profile_url;
+    if (this.props.user.profile_picture) {
+      imgSrc = this.props.user.profile_picture.photo_url;
+    }
     return (
       <div className="gallery-item" style={{
       width: `${this.props.photo.width * 360 / this.props.photo.height}px`,

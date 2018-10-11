@@ -3,6 +3,7 @@ import * as UserApiUtil from '../util/user_api_util';
 export const RECEIVE_USER = "RECEIVE_USER";
 export const FOLLOW_USER = 'FOLLOW_USER';
 export const UNFOLLOW_USER = 'UNFOLLOW_USER';
+export const RECEIVE_PROFILE_PICTURE = 'RECEIVE_PROFILE_PICTURE';
 
 export const fetchUser = id => {
   return dispatch => {
@@ -28,7 +29,7 @@ const receiveFollowUser = follow => {
     return {
     type: FOLLOW_USER,
     follow
-  }
+  };
 };
 
 export const unfollowUser = id => dispatch => (
@@ -40,13 +41,28 @@ const ReceiveUnfollowUser = follow => {
   return {
     type: UNFOLLOW_USER,
     follow
-}
+  };
 };
 
-// export const updateUser = user => {
-//   return dispatch => {
-//     return UserApiUtil.updateUser(user).then(payload => {
-//       return dispatch(receiveUser(payload));
-//     });
-//   };
-// };
+export const createProfilePic = photo => {
+  debugger
+  return dispatch => {
+    debugger
+    return UserApiUtil.createProfilePic(photo).then(data => {
+      debugger
+      return dispatch(receiveProfilePic(data));
+    });
+  };
+};
+
+const receiveProfilePic = photo => {
+  return {
+    type: RECEIVE_PROFILE_PICTURE,
+    photo
+  };
+};
+
+export const updateProfilePic = photo => dispatch => (
+  UserApiUtil.updateProfilePic(photo).then(data =>
+    dispatch(receiveProfilePic(data)))
+);

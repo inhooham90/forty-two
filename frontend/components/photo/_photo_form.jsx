@@ -92,7 +92,6 @@ export default class PhotoForm extends React.Component {
           <p>
           <button className='upload-button2'>Upload</button>
           Or drag & drop photos anywhere on this page</p>
-
       </Dropzone>
       )
     } else {
@@ -129,10 +128,6 @@ export default class PhotoForm extends React.Component {
       </form>
       )
     }
-//     const { post } = this.props;
-// if (!post) {
-//   return <div>Loading...</div>;
-// }
     return (
         content
     );

@@ -7,6 +7,14 @@ export default class CommentItem extends React.Component {
   }
 
   render() {
+    let removeButton;
+    if (this.props.currentUserId === this.props.comment.author_id) {
+      removeButton = (<button
+        onClick={() => this.props.deleteComment(this.props.comment)}
+        className="delete-comment">
+        Delete
+      </button>);
+    };
     return (
       <li className="show-author">
         <Link
@@ -25,11 +33,7 @@ export default class CommentItem extends React.Component {
           </li>
           <li className='show-uploaded'>
             {this.props.comment.time_posted}
-            <button
-              onClick={() => this.props.deleteComment(this.props.comment)}
-              className="delete-comment">
-              Delete
-            </button>
+            {removeButton}
           </li>
         </ul>
       </li>

@@ -61,6 +61,10 @@ export default class PhotoShow extends React.Component {
 
 
   render() {
+    let imgSrc = this.props.artist.profile_url;
+    if (this.props.artist.profile_picture) {
+      imgSrc = this.props.artist.profile_picture.photo_url;
+    }
     let errors;
     if (this.props.errors) {
       errors = (
@@ -124,7 +128,7 @@ export default class PhotoShow extends React.Component {
             <ul className='upload-form-list'>
               <li>
                 <div className='show-artist'>
-                  <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={`${this.props.artist.profile_url}`} /></Link>
+                  <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={imgSrc} /></Link>
                   <section>
                     <Link onClick={this.props.closeModal} style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
                     <p className='show-uploaded' style={{"paddingLeft":"10px"}}>

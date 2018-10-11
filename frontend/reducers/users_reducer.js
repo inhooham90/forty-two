@@ -3,7 +3,8 @@ import { RECEIVE_ALL_PHOTOS } from '../actions/photo_actions';
 import {
   RECEIVE_USER,
   FOLLOW_USER,
-  UNFOLLOW_USER
+  UNFOLLOW_USER,
+  RECEIVE_PROFILE_PICTURE,
  } from '../actions/user_actions';
 import { merge } from 'lodash';
 
@@ -27,7 +28,6 @@ export default function(state = {}, action) {
       updatedUser.followers.push(action.follow.follower_id)
       return merge({}, state, { [userId]: updatedUser });
     }
-
     case UNFOLLOW_USER:{
       const newState = merge({}, state);
       const userId = action.follow.followee_id;
@@ -37,10 +37,14 @@ export default function(state = {}, action) {
       if (index > -1) {
        updatedUser.followers.splice(index, 1)
       }
-
       return merge({}, newState, { [userId]: updatedUser });
     }
+    case RECEIVE_PROFILE_PICTURE:
 
+      const photo = action.photo.photo_url;
+      const userId = action.photo.user_id;
+      const updatedUser = merge({}, state[userId]);
+      return merge({}, state, {[userId]: updatedUser});
     default: {
       return state;
     }
