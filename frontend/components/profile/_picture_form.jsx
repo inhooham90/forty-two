@@ -19,6 +19,7 @@ export default class PictureForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.cancel();
     this.props.action(this.state);
   }
 
@@ -68,14 +69,14 @@ export default class PictureForm extends React.Component {
     } else {
       content =
       <section>
-        <form className="profile-upload-form" onSubmit={() => this.props.action(this.state)}>
+        <form className="profile-upload-form">
           <div className="profile-img-container">
             <img src={this.state.photo_url} className="profile-original"/>
           </div>
           <p>
             Change {buttonText}?
           </p>
-          <input type="submit" value="Submit" onClick={this.cancel}/>
+          <input type="submit" value="Submit" onClick={this.handleSubmit}/>
         </form>
         <button onClick={this.cancel}>Cancel</button>
       </section>

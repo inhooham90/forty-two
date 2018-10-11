@@ -2359,6 +2359,7 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      this.cancel();
       this.props.action(this.state);
     }
   }, {
@@ -2391,8 +2392,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       var buttonText = this.props.type === "profile" ? "Profile Picture" : "Cover Picture";
       var content;
 
@@ -2413,10 +2412,7 @@ function (_React$Component) {
         }, "Cancel"));
       } else {
         content = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-          className: "profile-upload-form",
-          onSubmit: function onSubmit() {
-            return _this3.props.action(_this3.state);
-          }
+          className: "profile-upload-form"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "profile-img-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
@@ -2425,7 +2421,7 @@ function (_React$Component) {
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Change ", buttonText, "?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "submit",
           value: "Submit",
-          onClick: this.cancel
+          onClick: this.handleSubmit
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.cancel
         }, "Cancel"));
