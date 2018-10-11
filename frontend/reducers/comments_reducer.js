@@ -5,7 +5,7 @@ export default function(state={}, action) {
   Object.freeze(state);
   switch (action.type) {
     case RECEIVE_ALL_COMMENTS:{
-      return merge({}, state, action.comments)
+      return merge({}, state, action.payload.comments )
     }
     case COMMENT_PHOTO:{
       return merge({}, state, { [action.comment.id]: action.comment });

@@ -211,10 +211,19 @@
 }
 
 .profile-index {
-  overflow: hidden;
+  height: 100%;
+  width: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+
+.profile-index-container {
   height: 35px;
   width: 35px;
-  border-radius: 25px;
+  overflow: hidden;
+  border-radius: 50%;
+
 }
 
 .show-title{

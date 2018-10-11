@@ -203,10 +203,10 @@ var fetchComments = function fetchComments(photoId) {
     });
   };
 };
-var receiveAllComments = function receiveAllComments(comments) {
+var receiveAllComments = function receiveAllComments(payload) {
   return {
     type: RECEIVE_ALL_COMMENTS,
-    comments: comments
+    payload: payload
   };
 };
 var createComment = function createComment(comment) {
@@ -477,11 +477,8 @@ var ReceiveUnfollowUser = function ReceiveUnfollowUser(follow) {
 };
 
 var createProfilePic = function createProfilePic(photo) {
-  debugger;
   return function (dispatch) {
-    debugger;
     return _util_user_api_util__WEBPACK_IMPORTED_MODULE_0__["createProfilePic"](photo).then(function (data) {
-      debugger;
       return dispatch(receiveProfilePic(data));
     });
   };
@@ -627,13 +624,19 @@ function (_React$Component) {
       }
 
       ;
+      var imgSrc = this.props.user.profile_url;
+
+      if (this.props.user.profile_picture) {
+        imgSrc = this.props.user.profile_picture.photo_url;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: "show-author"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         onClick: this.props.closeModal,
         to: "/profile/".concat(this.props.comment.author_id)
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: this.props.user.profile_url,
+        src: imgSrc,
         className: "comment-pic"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         style: {
@@ -741,8 +744,9 @@ function (_React$Component) {
     value: function render() {
       var _this3 = this;
 
+      var users = this.props.users;
       var comments = this.props.comments.map(function (comment, idx) {
-        var user = _this3.props.users[comment.author_id];
+        var user = users[comment.author_id];
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_comment_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
           key: idx,
           user: user,
@@ -966,15 +970,16 @@ function (_React$Component) {
       if (this.props.currentUserId) {
         discoverButton = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           className: "header-drop-down"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "drop-down-child",
           onMouseEnter: this.openProfile,
           onMouseLeave: this.closeProfile
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-          className: "drop-down-child"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "profile-mini-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "profile-mini",
           src: imgSrc
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
           onMouseEnter: this.openProfile,
           onMouseLeave: this.closeProfile,
           className: toggle
@@ -1710,15 +1715,16 @@ function (_React$Component) {
         to: "/about"
       }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "header-drop-down"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        className: "drop-down-child",
         onMouseEnter: this.openProfile,
         onMouseLeave: this.closeProfile
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "drop-down-child"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-mini-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-mini",
         src: imgSrc
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         onMouseEnter: this.openProfile,
         onMouseLeave: this.closeProfile,
         className: toggle
@@ -1871,10 +1877,12 @@ function (_React$Component) {
         className: "index-item-info"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.photo.artist_id)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-index",
         src: imgSrc
-      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         to: "/profile/".concat(this.props.photo.artist_id)
       }, this.props.user.name, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "time-posted-index"
@@ -2107,10 +2115,12 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
           onClick: this.props.closeModal,
           to: "/profile/".concat(this.props.photo.artist_id)
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "profile-index-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "profile-index",
           src: imgSrc
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_5__["Link"], {
           onClick: this.props.closeModal,
           style: {
             "paddingLeft": "10px"
@@ -2408,16 +2418,14 @@ function (_React$Component) {
             return _this3.props.action(_this3.state);
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "profile-original"
+          className: "profile-img-container"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           src: this.state.photo_url,
-          style: {
-            "height": "100%",
-            "width": "auto"
-          }
+          className: "profile-original"
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Change ", buttonText, "?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
           type: "submit",
-          value: "Submit"
+          value: "Submit",
+          onClick: this.cancel
         })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
           onClick: this.cancel
         }, "Cancel"));
@@ -2513,8 +2521,7 @@ function (_React$Component) {
     key: "openProfile",
     value: function openProfile() {
       this.setState({
-        activateProfileDrop: true,
-        activatePersonal: false
+        activateProfileDrop: true
       });
     }
   }, {
@@ -2632,6 +2639,12 @@ function (_React$Component) {
         imgSrc = this.props.user.profile_picture.photo_url;
       }
 
+      var navImg = this.props.currentUser.profile_url;
+
+      if (this.props.currentUser.profile_picture) {
+        navImg = this.props.currentUser.profile_picture.photo_url;
+      }
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
         className: "header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("nav", {
@@ -2650,15 +2663,16 @@ function (_React$Component) {
         to: "/about"
       }, "About"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "header-drop-down"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         onMouseEnter: this.openProfile,
-        onMouseLeave: this.closeProfile
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        onMouseLeave: this.closeProfile,
         className: "drop-down-child"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-mini-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "profile-mini",
-        src: this.props.currentUser.profile_picture.photo_url
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+        src: navImg
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         onMouseEnter: this.openProfile,
         onMouseLeave: this.closeProfile,
         className: toggle
@@ -2678,11 +2692,13 @@ function (_React$Component) {
         className: "profile-top"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
         className: personal
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "profile-img-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         onClick: this.openPersonal,
         className: "profile-original",
         src: imgSrc
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_upload_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_profile_upload_container__WEBPACK_IMPORTED_MODULE_4__["default"], {
         currentUserId: this.props.currentUserId,
         cancel: this.closePersonal
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
@@ -2729,6 +2745,7 @@ __webpack_require__.r(__webpack_exports__);
 var mapStateToProps = function mapStateToProps(state, ownProps) {
   return {
     currentUserId: state.session.currentUserId,
+    users: state.entities.users,
     errors: state.errors,
     userId: ownProps.match.params.userId,
     user: state.entities.users[ownProps.match.params.userId],
@@ -3615,7 +3632,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   switch (action.type) {
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ALL_COMMENTS"]:
       {
-        return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.comments);
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, action.payload.comments);
       }
 
     case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_0__["COMMENT_PHOTO"]:
@@ -4030,6 +4047,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   Object.freeze(state);
 
   switch (action.type) {
+    case _actions_photo_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_COMMENTS"]:
+      {
+        return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, action.payload.users);
+      }
+
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       {
         var _newState = Object.assign({}, state);
@@ -4392,7 +4414,6 @@ var unfollowUser = function unfollowUser(id) {
   });
 };
 var createProfilePic = function createProfilePic(photo) {
-  debugger;
   return $.ajax({
     method: "POST",
     url: "api/users/".concat(photo.user_id, "/profile_pictures"),

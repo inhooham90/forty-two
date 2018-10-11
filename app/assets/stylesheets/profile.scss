@@ -42,13 +42,6 @@
   flex-grow: 0;
 }
 
-.profile-original {
-  width: 100px;
-  height: 100px;
-  overflow: hidden;
-  border-radius: 50%;
-}
-
 .profile-top {
   display: flex;
   align-items: center;
@@ -106,4 +99,19 @@
   section {
     display: none;
   }
+}
+
+.profile-img-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+.profile-original {
+  width: auto;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
 }

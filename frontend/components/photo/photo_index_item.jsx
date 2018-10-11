@@ -17,7 +17,11 @@ class PhotoIndexItem extends React.Component {
 
       <li className='index-items'>
         <ul className='index-item-info'>
-          <li><Link to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={imgSrc} /></Link></li>
+          <li><Link to={`/profile/${this.props.photo.artist_id}`}>
+            <div className="profile-index-container">
+              <img className='profile-index' src={imgSrc} />
+            </div>
+          </Link></li>
           <li>
             <Link to={`/profile/${this.props.photo.artist_id}`}>{this.props.user.name}<br/>
               <p className='time-posted-index'>

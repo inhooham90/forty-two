@@ -11,7 +11,12 @@ class Api::CommentsController < ApplicationController
   end
 
   def index
-    @comments = Comment.all
+    @photo = Photo.find_by(id: params[:photo_id])
+    @comments = @photo.comments
+    @users = []
+    @comments.each do |comment|
+      @users.push(comment.author)
+    end
     render :index
   end
 

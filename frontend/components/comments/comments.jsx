@@ -29,9 +29,9 @@ export default class Comments extends React.Component {
     };
   }
   render() {
-
+    let users = this.props.users;
     let comments = this.props.comments.map ( (comment, idx) => {
-      let user = this.props.users[comment.author_id];
+      let user = users[comment.author_id];
       return (
         <CommentItem
           key={idx}

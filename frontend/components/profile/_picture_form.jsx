@@ -69,13 +69,13 @@ export default class PictureForm extends React.Component {
       content =
       <section>
         <form className="profile-upload-form" onSubmit={() => this.props.action(this.state)}>
-          <div className="profile-original">
-            <img src={this.state.photo_url} style={{"height":"100%", "width":"auto"}}/>
+          <div className="profile-img-container">
+            <img src={this.state.photo_url} className="profile-original"/>
           </div>
           <p>
             Change {buttonText}?
           </p>
-          <input type="submit" value="Submit"/>
+          <input type="submit" value="Submit" onClick={this.cancel}/>
         </form>
         <button onClick={this.cancel}>Cancel</button>
       </section>

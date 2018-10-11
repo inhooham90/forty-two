@@ -66,11 +66,18 @@ ul {
 
 
 .profile-mini {
+  width: auto;
+  height: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: relative;
+}
+
+.profile-mini-container {
   overflow: hidden;
   height: 27px;
   width: 27px;
-  border-radius: 15px;
-
+  border-radius: 50%;
 }
 
 .main-text {

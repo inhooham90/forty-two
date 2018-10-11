@@ -128,7 +128,11 @@ export default class PhotoShow extends React.Component {
             <ul className='upload-form-list'>
               <li>
                 <div className='show-artist'>
-                  <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}><img className='profile-index' src={imgSrc} /></Link>
+                  <Link onClick={this.props.closeModal} to={`/profile/${this.props.photo.artist_id}`}>
+                    <div className="profile-index-container">
+                      <img className='profile-index' src={imgSrc} />
+                    </div>
+                </Link>
                   <section>
                     <Link onClick={this.props.closeModal} style={{"paddingLeft": "10px"}} to={`/profile/${this.props.photo.artist_id}`}>{this.props.artist.name}</Link>
                     <p className='show-uploaded' style={{"paddingLeft":"10px"}}>

@@ -15,12 +15,17 @@ export default class CommentItem extends React.Component {
         Delete
       </button>);
     };
+
+    let imgSrc = this.props.user.profile_url;
+    if (this.props.user.profile_picture) {
+      imgSrc = this.props.user.profile_picture.photo_url;
+    }
     return (
       <li className="show-author">
         <Link
           onClick={this.props.closeModal}
           to={`/profile/${this.props.comment.author_id}`}>
-          <img src={this.props.user.profile_url} className="comment-pic"/>
+          <img src={imgSrc} className="comment-pic"/>
         </Link>
         <ul style={{"paddingLeft":"7px"}}>
           <li className="comment-detail">

@@ -25,10 +25,10 @@ export const fetchComments = photoId => dispatch => (
   PhotoApiUtil.fetchComments(photoId).then(payload => dispatch(receiveAllComments(payload)))
 )
 
-export const receiveAllComments = comments => {
+export const receiveAllComments = payload => {
 return {
   type: RECEIVE_ALL_COMMENTS,
-  comments
+  payload
 }
 };
 

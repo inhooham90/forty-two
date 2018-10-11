@@ -45,11 +45,8 @@ const ReceiveUnfollowUser = follow => {
 };
 
 export const createProfilePic = photo => {
-  debugger
   return dispatch => {
-    debugger
     return UserApiUtil.createProfilePic(photo).then(data => {
-      debugger
       return dispatch(receiveProfilePic(data));
     });
   };

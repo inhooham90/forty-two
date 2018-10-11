@@ -28,7 +28,7 @@ export default class Profile extends React.Component {
   }
 
   openProfile () {
-    this.setState({activateProfileDrop: true, activatePersonal: false})
+    this.setState({activateProfileDrop: true})
   }
 
   closeProfile () {
@@ -109,6 +109,10 @@ export default class Profile extends React.Component {
     if (this.props.user.profile_picture) {
       imgSrc = this.props.user.profile_picture.photo_url;
     }
+    let navImg = this.props.currentUser.profile_url;
+    if (this.props.currentUser.profile_picture) {
+      navImg = this.props.currentUser.profile_picture.photo_url;
+    }
     return (
       <div>
         <header className="header">
@@ -121,11 +125,14 @@ export default class Profile extends React.Component {
             </ul>
 
             <ul className="header-drop-down">
-              <li
-                onMouseEnter={this.openProfile}
-                onMouseLeave={this.closeProfile}>
-                <ul className='drop-down-child'>
-                  <img className='profile-mini' src={this.props.currentUser.profile_picture.photo_url}/>
+              <li>
+                <ul
+                  onMouseEnter={this.openProfile}
+                  onMouseLeave={this.closeProfile}
+                  className='drop-down-child'>
+                  <div className='profile-mini-container'>
+                    <img className='profile-mini' src={navImg}/>
+                  </div>
                   <li>
                     <ul
                       onMouseEnter={this.openProfile}
@@ -148,10 +155,12 @@ export default class Profile extends React.Component {
         <div>
           <ul className='profile-top'>
             <li className={personal}>
-              <img
-                onClick={this.openPersonal}
-                className='profile-original'
-                src={imgSrc}/>
+              <div className="profile-img-container">
+                <img
+                  onClick={this.openPersonal}
+                  className='profile-original'
+                  src={imgSrc}/>
+              </div>
 
               <ProfileUploadContainer
                 currentUserId={this.props.currentUserId}

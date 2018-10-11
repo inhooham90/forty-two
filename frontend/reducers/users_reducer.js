@@ -1,5 +1,5 @@
 import { RECEIVE_CURRENT_USER } from '../actions/session_actions';
-import { RECEIVE_ALL_PHOTOS } from '../actions/photo_actions';
+import { RECEIVE_ALL_PHOTOS, RECEIVE_ALL_COMMENTS } from '../actions/photo_actions';
 import {
   RECEIVE_USER,
   FOLLOW_USER,
@@ -11,6 +11,9 @@ import { merge } from 'lodash';
 export default function(state = {}, action) {
   Object.freeze(state);
   switch(action.type) {
+    case RECEIVE_ALL_COMMENTS:{
+      return merge({}, state, action.payload.users )
+    }
     case RECEIVE_CURRENT_USER: {
       const newState = Object.assign({}, state);
       return merge({}, newState, { [action.user.id]: action.user });

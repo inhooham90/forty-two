@@ -65,11 +65,13 @@ class PhotoIndex extends React.Component {
               </ul>
 
               <ul className="header-drop-down">
-                <li
-                  onMouseEnter={this.openProfile}
-                  onMouseLeave={this.closeProfile}>
-                  <ul className='drop-down-child'>
-                              <img className='profile-mini' src={imgSrc}/>
+                <li>
+                  <ul className='drop-down-child'
+                    onMouseEnter={this.openProfile}
+                    onMouseLeave={this.closeProfile}>
+                              <div className='profile-mini-container'>
+                                <img className='profile-mini' src={imgSrc}/>
+                              </div>
                             <li>
                               <ul
                                 onMouseEnter={this.openProfile}

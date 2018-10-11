@@ -29,7 +29,6 @@ export const unfollowUser = id => {
 };
 
 export const createProfilePic = photo => {
-debugger
   return $.ajax({
     method: "POST",
     url: `api/users/${photo.user_id}/profile_pictures`,

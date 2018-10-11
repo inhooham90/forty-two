@@ -55,11 +55,13 @@ class Discover extends React.Component {
     if (this.props.currentUserId){
       discoverButton = (
         <ul className="header-drop-down">
-        <li
-          onMouseEnter={this.openProfile}
-          onMouseLeave={this.closeProfile}>
-          <ul className='drop-down-child'>
+        <li>
+          <ul className='drop-down-child'
+            onMouseEnter={this.openProfile}
+            onMouseLeave={this.closeProfile}>
+                  <div className='profile-mini-container'>
                       <img className='profile-mini' src={imgSrc}/>
+                  </div>
                     <li>
                       <ul
                         onMouseEnter={this.openProfile}
