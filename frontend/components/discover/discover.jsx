@@ -47,9 +47,14 @@ class Discover extends React.Component {
           fetchUser={this.props.fetchUser}/>
       );
     });
-    let imgSrc = this.props.user.profile_url;
-    if (this.props.user.profile_picture) {
-      imgSrc = this.props.user.profile_picture.photo_url;
+    let imgSrc;
+    debugger
+    if (this.props.user){
+      if (this.props.user.profile_picture) {
+        imgSrc = this.props.user.profile_picture.photo_url;
+      } else if (this.props.user.profile_url) {
+        imgSrc = this.props.user.profile_url;
+      }
     }
     let discoverButton;
     if (this.props.currentUserId){

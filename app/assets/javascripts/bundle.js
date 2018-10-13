@@ -959,10 +959,15 @@ function (_React$Component) {
           fetchUser: _this2.props.fetchUser
         });
       });
-      var imgSrc = this.props.user.profile_url;
+      var imgSrc;
+      debugger;
 
-      if (this.props.user.profile_picture) {
-        imgSrc = this.props.user.profile_picture.photo_url;
+      if (this.props.user) {
+        if (this.props.user.profile_picture) {
+          imgSrc = this.props.user.profile_picture.photo_url;
+        } else if (this.props.user.profile_url) {
+          imgSrc = this.props.user.profile_url;
+        }
       }
 
       var discoverButton;
