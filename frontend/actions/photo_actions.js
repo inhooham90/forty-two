@@ -26,10 +26,10 @@ export const fetchComments = photoId => dispatch => (
 )
 
 export const receiveAllComments = payload => {
-return {
-  type: RECEIVE_ALL_COMMENTS,
-  payload
-}
+  return {
+    type: RECEIVE_ALL_COMMENTS,
+    payload
+  }
 };
 
 export const createComment = comment => {
@@ -60,7 +60,7 @@ const ReceiveDeleteComment = comment => {
   return {
     type: UNCOMMENT_PHOTO,
     comment
-}
+  }
 };
 
 export const createPhoto = photo => {
