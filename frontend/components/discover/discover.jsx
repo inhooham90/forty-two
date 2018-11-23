@@ -48,7 +48,7 @@ class Discover extends React.Component {
       );
     });
     let imgSrc;
-    debugger
+    // debugger
     if (this.props.user){
       if (this.props.user.profile_picture) {
         imgSrc = this.props.user.profile_picture.photo_url;

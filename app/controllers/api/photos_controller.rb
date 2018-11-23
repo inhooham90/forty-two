@@ -1,7 +1,7 @@
 class Api::PhotosController < ApplicationController
   def index
-    @photos = Photo.all
-    @users = User.all
+    @photos = Photo.includes(:commenters, :likers).all
+    @users = User.includes(:followers, :followees, :photos, :profile_picture).all
     render :index
   end
 
@@ -20,7 +20,6 @@ class Api::PhotosController < ApplicationController
   end
 
   def destroy
-    @photos = Photo.all
     @photo = Photo.find(params[:id])
     @photo.destroy if @photo
     render json:@photos

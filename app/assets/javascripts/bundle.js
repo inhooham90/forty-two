@@ -959,8 +959,7 @@ function (_React$Component) {
           fetchUser: _this2.props.fetchUser
         });
       });
-      var imgSrc;
-      debugger;
+      var imgSrc; // debugger
 
       if (this.props.user) {
         if (this.props.user.profile_picture) {
